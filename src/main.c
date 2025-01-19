@@ -85,8 +85,8 @@ int init_win(t_fractal *f)
 	f->mlx = mlx_init();
 	if (f->mlx == NULL)
 		return (-1);
-	f->win = mlx_new_window(f->mlx, WINSIZE, WINSIZE, "Fractol"); //changer selon l'input le nom de la fenetre
-	f->img.img_p = mlx_new_image(f->mlx, WINSIZE, WINSIZE);
+	f->win = mlx_new_window(f->mlx, WINSIZE_X, WINSIZE_Y, "Fractol"); //changer selon l'input le nom de la fenetre
+	f->img.img_p = mlx_new_image(f->mlx, WINSIZE_X, WINSIZE_Y);
 	f->img.pixels=mlx_get_data_addr(f->img.img_p, &f->img.bpp, &f->img.line_len, &f->img.endian);
 	f->img.bpp /= 8; //conseil pour afficher 4 pixels d'un coup ?
 	f->shift_x = 0.0;
@@ -166,12 +166,13 @@ void 	iterate_on_pixels(t_fractal *f)
 	int y;
 
 	y = 0;
-	while (y < WINSIZE)
+	while (y < WINSIZE_Y)
 	{
 		x = 0;
-		while (x < WINSIZE)
+		while (x < WINSIZE_X)
 		{
-			mandelbrot_f(x, y, f);
+			/* mandelbrot_f(x, y, f); */
+			julia(x, y, f);
 			x++;
 		}
 		y++;

@@ -32,6 +32,105 @@ void colorize_pixel(int x, int y, t_img *img, int color) //degrader a gerer ici 
 /*     return sqrt(z.x * z.x + z.y * z.y); */
 /* } */
 
+
+
+/**
+ * Interpolation linéaire entre deux couleurs
+ */
+int interpolate_color(int color1, int color2, double t)
+{
+    int r = ((1 - t) * ((color1 >> 16) & 0xFF)) + (t * ((color2 >> 16) & 0xFF));
+    int g = ((1 - t) * ((color1 >> 8) & 0xFF)) + (t * ((color2 >> 8) & 0xFF));
+    int b = ((1 - t) * (color1 & 0xFF)) + (t * (color2 & 0xFF));
+    return (r << 16) | (g << 8) | b;
+}
+
+/**
+ * Palette prédéfinie
+ */
+int palette[] = {
+    0xFF0000, // Rouge
+    0xFF7F00, // Orange
+    0xFFFF00 // Jaune
+};
+
+/**
+ * Générer une couleur psychédélique avec une palette et interpolation
+ */
+int generate_psychedelic_color(int iteration, int max_iterations)
+{
+    double t = (double)iteration / max_iterations;
+    int palette_size = sizeof(palette) / sizeof(int);
+
+    // Couleurs de la palette en fonction des itérations
+    int color1 = palette[iteration % palette_size];
+    int color2 = palette[(iteration + 1) % palette_size];
+
+    // Appliquer une interpolation linéaire pour des transitions douces
+    return interpolate_color(color1, color2, fmod(t * palette_size, 1.0));
+}
+
+/**
+ * Générer une couleur cyclique avec des fonctions sinus/cosinus
+ */
+int generate_cyclic_color(int iteration, int max_iterations)
+{
+    double t = (double)iteration / max_iterations;
+    int r = (int)(128 * (1 + sin(6.28318 * t)));         // Sinus pour des transitions douces
+    int g = (int)(128 * (1 + sin(6.28318 * t + 2.0)));   // Décalage de phase
+    int b = (int)(128 * (1 + sin(6.28318 * t + 4.0)));   // Décalage de phase
+    return (r << 16) | (g << 8) | b;
+}
+
+/**
+ * Mélanger les deux approches pour un effet unique
+ */
+int generate_combined_color(int iteration, int max_iterations)
+{
+    int psychedelic_color = generate_psychedelic_color(iteration, max_iterations);
+    int cyclic_color = generate_cyclic_color(iteration, max_iterations);
+
+    // Mélange des deux couleurs (50% de chaque)
+    return interpolate_color(psychedelic_color, cyclic_color, 0.5);
+}
+
+void	julia(int x, int y, t_fractal *f)
+{
+	t_complex	z;
+	t_complex	c;
+	int			i;
+	int			color;
+
+	i = 0;
+	// parce que z0 = 0 ET que z est reel et n'est pas dans le plan complexe
+	// parce que z = a + bi // z = x + yi
+	// on veut savoir ou se situe c sur le plan complex ?
+	z.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+	z.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
+
+	c.x = -0.8;
+	c.y = 0.156;
+	while (i < f->max_iterations)
+	{
+		// z = result of addition of a real (r) and an imaginary (c) number
+		// c = imaginary number
+		z = sum_complex(square_complex(z), c);
+		// value escaped ? hypothenus > 2
+		// Here we can't compute to infinity but it's safe to say that if the
+		/* absolute value of Z goes above 2, it will tend toward infinity and */
+		/* the number won't be part of the Mandelbrot set. */
+		if ((z.x * z.x) + (z.y * z.y) > f->escape_value)
+		{
+      color = generate_combined_color(i, f->max_iterations);
+			colorize_pixel(x, y, &f->img, color);
+			return ;
+		}
+		i++;
+	}
+	colorize_pixel(x, y, &f->img, BLACK);
+}
+
+
 void	mandelbrot_f(int x, int y, t_fractal *f)
 {
 	t_complex	z;
@@ -45,8 +144,8 @@ void	mandelbrot_f(int x, int y, t_fractal *f)
 	z.y = 0.0;
 	// parce que z = a + bi // z = x + yi
 	// on veut savoir ou se situe c sur le plan complex ?
-	c.x = scale(x, -3, +3, 0, WINSIZE * f->zoom) + f->shift_x;
-	c.y = scale(y, +3, -3, 0, WINSIZE * f->zoom) + f->shift_y;
+	c.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+	c.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
 	while (i < f->max_iterations)
 	{
 		// z = result of addition of a real (r) and an imaginary (c) number
@@ -58,7 +157,7 @@ void	mandelbrot_f(int x, int y, t_fractal *f)
 		/* the number won't be part of the Mandelbrot set. */
 		if ((z.x * z.x) + (z.y * z.y) > f->escape_value)
 		{
-			color = scale((i + 1 - log(log2(abs_complex(z)))), PURE_BLUE, PURE_GREEN, 0, f->max_iterations);
+      color = generate_combined_color(i, f->max_iterations);
 			colorize_pixel(x, y, &f->img, color);
 			return ;
 		}

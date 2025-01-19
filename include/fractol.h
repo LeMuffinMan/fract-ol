@@ -29,7 +29,8 @@
 # define DOWN 65364
 
 // Window
-# define WINSIZE 1600
+# define WINSIZE_X 1200
+# define WINSIZE_Y 1200
 
 // //set space of representation
 // # define X_MAX 3
@@ -38,7 +39,7 @@
 // # define Y_MIN 3
 
 # define BLACK 0x000000
-// # define WHITE 0xFFFFFF
+# define WHITE 0xFFFFFF
 //
 # define PURE_GREEN 0x00FF00
 # define PURE_BLUE 0x0000FF
@@ -101,6 +102,7 @@ double		scale(double unscaled_num, double new_min, double new_max,
 				double old_min, double old_max);
 void		colorize_pixel(int x, int y, t_img *img, int color);
 double	abs_complex(t_complex z);
+void	julia(int x, int y, t_fractal *f);
 // int			mouse_wheel_events(int keycode, int x, int y, t_fractal *f);
 // int			zoom_inputs(int key, int x, int y, t_fractal *f);
 
