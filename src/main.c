@@ -120,42 +120,19 @@ int quit(t_fractal *f)
 	exit(0); //checker la dif entre exit 1 et exit 0
 }
 
-int mouse_inputs(int key, int x, int y, t_fractal *f)
+
+
+int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
-    double mouse_re, mouse_im;
-
-    // Conversion des coordonnées de la souris en coordonnées réelles de l'image
-    mouse_re = (x - WINSIZE / 2.0) / f->zoom + f->shift_x;
-    mouse_im = (y - WINSIZE / 2.0) / f->zoom + f->shift_y;
-
-    if (key == MOUSE_WHEEL_DOWN)
-    {
-        f->zoom *= 1.1;
-    }
-    else if (key == MOUSE_WHEEL_UP)
-    {
-        f->zoom *= 0.9;
-    }
-
-    // Calcul du nouveau décalage basé sur la position de la souris
-    f->shift_x = (x - WINSIZE / 2.0) / f->zoom - mouse_re;
-    f->shift_y = (y - WINSIZE / 2.0) / f->zoom - mouse_im;
-
-    iterate_on_pixels(f); // Recalcul des pixels avec la nouvelle valeur de zoom
-    return (key);
+	(void)x; //Zoom sous la souris ?
+	(void)y;
+	if (key == MOUSE_WHEEL_DOWN)
+		f->zoom *= 1.1;
+	else if (key == MOUSE_WHEEL_UP)
+		f->zoom *= 0.9;
+	iterate_on_pixels(f);
+	return (key);
 }
-
-/* int	mouse_inputs(int key, int x, int y, t_fractal *f) */
-/* { */
-/* 	(void)x; //Zoom sous la souris ? */
-/* 	(void)y; */
-/* 	if (key == MOUSE_WHEEL_DOWN) */
-/* 		f->zoom *= 1.1; */
-/* 	else if (key == MOUSE_WHEEL_UP) */
-/* 		f->zoom *= 0.9; */
-/* 	iterate_on_pixels(f); */
-/* 	return (key); */
-/* } */
 
 int kb_inputs(int key, t_fractal *f)
 {
