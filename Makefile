@@ -14,7 +14,7 @@ NAME = fractol
 
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -g3
-SRC = src/main.c
+SRC = src/main.c src/mandelbrot_f.c src/maths.c
 OBJ_DIR = obj
 OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
 
@@ -22,7 +22,7 @@ MLX_DIR = ./minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a
 MLX_SRC = $(wildcard $(MLX_DIR)/*.c)
 MLX_OBJ = $(MLX_SRC:.c=.o)
-MLX_FLAGS = -L $(MLX_DIR) -lmlx_Linux -L/usr/lib -I $(MLX_DIR) -lX11 -lm -lz -lXext $(MLX)
+MLX_FLAGS = -L $(MLX_DIR) -lmlx_Linux -L/usr/lib -I $(MLX_DIR) -lX11 -lm -lz -lXext $(MLX) -lm
 
 all: $(NAME)
 

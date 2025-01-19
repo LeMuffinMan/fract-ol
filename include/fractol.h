@@ -18,18 +18,18 @@
 // inputs
 # define ESC 65307
 # define WIN_X 17
-// # define MOUSE_WHEEL_UP 4
-// # define MOUSE_WHEEL_DOWN 5
+# define MOUSE_WHEEL_UP 4
+# define MOUSE_WHEEL_DOWN 5
 // # define MOUSE_BTN 1
-// # define PLUS 65451
-// # define MINUS 65453
-// # define LEFT 65361
-// # define RIGHT 65363
-// # define UP 65362
-// # define DOWN 65364
+# define PLUS 65451
+# define MINUS 65453
+# define LEFT 65361
+# define RIGHT 65363
+# define UP 65362
+# define DOWN 65364
 
 // Window
-# define WINSIZE 600
+# define WINSIZE 1600
 
 // //set space of representation
 // # define X_MAX 3
@@ -75,9 +75,9 @@ typedef struct s_fractal
 	t_img	img;
 	double escape_value;
 	int max_iterations;
-	// double	shift_x;
-	// double	shift_y;
-	// double	zoom;
+	double	shift_x;
+	double	shift_y;
+	double	zoom;
 }			t_fractal;
 
 typedef struct s_complex
@@ -93,13 +93,14 @@ typedef struct s_complex
 // int			quit_and_free(t_fractal *f);
 // void		init(t_fractal *f);
 // int			inputs(int key, t_fractal *f);
-// t_complex	sum_complex(t_complex z1, t_complex z2);
-// t_complex	square_complex(t_complex z);
-// void		mandelbrot_f(int x, int y, t_fractal *f);
-// void		iterate_on_pixels(t_fractal *f);
-// double		scale(double unscaled_num, double new_min, double new_max,
-// 				double old_min, double old_max);
-// void		colorize_pixel(int x, int y, t_img *img, int color);
+t_complex	sum_complex(t_complex z1, t_complex z2);
+t_complex	square_complex(t_complex z);
+void		mandelbrot_f(int x, int y, t_fractal *f);
+void		iterate_on_pixels(t_fractal *f);
+double		scale(double unscaled_num, double new_min, double new_max,
+				double old_min, double old_max);
+void		colorize_pixel(int x, int y, t_img *img, int color);
+double	abs_complex(t_complex z);
 // int			mouse_wheel_events(int keycode, int x, int y, t_fractal *f);
 // int			zoom_inputs(int key, int x, int y, t_fractal *f);
 
