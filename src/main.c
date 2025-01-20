@@ -60,17 +60,41 @@
 
 /* to do 
  *
+ *
+ * Mettre la libft
+ * 	printf
+ * 	ft_strcmp
+ * Gestion d'erreur 
+ * 	perror ?
+ * Zoom sous la souris
+ * 	Florent
+ * tricorn a fix ou virer 
  * Ac Av
- * burning ship 
- * Combiner les 3
+ * 	mandelbrot_f 
+ * 	julia
+ * 	julia x  y
+ * 		atodbl
+ * 		julia un seul param ?
+ * 	burning_ship
+ * passer les zx en zr et zy en zi
+ * Combiner les 3 avec un seul toggle
+ * 
+ * switch color
+ * switch renderer ?
+ * 		julia from mandel
+ *
  * rendre zoom moins laggy
+ *
  * trier et retoucher fonctions couleurs
  * ranger et renommer fonctions
  * regrouper et optimiser
+ * 
  * checker la doc
  * 			- hooks
  * 			- couleurs
+ * 
  * revoir le main et l'enchainement des fonctions 
+ * 
  * */
 
 #include "../include/fractol.h"
@@ -96,11 +120,12 @@ int init_win(t_fractal *f)
 	return (0);
 }
 
-int init_mandelbrot(t_fractal *f)
+int init(t_fractal *f)
 {
+	f->fractal_number = 0;
 	f->escape_value = 4; // pour mandelbrot : hypothenus et pythagore
-	f->max_iterations = 10;
-	f->select_iterations = 10;
+	f->max_iterations = 50;
+	f->select_iterations = 50;
 // a move
 	f->j_x = 0;
 	f->j_y = 0;
@@ -131,18 +156,24 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
 	(void)x; //Zoom sous la souris ?
 	(void)y;
-	printf("key = %d | x = %d | y = %d\n", key, x, y);
+	/* printf("key = %d | x = %d | y = %d\n", key, x, y); */
 	if (key == MOUSE_WHEEL_DOWN)
+	{
+		f->max_iterations = 50;
 		f->zoom *= 1.1;
+	}
 	else if (key == MOUSE_WHEEL_UP)
+	{
+		f->max_iterations = 50;
 		f->zoom *= 0.9;
+	}
 	else if (key == MOUSE_WHEEL_CLICK)
 	{
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
 	}
-	else if (key == 1) //a define
+	else if (key == 1) //click a define
 	{
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
@@ -153,7 +184,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 
 int kb_inputs(int key, t_fractal *f)
 {
-	printf("key = %d\n", key);
+	/* printf("key = %d\n", key); */
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	else if (key == RIGHT)
@@ -176,21 +207,45 @@ int kb_inputs(int key, t_fractal *f)
 		printf("select_iterations = %d\n", f->select_iterations);
 		return (0);
 	}
-	else if (key == 65421) //enter a define
+	else if (key == NUM_ENTER)
 	{
 		f->max_iterations = f->select_iterations; //revoir le nom
-		printf("mex_iterations = %d\n", f->max_iterations);
+		printf("max_iterations = %d\n", f->max_iterations);
 	}
-	/* else if (key == ENTER) */
-	/* { */
-	/**/
-	/* 	if (f->update_julia == 0) */
-	/* 		f->update_julia++; */
-	/* 	else  */
-	/* 		f->update_julia--; */
-	/* } */
 	iterate_on_pixels(f);
 	return (0);
+}
+
+void set_complexes(int x, int y, t_fractal *f) //racrourci avec un set julia custom
+{			
+	f->z.x = 0.0;
+	f->z.y = 0.0;
+	if (f->fractal_number == 1)
+	{
+		f->c.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+		f->c.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
+	}
+	else if (f->fractal_number == 3)
+	{
+		f->c.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+		f->c.y = (scale(y, -3, +3, 0, WINSIZE_Y) * f->zoom) - f->shift_y;
+	}
+	else if (f->fractal_number == 4)
+	{
+		f->z.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+		f->z.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
+
+		f->c.x = f->z.x;
+		f->c.y = f->z.y;
+	}
+	else if (f->fractal_number == 2)
+	{
+		f->z.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+		f->z.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
+
+		f->c.x = f->j_x; //-0.8;
+		f->c.y = f->j_y; //0.156;
+	}
 }
 
 void 	iterate_on_pixels(t_fractal *f)
@@ -204,9 +259,8 @@ void 	iterate_on_pixels(t_fractal *f)
 		x = 0;
 		while (x < WINSIZE_X)
 		{
-			/* mandelbrot_f(x, y, f); */
-			/* julia (x, y, f); */
-			burning_ship(x, y, f);
+			set_complexes(x, y, f);
+			render_fractal(x, y, f);
 			x++;
 		}
 		y++;
@@ -222,12 +276,60 @@ int julia_dynamic(int x, int y, t_fractal *f)
 	return (0);
 }
 
-int main(void)
+int		ft_strcmp(const char *s1, const char *s2)
+{
+	int		i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+
+int main(int ac, char **av)
 {
 	t_fractal f;
+	printf("av[1] = %s | cmp = %d\n", av[1], ft_strcmp(av[1], "julia"));
 
+	init(&f);
+	if (ac == 2)
+	{
+		if (ft_strcmp(av[1], "mandelbrot") == 0)
+		{
+			/* init_mandelbrot(&f); */
+			f.fractal_number = 1;
+			printf("mandelbrot_f\n");
+		}
+		else if (ft_strcmp(av[1], "burning_ship") == 0)
+		{
+			f.fractal_number = 3;
+			printf("burning_ship\n");
+		}	
+		else if (ft_strcmp(av[1], "tricorn") == 0)
+		{
+			f.fractal_number = 4;
+			printf("tricorn\n");
+		}
+		else if (ft_strcmp(av[1], "julia") == 0)
+		{
+			f.fractal_number = 2;
+			printf("julia\n");
+		}
+	}
+	/* else if (ac == 2 && ft_strcmp(av[1], "julia") == 0) */
+	/* { */
+	/* 	//difference entre julia avec et sans param ? */
+	/* 	f.fractal_number = 2; */
+		/* f.j_x = atodbl(av[2]); //todo */
+		/* f.j_y = atodbl(av[3]); //todo */
+	/* 	printf("julia\n"); */
+	/* } */
+	else // a revoir 
+	{
+		printf("ERROR : type 'mandelbrot, burning_ship, tricorn or julia with or without c.r and c.i\n");
+	}
 	init_win(&f);
-	init_mandelbrot(&f);
 	iterate_on_pixels(&f);
 	mlx_hook(f.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
 	mlx_hook(f.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?

@@ -30,6 +30,7 @@
 # define UP 65362
 # define DOWN 65364
 # define ENTER 65293 //mettre click souris a la place
+# define NUM_ENTER 65421
 
 // Window
 # define WINSIZE_X 800
@@ -72,8 +73,15 @@ typedef struct s_img
 	int		line_len;
 }			t_img;
 
+typedef struct s_complex
+{
+	double x; // real
+	double y; // imaginary
+}			t_complex;
+
 typedef struct s_fractal
 {
+	int 	fractal_number;
 	void	*mlx;
 	void	*win;
 	t_img	img;
@@ -87,25 +95,17 @@ typedef struct s_fractal
 	double 	j_y;
 	double 	mouse_x;
 	double  mouse_y;
+	t_complex z;
+	t_complex c;
+	double mu;
 	// int 		update_julia;
 }			t_fractal;
 
-typedef struct s_complex
-{
-	double x; // real
-	double y; // imaginary
-}			t_complex;
 
-// int			zoom_inputs(int key, int x, int y, t_fractal *f);
-// int			move_inputs(int key, int x, int y, t_fractal *f);
-// int			quit_inputs(int key, int x, int y, t_fractal *f);
-// int	iterations_inputs(int key, t_fractal *f); // keyboard inputs
-// int			quit_and_free(t_fractal *f);
-// void		init(t_fractal *f);
-// int			inputs(int key, t_fractal *f);
+
 t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
-void			mandelbrot_f(int x, int y, t_fractal *f);
+void	render_fractal(int x, int y, t_fractal *f);
 void			iterate_on_pixels(t_fractal *f);
 double		scale(double unscaled_num, double new_min, double new_max,
 					double old_min, double old_max);
@@ -115,7 +115,7 @@ void			julia(int x, int y, t_fractal *f);
 int 			julia_dynamic(int x, int y, t_fractal *f);
 double 		scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max); //a reecrire
 void			burning_ship(int x, int y, t_fractal *f);
-// int			mouse_wheel_events(int keycode, int x, int y, t_fractal *f);
-// int			zoom_inputs(int key, int x, int y, t_fractal *f);
+void			tricorn(int x, int y, t_fractal *f);
+void set_mandelbrot(int x, int y, t_fractal *f);
 
 #endif
