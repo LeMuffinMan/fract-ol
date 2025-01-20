@@ -60,10 +60,11 @@
 
 /* to do 
  *
- * Makefile relink sur le .h 
  * Ac Av
- * Julia 
- * degrade plus smooth
+ * burning ship 
+ * Combiner les 3
+ * rendre zoom moins laggy
+ * trier et retoucher fonctions couleurs
  * ranger et renommer fonctions
  * regrouper et optimiser
  * checker la doc
@@ -99,9 +100,15 @@ int init_mandelbrot(t_fractal *f)
 {
 	f->escape_value = 4; // pour mandelbrot : hypothenus et pythagore
 	f->max_iterations = 10;
-
+	f->select_iterations = 10;
+// a move
+	f->j_x = 0;
+	f->j_y = 0;
+	f->mouse_x = 0;
+	f->mouse_y = 0;
 	return (0);
 }
+
 
 int quit(t_fractal *f)
 {
@@ -120,22 +127,33 @@ int quit(t_fractal *f)
 	exit(0); //checker la dif entre exit 1 et exit 0
 }
 
-
-
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
 	(void)x; //Zoom sous la souris ?
 	(void)y;
+	printf("key = %d | x = %d | y = %d\n", key, x, y);
 	if (key == MOUSE_WHEEL_DOWN)
 		f->zoom *= 1.1;
 	else if (key == MOUSE_WHEEL_UP)
 		f->zoom *= 0.9;
+	else if (key == MOUSE_WHEEL_CLICK)
+	{
+		f->zoom = 1.0;
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+	}
+	else if (key == 1) //a define
+	{
+		f->j_x = f->mouse_x;
+		f->j_y = f->mouse_y;
+	}
 	iterate_on_pixels(f);
 	return (key);
 }
 
 int kb_inputs(int key, t_fractal *f)
 {
+	printf("key = %d\n", key);
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	else if (key == RIGHT)
@@ -148,14 +166,29 @@ int kb_inputs(int key, t_fractal *f)
 		f->shift_y += (0.2 * f->zoom);
 	else if (key == PLUS)
 	{
-		f->max_iterations += 1;
-		printf("max_iterations = %d\n", f->max_iterations); //A VIRER !!!
+		f->select_iterations += 1;
+		printf("select_iterations = %d\n", f->select_iterations); //A VIRER !!!
+		return (0);
 	}
-	else if (key == MINUS)
+	else if (key == MINUS && f->max_iterations > 1)
 	{
-		f->max_iterations -= 1;
-		printf("max_iterations = %d\n", f->max_iterations);
+		f->select_iterations -= 1;
+		printf("select_iterations = %d\n", f->select_iterations);
+		return (0);
 	}
+	else if (key == 65421) //enter a define
+	{
+		f->max_iterations = f->select_iterations; //revoir le nom
+		printf("mex_iterations = %d\n", f->max_iterations);
+	}
+	/* else if (key == ENTER) */
+	/* { */
+	/**/
+	/* 	if (f->update_julia == 0) */
+	/* 		f->update_julia++; */
+	/* 	else  */
+	/* 		f->update_julia--; */
+	/* } */
 	iterate_on_pixels(f);
 	return (0);
 }
@@ -172,12 +205,21 @@ void 	iterate_on_pixels(t_fractal *f)
 		while (x < WINSIZE_X)
 		{
 			/* mandelbrot_f(x, y, f); */
-			julia(x, y, f);
+			/* julia (x, y, f); */
+			burning_ship(x, y, f);
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img_p, 0, 0);
+}
+
+int julia_dynamic(int x, int y, t_fractal *f)
+{
+	/* printf("x = %d | y = %d\n", x, y); */
+	f->mouse_x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+	f->mouse_y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
+	return (0);
 }
 
 int main(void)
@@ -190,6 +232,7 @@ int main(void)
 	mlx_hook(f.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
 	mlx_hook(f.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?
 	mlx_mouse_hook(f.win, mouse_inputs, &f);
+	mlx_hook(f.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
 	/* mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f); */
 
 	mlx_loop(f.mlx);

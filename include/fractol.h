@@ -18,8 +18,10 @@
 // inputs
 # define ESC 65307
 # define WIN_X 17
+//Mouse
 # define MOUSE_WHEEL_UP 4
 # define MOUSE_WHEEL_DOWN 5
+# define MOUSE_WHEEL_CLICK 2
 // # define MOUSE_BTN 1
 # define PLUS 65451
 # define MINUS 65453
@@ -27,10 +29,11 @@
 # define RIGHT 65363
 # define UP 65362
 # define DOWN 65364
+# define ENTER 65293 //mettre click souris a la place
 
 // Window
-# define WINSIZE_X 1200
-# define WINSIZE_Y 1200
+# define WINSIZE_X 800
+# define WINSIZE_Y 800
 
 // //set space of representation
 // # define X_MAX 3
@@ -76,9 +79,15 @@ typedef struct s_fractal
 	t_img	img;
 	double escape_value;
 	int max_iterations;
+	int select_iterations;
 	double	shift_x;
 	double	shift_y;
 	double	zoom;
+	double 	j_x;
+	double 	j_y;
+	double 	mouse_x;
+	double  mouse_y;
+	// int 		update_julia;
 }			t_fractal;
 
 typedef struct s_complex
@@ -96,13 +105,16 @@ typedef struct s_complex
 // int			inputs(int key, t_fractal *f);
 t_complex	sum_complex(t_complex z1, t_complex z2);
 t_complex	square_complex(t_complex z);
-void		mandelbrot_f(int x, int y, t_fractal *f);
-void		iterate_on_pixels(t_fractal *f);
+void			mandelbrot_f(int x, int y, t_fractal *f);
+void			iterate_on_pixels(t_fractal *f);
 double		scale(double unscaled_num, double new_min, double new_max,
-				double old_min, double old_max);
-void		colorize_pixel(int x, int y, t_img *img, int color);
-double	abs_complex(t_complex z);
-void	julia(int x, int y, t_fractal *f);
+					double old_min, double old_max);
+void			colorize_pixel(int x, int y, t_img *img, int color);
+double		abs_complex(t_complex z);
+void			julia(int x, int y, t_fractal *f);
+int 			julia_dynamic(int x, int y, t_fractal *f);
+double 		scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max); //a reecrire
+void			burning_ship(int x, int y, t_fractal *f);
 // int			mouse_wheel_events(int keycode, int x, int y, t_fractal *f);
 // int			zoom_inputs(int key, int x, int y, t_fractal *f);
 
