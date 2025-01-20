@@ -31,9 +31,8 @@ t_complex 	square_complex(t_complex z)
 	return (result);
 }
 
-double	abs_complex(t_complex z)
+double norm_complex(t_complex z)
 {
-	return (sqrt(z.x * z.x + z.y * z.y));
+    return sqrt(z.x * z.x + z.y * z.y);
 }
-
 

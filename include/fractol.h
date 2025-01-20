@@ -103,19 +103,43 @@ typedef struct s_fractal
 
 
 
-t_complex	sum_complex(t_complex z1, t_complex z2);
-t_complex	square_complex(t_complex z);
-void	render_fractal(int x, int y, t_fractal *f);
+// void			colorize_pixel(int x, int y, t_img *img, int color);
+// double		abs_complex(t_complex z);
+// void			julia(int x, int y, t_fractal *f);
+double 		scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max); //a reecrire
+// void			burning_ship(int x, int y, t_fractal *f);
+// void			tricorn(int x, int y, t_fractal *f);
+void set_mandelbrot(int x, int y, t_fractal *f);
+
+//color.c
+int generate_smooth_color(int iteration, double mu, int max_iterations);
+void colorize_pixel(int x, int y, t_img *img, int color);
+int generate_smooth_color(int iteration, double mu, int max_iterations);
+
+//render_fractal.c
+void calculate_f(t_fractal *f);
+void set_complexes(int x, int y, t_fractal *f);
 void			iterate_on_pixels(t_fractal *f);
+void	render_fractal(int x, int y, t_fractal *f);
 double		scale(double unscaled_num, double new_min, double new_max,
 					double old_min, double old_max);
-void			colorize_pixel(int x, int y, t_img *img, int color);
-double		abs_complex(t_complex z);
-void			julia(int x, int y, t_fractal *f);
-int 			julia_dynamic(int x, int y, t_fractal *f);
-double 		scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max); //a reecrire
-void			burning_ship(int x, int y, t_fractal *f);
-void			tricorn(int x, int y, t_fractal *f);
-void set_mandelbrot(int x, int y, t_fractal *f);
+
+//inputs.c
+int	mouse_inputs(int key, int x, int y, t_fractal *f);
+int kb_inputs(int key, t_fractal *f);
+int julia_dynamic(int x, int y, t_fractal *f);
+
+//init.c
+int init_win(t_fractal *f);
+int init_fra(t_fractal *f);
+
+//maths.c
+double norm_complex(t_complex z);
+t_complex	sum_complex(t_complex z1, t_complex z2);
+t_complex	square_complex(t_complex z);
+
+
+
+int quit(t_fractal *f);
 
 #endif
