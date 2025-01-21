@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/18 17:11:29 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/21 12:21:28 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,7 @@ int main(int ac, char **av)
 	iterate_on_pixels(&f);
 	mlx_hook(f.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
 	mlx_hook(f.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?
+	mlx_hook(f.win, KeyRelease, KeyReleaseMask, shift_toggle, &f);
 	mlx_mouse_hook(f.win, mouse_inputs, &f);
 	mlx_hook(f.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
 	/* mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f); */

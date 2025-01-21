@@ -18,6 +18,7 @@ int init_win(t_fractal *f)
 	f->shift_x = 0.0;
 	f->shift_y = 0.0;
 	f->zoom = 1.0;
+	f->bind_combo = 0;
 	return (0);
 }
 

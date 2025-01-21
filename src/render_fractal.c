@@ -1,21 +1,31 @@
-//header
-//
-//
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_fractal.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/21 10:30:47 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
- /*  racourcir set_complexes */
- /* reorganiser si 6 fonctions ?  */
+/*  racourcir set_complexes */
+/* reorganiser si 6 fonctions ?  */
 
 #include "../include/fractol.h"
 #include <math.h>
 
-double scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max) //a reec.xire
+double	scale(double unscaled_num, double new_min, double new_max,
+		double old_min, double old_max) // a reec.xire
 {
-	return (new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min;
+	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min)
+		+ new_min);
 }
 
-void set_complexes(int x, int y, t_fractal *f) //racrourci avec un set julia custom
-{			
+void	set_complexes(int x, int y, t_fractal *f)
+		// racrourci avec un set julia custom
+{
 	f->z.x = 0.0;
 	f->z.y = 0.0;
 	if (f->fractal_number == 1)
@@ -42,14 +52,14 @@ void set_complexes(int x, int y, t_fractal *f) //racrourci avec un set julia cus
 		f->z.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
 
 		f->c.x = f->j_x; //-0.8;
-		f->c.y = f->j_y; //0.156;
+		f->c.y = f->j_y; // 0.156;
 	}
 }
 
-void 	iterate_on_pixels(t_fractal *f)
+void	iterate_on_pixels(t_fractal *f)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < WINSIZE_Y)
@@ -66,10 +76,9 @@ void 	iterate_on_pixels(t_fractal *f)
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img_p, 0, 0);
 }
 
-
-void calculate_f(t_fractal *f)
+void	calculate_f(t_fractal *f)
 {
-	double tmp;
+	double	tmp;
 
 	if (f->fractal_number == 1 || f->fractal_number == 2)
 		f->z = sum_complex(square_complex(f->z), f->c);
@@ -91,8 +100,8 @@ void calculate_f(t_fractal *f)
 
 void	render_fractal(int x, int y, t_fractal *f)
 {
-	int			i;
-	int			color;
+	int	i;
+	int	color;
 
 	i = 0;
 	while (i < f->max_iterations)
@@ -100,8 +109,8 @@ void	render_fractal(int x, int y, t_fractal *f)
 		calculate_f(f);
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
-	  	f->mu = log(log(norm_complex(f->z))) / log(2);
-		  color = generate_smooth_color(i, f->mu, f->max_iterations);
+			f->mu = log(log(norm_complex(f->z))) / log(2);
+			color = generate_smooth_color(i, f->mu, f->max_iterations);
 			colorize_pixel(x, y, &f->img, color);
 			return ;
 		}

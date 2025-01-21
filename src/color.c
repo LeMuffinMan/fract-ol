@@ -30,13 +30,13 @@ int interpolate_color(int color1, int color2, double t)
  * Palette prédéfinie
  */
 int palette[] = {
-    /* 0xFF0000, // Rouge */
-    /* 0xFF7F00, // Orange */
-    /* 0xFFFF00 // Jaune */
-    0x00FF00, // Vert
-    0x0000FF, // Bleu
-    0x4B0082, // Indigo
-    0x8B00FF  // Violet
+    0xFF0000, // Rouge
+    0xFF7F00, // Orange
+    0xFFFF00 // Jaune
+    /* 0x00FF00, // Vert */
+    /* 0x0000FF, // Bleu */
+    /* 0x4B0082, // Indigo */
+    /* 0x8B00FF  // Violet */
 };
 
 /**

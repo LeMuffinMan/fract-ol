@@ -1,14 +1,14 @@
-//HEADER
+// HEADER
 //
 //
- 	/* switch color */
- 	/* switch renderer ? */
- 	/* 	julia from mandel */
- 	/* rendre zoom moins laggy */
+/* switch color */
+/* switch renderer ? */
+/* 	julia from mandel */
+/* rendre zoom moins laggy */
 #include "../include/fractol.h"
 #include <stdio.h> //remplacer par ft_printf
 
-int julia_dynamic(int x, int y, t_fractal *f)
+int	julia_dynamic(int x, int y, t_fractal *f)
 {
 	/* printf("x = %d | y = %d\n", x, y); */
 	f->mouse_x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
@@ -18,26 +18,40 @@ int julia_dynamic(int x, int y, t_fractal *f)
 
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
-	(void)x; //Zoom sous la souris ?
-	(void)y;
-	/* printf("key = %d | x = %d | y = %d\n", key, x, y); */
-	if (key == MOUSE_WHEEL_DOWN)
+	/* (void)x; //Zoom sous la souris ? */
+	/* (void)y; */
+	printf("key = %d | x = %d | y = %d\n", key, x, y);
+	if (key == MOUSE_WHEEL_DOWN) //zoom normal
 	{
-		f->max_iterations = 50;
 		f->zoom *= 1.1;
+		f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
+		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 	}
-	else if (key == MOUSE_WHEEL_UP)
+	else if (key == MOUSE_WHEEL_UP) //zoom normal
 	{
-		f->max_iterations = 50;
 		f->zoom *= 0.9;
+		f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 1000;
+		f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 	}
-	else if (key == MOUSE_WHEEL_CLICK)
+	else if (key == MOUSE_WHEEL_CLICK) //reset zoom
 	{
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
 	}
-	else if (key == 1) //click a define
+	else if (key == MOUSE_R) //zoom opti
+	{
+		f->zoom *= 1.3;
+		f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 100;
+		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 100;
+	}
+	else if (key == MOUSE_L && f->bind_combo == 0) //zoom opti
+	{
+		f->zoom *= 0.7;
+		f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 100;
+		f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 100;
+	}
+	else if (key == MOUSE_L && f->bind_combo == 1) //select julia cx cy
 	{
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
@@ -46,11 +60,18 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 	return (key);
 }
 
-int kb_inputs(int key, t_fractal *f)
+int	kb_inputs(int key, t_fractal *f)
 {
-	/* printf("key = %d\n", key); */
+	printf("key = %d\n", key);
 	if (key == WIN_X || key == ESC)
 		quit(f);
+	else if (key == SHIFT)
+	{
+		if (f->bind_combo == 0)
+			f->bind_combo = 1;
+		else
+			f->bind_combo = 0;
+	}
 	else if (key == RIGHT)
 		f->shift_x += (0.2 * f->zoom);
 	else if (key == LEFT)
@@ -62,7 +83,7 @@ int kb_inputs(int key, t_fractal *f)
 	else if (key == PLUS)
 	{
 		f->select_iterations += 1;
-		printf("select_iterations = %d\n", f->select_iterations); //A VIRER !!!
+		printf("select_iterations = %d\n", f->select_iterations); // A VIRER !!!
 		return (0);
 	}
 	else if (key == MINUS && f->max_iterations > 1)
@@ -73,9 +94,27 @@ int kb_inputs(int key, t_fractal *f)
 	}
 	else if (key == NUM_ENTER)
 	{
-		f->max_iterations = f->select_iterations; //revoir le nom
-		printf("max_iterations = %d\n", f->max_iterations);
+		if (f->bind_combo == 1)
+		{
+			f->max_iterations = 50;
+			f->select_iterations = 50; //a virer du coup ?
+			printf("max_iterations reset at 50");
+		}
+		else
+		{
+			f->max_iterations = f->select_iterations; // revoir le nom
+			printf("max_iterations = %d\n", f->max_iterations);
+		}
 	}
+	printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo,
+		f->shift_x, f->shift_y, f->zoom);
 	iterate_on_pixels(f);
+	return (0);
+}
+
+int	shift_toggle(int key, t_fractal *f)
+{
+	if (key == SHIFT)
+		f->bind_combo = 0;
 	return (0);
 }
