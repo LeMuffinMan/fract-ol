@@ -60,52 +60,49 @@
 
 /* to do 
  *
- *  Questions a regler :
- *  		optimiser les appels aux structs ?
- *  		couleurs ?
  *
- * Mettre la libft
- * 	printf
- * 	ft_strcmp
+ * 1 : Julia
+ * 	- atobl
+ * 	- un seul param ?
  *
- * Ac Av
- * 	julia x  y
- * 		atodbl
- * 		julia un seul param ?
- * 	Gestion d'erreur 
+ * 2 : gestion d'erreurs
  * 		perror ?
- * 
- * init.c 
- * 	reorganiser 
  *
- * color.c
- * 	trier et garder ce qu'on veut 
+ * 3 : couleurs 
+ * 	- trier et choisir les fct
+ * 	- faire des sets de couleurs
  *
- * inputs.c 
- * 	switch color
- * 	switch renderer ?
- * 		julia from mandel
+ * 4 : fcts : 
+ * 	- switch colors
+ * 	- switch fractal
  *
- * render_fractal.c
- *  racourcir set_complexes
- * 	reorganiser si 6 fonctions ? 
- * 	tricorn a fix ou virer 
- * 	passer les zx en zr et zy en zi
+ * 5 : ranger et subdiviser
+ * 	- atodbl
+ * 	- init
+ * 	- inputs
+ * 	- render_fractal
+ * 		- racourcir set complexes
+ * 		- diviser si 6 fonctions
+ * 		- on garde tricorn ?
+ * 		- CHANGER ZX POUR ZR ETC
+ * 		- essayer d'optimiser les appels aux structs
+ * 	- main 
+ * 	 	- ranger quit
+ * 	 	- revoir l'enchainement
  *
- * main.c 
- * 		ranger quit
- * 		virer strcmp
+ * 6 : incorporer libft
+ * 	- strncmp 
+ * 	- printf
+ * 	- double atoi pour atdbl
  *
- * checker la doc
+ * 7 : checker la doc
  * 			- hooks
  * 			- couleurs
  * 
- * Makefile bonus
- * 	split bonus
- * 	clean base
+ * 8 : Makefile bonus
+ * 	- split bonus
+ * 	- clean base
  *
- * revoir le main et l'enchainement des fonctions 
- * 
  * */
 
 #include "../include/fractol.h"
@@ -174,6 +171,7 @@ int skip_spaces(char *s, int *sign, int *max_digits)
 	return (i);
 }
 
+//cas du double . ou du rien avant le . pas gere
 double atodbl(char *s, int *max_digits)
 {
 	int i;
