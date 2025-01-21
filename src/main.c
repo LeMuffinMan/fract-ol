@@ -60,12 +60,13 @@
 
 /* to do 
  *
+ *  Questions a regler :
+ *  		optimiser les appels aux structs ?
+ *  		couleurs ?
+ *
  * Mettre la libft
  * 	printf
  * 	ft_strcmp
- *
- * Zoom sous la souris
- * 	Florent
  *
  * Ac Av
  * 	julia x  y
@@ -84,7 +85,6 @@
  * 	switch color
  * 	switch renderer ?
  * 		julia from mandel
- * 	rendre zoom moins laggy
  *
  * render_fractal.c
  *  racourcir set_complexes
@@ -144,18 +144,109 @@ int		ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+int ft_strlen(char *s)
+{
+	int i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+
+int skip_spaces(char *s, int *sign, int *max_digits)
+{
+	int i;
+
+	i = 0;
+	while (s[i] <= 32 || s[i] == '+') //on avance tant qu'on n'a pas de digit ou de -
+		i++;
+	if (s[i] == '-') //on prend le moins si jamais
+	{
+		if (*sign == 1)
+			*sign = -1;
+		else 
+			(*max_digits = -1);
+		i++;
+	}
+	printf("i = %d\n", i);
+	return (i);
+}
+
+double atodbl(char *s, int *max_digits)
+{
+	int i;
+	int dot;
+	double res1;
+	double res2;
+	double factor;
+	int sign;
+
+	sign = 1;
+	factor = 1.0;
+	res1 = 0;
+	res2 = 0;
+	dot = 0;
+	i = 0;
+	while (s[i])
+	{
+		i += skip_spaces(s, &sign, max_digits);
+		if (s[i] < '0' && s[i] > '9' && s[i] != '.' && s[i] != '+' && s[i] != '-') //n'importe quel autre char donne une erreur
+			*max_digits = -1;
+		if (s[i] == '.')
+		{
+			if (dot > 0)
+				*max_digits = -1;
+			else 
+				dot++;
+		}
+		i++;
+	}
+	if (*max_digits >= 0)
+	{
+		i = 0;
+		while (s[i] <= 32 || s[i] == '+' || s[i] == '-')
+			i++;
+		while (s[i] >= '0' && s[i] <= '9' && (*max_digits)-- > 0)
+		{
+			res1 = res1 * 10 + s[i] - '0';
+			i++;
+		}
+		if (s[i] == '.')
+		{
+			i++;
+			while (s[i] >= '0' && s[i] <= '9' && (*max_digits)-- > 0)
+			{
+				res2 = res2 * 10 + s[i] - '0';
+				factor *= 10;
+				i++;
+			}
+		}
+		res1 = (res1 + res2 / factor) * sign;
+		return (res1);
+	}
+	return (0.0);
+}
 
 int main(int ac, char **av)
 {
 	t_fractal f;
-	printf("av[1] = %s | cmp = %d\n", av[1], ft_strcmp(av[1], "julia"));
+	int check_double;
+	double res;
 
+	/* printf("av[1] = %s | cmp = %d\n", av[1], ft_strcmp(av[1], "julia")); */
+	res = 0;
+	check_double = 15;
+	res = atodbl(av[1], &check_double);
+	printf("%.14f | checkdouble = %d", res, check_double);
+	if (res > 3 || res < 3)
 	init_fra(&f);
 	if (ac == 2)
 	{
 		if (ft_strcmp(av[1], "mandelbrot") == 0)
 		{
-			/* init_mandelbrot(&f); */
+	 		 /* init_mandelbrot(&f);  */
 			f.fractal_number = 1;
 			printf("mandelbrot_f\n");
 		}
@@ -175,14 +266,16 @@ int main(int ac, char **av)
 			printf("julia\n");
 		}
 	}
+
 	/* else if (ac == 2 && ft_strcmp(av[1], "julia") == 0) */
 	/* { */
 	/* 	//difference entre julia avec et sans param ? */
 	/* 	f.fractal_number = 2; */
-		/* f.j_x = atodbl(av[2]); //todo */
-		/* f.j_y = atodbl(av[3]); //todo */
+	/* 	f.j_x = atodbl(av[2]); //todo */
+	/* 	f.j_y = atodbl(av[3]); //todo */
 	/* 	printf("julia\n"); */
 	/* } */
+	/**/
 	else // a revoir 
 	{
 		printf("ERROR : type 'mandelbrot, burning_ship, tricorn or julia with or without c.r and c.i\n");
@@ -194,7 +287,7 @@ int main(int ac, char **av)
 	mlx_hook(f.win, KeyRelease, KeyReleaseMask, shift_toggle, &f);
 	mlx_mouse_hook(f.win, mouse_inputs, &f);
 	mlx_hook(f.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
-	/* mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f); */
+	mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f);
 
 	mlx_loop(f.mlx);
 	

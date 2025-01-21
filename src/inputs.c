@@ -20,7 +20,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
 	/* (void)x; //Zoom sous la souris ? */
 	/* (void)y; */
-	printf("key = %d | x = %d | y = %d\n", key, x, y);
+	/* printf("key = %d | x = %d | y = %d\n", key, x, y); */
 	if (key == MOUSE_WHEEL_DOWN) //zoom normal
 	{
 		f->zoom *= 1.1;
@@ -62,7 +62,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 
 int	kb_inputs(int key, t_fractal *f)
 {
-	printf("key = %d\n", key);
+	/* printf("key = %d\n", key); */
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	else if (key == SHIFT)
@@ -77,9 +77,19 @@ int	kb_inputs(int key, t_fractal *f)
 	else if (key == LEFT)
 		f->shift_x -= (0.2 * f->zoom);
 	else if (key == DOWN)
-		f->shift_y -= (0.2 * f->zoom);
+	{
+		if (f->bind_combo == 1)
+			f->zoom *= 0.7;
+		else
+			f->shift_y -= (0.2 * f->zoom);
+	}
 	else if (key == UP)
-		f->shift_y += (0.2 * f->zoom);
+	{
+		if (f->bind_combo == 1)
+			f->zoom *= 1.3;
+		else
+			f->shift_y += (0.2 * f->zoom);
+	}
 	else if (key == PLUS)
 	{
 		f->select_iterations += 1;
@@ -106,8 +116,8 @@ int	kb_inputs(int key, t_fractal *f)
 			printf("max_iterations = %d\n", f->max_iterations);
 		}
 	}
-	printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo,
-		f->shift_x, f->shift_y, f->zoom);
+	/* printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo, */
+		/* f->shift_x, f->shift_y, f->zoom); */
 	iterate_on_pixels(f);
 	return (0);
 }
