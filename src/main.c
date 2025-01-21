@@ -100,6 +100,10 @@
  * 			- hooks
  * 			- couleurs
  * 
+ * Makefile bonus
+ * 	split bonus
+ * 	clean base
+ *
  * revoir le main et l'enchainement des fonctions 
  * 
  * */
