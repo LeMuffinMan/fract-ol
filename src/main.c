@@ -78,7 +78,7 @@
  * 	- render_fractal
  * 		- racourcir set complexes
  * 		- diviser si 6 fonctions
- * 		- on garde tricorn ??
+ * 		- virer tricorn
  * 		- CHANGER ZX POUR ZR ETC
  * 		- essayer d'optimiser les appels aux structs
  * 	- main 

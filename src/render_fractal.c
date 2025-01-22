@@ -96,14 +96,6 @@ void	calculate_f(t_fractal *f) // a optimiser
 		f->z.x = f->z.x * f->z.x - f->z.y * f->z.y + f->c.x;
 		f->z.y = tmp;
 	}
-	if (f->fractal_number == 5)  // Ajout pour Burning Ship Julia
-	{
-    	f->z.x = fabs(f->z.x);  // Prendre la valeur absolue de la partie réelle
-    	f->z.y = fabs(f->z.y);  // Prendre la valeur absolue de la partie imaginaire
-    	tmp = 2 * f->z.x * f->z.y + f->c.y;
-    	f->z.x = f->z.x * f->z.x - f->z.y * f->z.y + f->c.x;
-    	f->z.y = tmp;
-	}
 }
 
 void	render_fractal(int x, int y, t_fractal *f)

@@ -63,6 +63,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 			f->shift_y = 0.0;
 			f->zoom = 1.0;
 			f->fractal_number = 2;
+			printf("c = %f %fi\n", f->mouse_x, f->mouse_y);
 		}
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
@@ -119,7 +120,7 @@ int	kb_inputs(int key, t_fractal *f)
 		{
 			f->max_iterations = 50;
 			f->switch_iterations = 50; //a virer du coup ?
-			printf("max_iterations reset at 50");
+			printf("max_iterations reset at 50\n");
 		}
 		else
 		{

@@ -26,6 +26,10 @@
 # define ENTER 65293 // mettre click souris a la place
 # define NUM_ENTER 65421
 # define SHIFT 65505
+# define SWITCH1 109
+# define SWITCH2 106
+# define SWITCH3 98
+# define SWITCH4 116
 
 // Mouse inputs
 # define MOUSE_WHEEL_UP 4
@@ -89,10 +93,13 @@ typedef struct s_fractal
 	t_img		img;
 	double		escape_value;
 	int			max_iterations;
-	int			select_iterations;
+	int			switch_iterations;
 	double		shift_x;
 	double		shift_y;
 	double		zoom;
+	double		tmp_shift_x;
+	double		tmp_shift_y;
+	double		tmp_zoom;
 	double		j_x;
 	double		j_y;
 	double		mouse_x;
