@@ -35,24 +35,35 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 	}
 	else if (key == MOUSE_WHEEL_CLICK) //reset zoom
 	{
+		f->max_iterations = 50;
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
 	}
 	else if (key == MOUSE_R) //zoom opti
 	{
-		f->zoom *= 1.3;
+		f->zoom *= 1.2;
 		f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 100;
 		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
 	else if (key == MOUSE_L && f->bind_combo == 0) //zoom opti
 	{
-		f->zoom *= 0.7;
+		f->zoom *= 0.8;
 		f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 100;
 		f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
 	else if (key == MOUSE_L && f->bind_combo == 1) //select julia cx cy
 	{
+		if (f->fractal_number != 2) //revoir le switch back et un tmp pour garder le zoom de mandelbrot
+		{
+			f->tmp_shift_x = f->shift_x;
+			f->tmp_shift_y = f->shift_y;
+			f->tmp_zoom = f->zoom;
+			f->shift_x = 0.0;
+			f->shift_y = 0.0;
+			f->zoom = 1.0;
+			f->fractal_number = 2;
+		}
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
 	}
@@ -92,14 +103,14 @@ int	kb_inputs(int key, t_fractal *f)
 	}
 	else if (key == PLUS)
 	{
-		f->select_iterations += 1;
-		printf("select_iterations = %d\n", f->select_iterations); // A VIRER !!!
+		f->switch_iterations += 1;
+		printf("iterations switch = %d\n", f->switch_iterations); // A VIRER !!!
 		return (0);
 	}
-	else if (key == MINUS && f->max_iterations > 1)
+	else if (key == MINUS && f->switch_iterations > 1)
 	{
-		f->select_iterations -= 1;
-		printf("select_iterations = %d\n", f->select_iterations);
+		f->switch_iterations -= 1;
+		printf("iterations switch = %d\n", f->switch_iterations);
 		return (0);
 	}
 	else if (key == NUM_ENTER)
@@ -107,14 +118,42 @@ int	kb_inputs(int key, t_fractal *f)
 		if (f->bind_combo == 1)
 		{
 			f->max_iterations = 50;
-			f->select_iterations = 50; //a virer du coup ?
+			f->switch_iterations = 50; //a virer du coup ?
 			printf("max_iterations reset at 50");
 		}
 		else
 		{
-			f->max_iterations = f->select_iterations; // revoir le nom
+			f->max_iterations = f->switch_iterations; // revoir le nom
 			printf("max_iterations = %d\n", f->max_iterations);
 		}
+	}
+	else if (key == 49 && f->fractal_number != 1)
+	{
+		f->shift_x = f->tmp_shift_x;
+		f->shift_y = f->tmp_shift_y;
+		f->zoom = f->tmp_zoom;
+		f->fractal_number = 1;
+	}
+	else if (key == 50 && f->fractal_number != 2)
+	{
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+		f->zoom = 1.0;
+		f->fractal_number = 2;
+	}
+	else if (key == 51 && f->fractal_number != 3)
+	{
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+		f->zoom = 1.0;
+		f->fractal_number = 3;
+	}
+	else if (key == 52 && f->fractal_number != 4)
+	{
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+		f->zoom = 1.0;
+		f->fractal_number = 4;
 	}
 	/* printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo, */
 		/* f->shift_x, f->shift_y, f->zoom); */

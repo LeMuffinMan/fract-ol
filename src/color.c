@@ -16,96 +16,68 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels + offset) = color;
 }
 
+
+int generate_smooth_color(int iteration, double mu, int max_iterations)
+{
+    int palette[] = {
+    0xFF0000, // Rouge vif
+    0xFF4500, // Orange rouge
+    0xFF6347, // Rouge tomate
+    0xFF7F00, // Orange
+    0xFFB300, // Orange clair
+    0xFFD700, // Doré brillant
+    0xFFFF00, // Jaune vif
+    0xEEDD82, // Jaune pâle
+    0xF0E68C, // Kaki clair
+    0xDAA520, // Doré foncé
+    0xB8860B, // Or brunâtre
+    0x9ACD32, // Vert jaunâtre (Chartreuse)
+    0xADFF2F, // Vert clair (Vert printemps)
+    0x7FFF00, // Vert gazon
+    0x32CD32, // Vert lime
+    0x00FF00, // Vert pur
+    0x00FA9A, // Vert menthe
+    0x20B2AA, // Vert sarcelle clair
+    0x5F9EA0, // Bleu-gris
+    0x4682B4  // Bleu acier
+  	};
+    int palette_size = sizeof(palette) / sizeof(int);
+    double t = (iteration + mu) / max_iterations; // Fraction lissée
+    int index = (int)(t * palette_size) % palette_size; // Choix de la couleur
+    return palette[index];
+}
 /**
  * Interpolation linéaire entre deux couleurs
  */
-int	interpolate_color(int color1, int color2, double t)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	r = ((1 - t) * ((color1 >> 16) & 0xFF)) + (t * ((color2 >> 16) & 0xFF));
-	g = ((1 - t) * ((color1 >> 8) & 0xFF)) + (t * ((color2 >> 8) & 0xFF));
-	b = ((1 - t) * (color1 & 0xFF)) + (t * (color2 & 0xFF));
-	return ((r << 16) | (g << 8) | b);
-}
-
-/**
- * Générer une couleur psychédélique avec une palette et interpolation
- */
-/* int	generate_psychedelic_color(int iteration, int max_iterations) */
+/* int	interpolate_color(int color1, int color2, double t) */
 /* { */
-/* 	double	t; */
-/* 	int		palette_size; */
-/* 	int		color1; */
-/* 	int		color2; */
+/* 	int	r; */
+/* 	int	g; */
+/* 	int	b; */
 /**/
-/* 	t = (double)iteration / max_iterations; */
-/* 	palette_size = sizeof(palette) / sizeof(int); */
-/* 	// Couleurs de la palette en fonction des itérations */
-/* 	color1 = palette[iteration % palette_size]; */
-/* 	color2 = palette[(iteration + 1) % palette_size]; */
-/* 	// Appliquer une interpolation linéaire pour des transitions douces */
-/* 	return (interpolate_color(color1, color2, fmod(t * palette_size, 1.0))); */
-/* } */
-
-/**
- * Générer une couleur cyclique avec des fonctions sinus/cosinus
- */
-/* int	generate_cyclic_color(int iteration, int max_iterations) */
-/* { */
-/* 	double	t; */
-/**/
-/* 	t = (double)iteration / max_iterations; */
-/* 	int r = (int)(128 * (1 + sin(6.28318 * t)));       */
-/* 		// Sinus pour des transitions douces */
-/* 	int g = (int)(128 * (1 + sin(6.28318 * t + 2.0))); // Décalage de phase */
-/* 	int b = (int)(128 * (1 + sin(6.28318 * t + 4.0))); // Décalage de phase */
+/* 	r = ((1 - t) * ((color1 >> 16) & 0xFF)) + (t * ((color2 >> 16) & 0xFF)); */
+/* 	g = ((1 - t) * ((color1 >> 8) & 0xFF)) + (t * ((color2 >> 8) & 0xFF)); */
+/* 	b = ((1 - t) * (color1 & 0xFF)) + (t * (color2 & 0xFF)); */
 /* 	return ((r << 16) | (g << 8) | b); */
 /* } */
-
-/**
- * Mélanger les deux approches pour un effet unique
- */
-/* int	generate_combined_color(int iteration, int max_iterations) */
-/* { */
-/* 	int	psychedelic_color; */
-/* 	int	cyclic_color; */
 /**/
-/* 	psychedelic_color = generate_psychedelic_color(iteration, max_iterations); */
-/* 	cyclic_color = generate_cyclic_color(iteration, max_iterations); */
-/* 	// Mélange des deux couleurs (50% de chaque) */
-/* 	return (interpolate_color(psychedelic_color, cyclic_color, 0.5)); */
-/* } */
-
-// A TESTER
-/* int generate_coordinate_based_color(t_complex z, int max_iterations) */
+/* int	generate_smooth_color(int iteration, double mu, int max_iterations) */
 /* { */
-/*     double norm = sqrt(z.x * z.x + z.y * z.y); */
-/*     int r = (int)(128 * (1 + sin(norm * 6.28318))); */
-/*     int g = (int)(128 * (1 + sin(norm * 6.28318 + 2.0))); */
-/*     int b = (int)(128 * (1 + sin(norm * 6.28318 + 4.0))); */
-/*     return ((r << 16) | (g << 8) | b); */
+/* 	int	palette_size; */
+/* 	int	color1; */
+/* 	int	color2; */
+/* 	int palette[] = { */
+/* 		0xFF0000, // Rouge */
+/* 		0xFF7F00, // Orange */
+/* 		0xFFFF00  // Jaune */
+/* 		 0x00FF00, // Vert */ 
+/* 		 0x0000FF, // Bleu */ 
+/* 		 0x4B0082, // Indigo */ 
+/* 		 0x8B00FF  // Violet */ 
+/* 	}; */
+/* 	double t = (iteration + 1 - mu) / max_iterations; // Fraction lissée */
+/* 	palette_size = sizeof(palette) / sizeof(int); */
+/* 	color1 = palette[(int)(t * palette_size) % palette_size]; */
+/* 	color2 = palette[((int)(t * palette_size) + 1) % palette_size]; */
+/* 	return (interpolate_color(color1, color2, fmod(t * palette_size, 1.0))); */
 /* } */
-
-int	generate_smooth_color(int iteration, double mu, int max_iterations)
-{
-	int	palette_size;
-	int	color1;
-	int	color2;
-	int palette[] = {
-		0xFF0000, // Rouge
-		0xFF7F00, // Orange
-		0xFFFF00  // Jaune
-		/* 0x00FF00, // Vert */
-		/* 0x0000FF, // Bleu */
-		/* 0x4B0082, // Indigo */
-		/* 0x8B00FF  // Violet */
-	};
-	double t = (iteration + 1 - mu) / max_iterations; // Fraction lissée
-	palette_size = sizeof(palette) / sizeof(int);
-	color1 = palette[(int)(t * palette_size) % palette_size];
-	color2 = palette[((int)(t * palette_size) + 1) % palette_size];
-	return (interpolate_color(color1, color2, fmod(t * palette_size, 1.0)));
-}
