@@ -24,7 +24,7 @@ double	scale(double unscaled_num, double new_min, double new_max,
 }
 
 void	set_complexes(int x, int y, t_fractal *f)
-		// racrourci avec un set julia custom
+// racrourci avec un set julia custom
 {
 	f->z.x = 0.0;
 	f->z.y = 0.0;
@@ -54,6 +54,14 @@ void	set_complexes(int x, int y, t_fractal *f)
 		f->c.x = f->j_x; //-0.8;
 		f->c.y = f->j_y; // 0.156;
 	}
+	else if (f->fractal_number == 5)
+	{
+		f->z.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
+		f->z.y = (scale(y, -3, +3, 0, WINSIZE_Y) * f->zoom) - f->shift_y;
+
+		f->c.x = f->j_x; //-0.8;
+		f->c.y = f->j_y; // 0.156;
+	}
 }
 
 void	iterate_on_pixels(t_fractal *f)
@@ -78,11 +86,11 @@ void	iterate_on_pixels(t_fractal *f)
 
 void	calculate_f(t_fractal *f) // a optimiser
 {
-	double	tmp;
+	double tmp;
 
 	if (f->fractal_number == 1 || f->fractal_number == 2)
 		f->z = sum_complex(square_complex(f->z), f->c);
-	if (f->fractal_number == 3)
+	if (f->fractal_number == 3 || f->fractal_number == 5)
 	{
 		f->z.x = fabs(f->z.x);
 		f->z.y = fabs(f->z.y);
@@ -102,16 +110,28 @@ void	render_fractal(int x, int y, t_fractal *f)
 {
 	int	i;
 	int	color;
+	t_color colors;
 
 	i = 0;
 	while (i < f->max_iterations)
 	{
-
 		calculate_f(f);
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
-			f->mu = log(log(norm_complex(f->z))) / log(2); // Mu ?
-			color = generate_smooth_color(i, f->mu, f->max_iterations, f->modify_color, f->palette_n);
+			if (f->psychedelic_colors == 1)
+			{
+				f->mu = log(log(norm_complex(f->z))) / log(2); // Mu ?
+				color = generate_smooth_color(i, f->mu, f->max_iterations,
+						f->modify_color, f->palette_n);
+			}
+			else 
+			{
+				double t = (double)i / f->max_iterations; //color shift applique aussi a la methode erwan
+				colors.r = (char)(9 * (1 - t) * t * t * t * t * 255); // on cast en char pour avoir un type en 8 bits
+				colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
+				colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+				color = colors.color;
+			}
 			colorize_pixel(x, y, &f->img, color);
 			return ;
 		}

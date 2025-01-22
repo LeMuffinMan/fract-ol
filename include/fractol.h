@@ -33,6 +33,7 @@
 # define R 114
 # define G 103
 # define B 98
+# define E 101
 //define les switch de fractales
 
 // Mouse inputs
@@ -43,8 +44,8 @@
 # define MOUSE_R 3
 
 // Window datas
-# define WINSIZE_X 800
-# define WINSIZE_Y 800
+# define WINSIZE_X 900
+# define WINSIZE_Y 900
 # define WIN_X 17
 
 // A virer en fonction de comment on gere les couleurs
@@ -114,8 +115,28 @@ typedef struct s_fractal
 	int 			bind_combo;
 	int 			modify_color;
 	int 			palette_n;
-	int 			imaginary_colors;
+	int 			imaginary_colors; // a virer
+	int 			psychedelic_colors;
 }				t_fractal;
+
+typedef union u_color // permet 
+{
+	unsigned int color; // type de 32b
+		struct
+		{
+			unsigned char b; // 8 bits
+			unsigned char g;
+			unsigned char r;
+			unsigned char a;
+		};
+} t_color;
+
+typedef struct s_cache //on veut garder 2 tmp en memoire a chaque fois 
+{
+	double shift_x;
+	double shift_y;
+	double zoom;
+} 		t_tmp;
 
 // functions in files
 // a classer ou virer

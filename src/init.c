@@ -24,6 +24,7 @@ int init_win(t_fractal *f)
 	f->bind_combo = 0;
 	f->modify_color = 0;
 	f->palette_n = 1;
+	f->psychedelic_colors = 0;
 	return (0);
 }
 
@@ -32,7 +33,7 @@ int init_fra(t_fractal *f)
 	f->fractal_number = 0;
 	f->escape_value = 4; // pour mandelbrot : hypothenus et pythagore
 	f->max_iterations = 50;
-	f->switch_iterations = 50;
+	f->switch_iterations = 40;
 // a move
 	f->j_x = 0;
 	f->j_y = 0;

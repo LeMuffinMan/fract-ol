@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:28:27 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/22 17:28:29 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/22 17:33:20 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 
 // couleur degueu pour thomas
 // HSL ?
-int	*palette_selector(int n)
+int	*palette_selector(int n) // on voudrait que ca plafonne sur du noir
 {
 	int	paletteR[] = {0xFF0000, 0xFF4500, 0xFF6347, 0xFF7F00, 0xFFB300,
 			0xFFD700, 0xFFFF00, 0xEEDD82, 0xF0E68C, 0xDAA520, 0xB8860B,

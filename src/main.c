@@ -58,19 +58,21 @@
 
 //calcul du complex * scale * zoom
 
+// julia -0.4 0.6
+
 /* to do 
  *
+ *
+ * 1 : generer julia de mandelbrot
+ *
+ * 2 : switch avec cache
  *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
  * 		penser aux AUTRES cas d'erreur
  *
  * 2 : couleurs : Florent ?  
- * 	- faire des sets de couleurs
  * 	- faire un bitshift : modifier RGB avec le pavnum comme Florent
- *
- * 3 : inputs : 
- * 	- switch palettes
  *
  * 4 : ranger et subdiviser
  * 	- init
@@ -248,7 +250,7 @@ int main(int ac, char **av)
 			f.fractal_number = 3;
 		else if (ft_strcmp(av[1], "tricorn") == 0 && ac == 2)
 			f.fractal_number = 4;
-		else if (ft_strcmp(av[1], "julia") == 0 && (ac == 2 || ac == 4))
+		else if (ft_strcmp(av[1], "julia_mandel") == 0 && (ac == 2 || ac == 4))
 		{
 			if (ac == 4)
 			{
@@ -256,6 +258,15 @@ int main(int ac, char **av)
 				f.j_y = atodbl(av[3], &check_double);
 			}
 			f.fractal_number = 2;
+		}
+		else if (ft_strcmp(av[1], "julia_ship") == 0 && (ac == 2 || ac == 4))
+		{
+			if (ac == 4)
+			{
+				f.j_x = atodbl(av[2], &check_double);
+				f.j_y = atodbl(av[3], &check_double);
+			}
+			f.fractal_number = 5;
 		}
 		else 
 			param_error();

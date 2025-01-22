@@ -54,7 +54,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 	}
 	else if (key == MOUSE_L && f->bind_combo == 1) //select julia cx cy
 	{
-		if (f->fractal_number != 2) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
+		if (f->fractal_number != 2 && f->fractal_number == 1) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
 		{
 			f->tmp_shift_x = f->shift_x;
 			f->tmp_shift_y = f->shift_y;
@@ -63,6 +63,17 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 			f->shift_y = 0.0;
 			f->zoom = 1.0;
 			f->fractal_number = 2;
+			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
+		}
+		if (f->fractal_number != 2 && f->fractal_number == 3) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
+		{
+			f->tmp_shift_x = f->shift_x;
+			f->tmp_shift_y = f->shift_y;
+			f->tmp_zoom = f->zoom;
+			f->shift_x = 0.0;
+			f->shift_y = 0.0;
+			f->zoom = 1.0;
+			f->fractal_number = 5;
 			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
 		}
 		f->j_x = f->mouse_x;
@@ -75,7 +86,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 //conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)
 {
-	/* printf("key = %d\n", key); */
+	printf("key = %d\n", key);
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	else if (key == SHIFT)
@@ -149,9 +160,9 @@ int	kb_inputs(int key, t_fractal *f)
 	}
 	else if (key == 51 && f->fractal_number != 3)
 	{
-		f->shift_x = 0.0;
-		f->shift_y = 0.0;
-		f->zoom = 1.0;
+		f->shift_x = f->tmp_shift_x;
+		f->shift_y = f->tmp_shift_y;
+		f->zoom = f->tmp_zoom;
 		f->fractal_number = 3;
 	}
 	else if (key == 52 && f->fractal_number != 4)
@@ -162,11 +173,27 @@ int	kb_inputs(int key, t_fractal *f)
 		f->fractal_number = 4;
 	}
 	else if (key == R)
+	{
+		f->modify_color = 0;
 		f->palette_n = 3;
+	}
 	else if (key == G)
+	{
+		f->modify_color = 0;
 		f->palette_n = 2;
+	}
 	else if (key == B)
+	{	
+		f->modify_color = 0;
 		f->palette_n = 1;
+	}
+	else if (key == E) //E
+	{
+		if (f->psychedelic_colors == 0)
+			f->psychedelic_colors = 1;
+		else 
+			f->psychedelic_colors = 0;
+	}
 	/* printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo, */
 		/* f->shift_x, f->shift_y, f->zoom); */
 	iterate_on_pixels(f);
