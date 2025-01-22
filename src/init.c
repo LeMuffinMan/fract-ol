@@ -23,6 +23,7 @@ int init_win(t_fractal *f)
 	f->tmp_zoom = 1.0;
 	f->bind_combo = 0;
 	f->modify_color = 0;
+	f->palette_n = 1;
 	return (0);
 }
 

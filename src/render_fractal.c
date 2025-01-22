@@ -110,8 +110,8 @@ void	render_fractal(int x, int y, t_fractal *f)
 		calculate_f(f);
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
-			f->mu = log(log(norm_complex(f->z))) / log(2);
-			color = generate_smooth_color(i, f->mu, f->max_iterations, f->modify_color);
+			f->mu = log(log(norm_complex(f->z))) / log(2); // Mu ?
+			color = generate_smooth_color(i, f->mu, f->max_iterations, f->modify_color, f->palette_n);
 			colorize_pixel(x, y, &f->img, color);
 			return ;
 		}

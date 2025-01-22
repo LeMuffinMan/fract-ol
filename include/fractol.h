@@ -30,6 +30,10 @@
 # define SWITCH2 106
 # define SWITCH3 98
 # define SWITCH4 116
+# define R 114
+# define G 103
+# define B 98
+//define les switch de fractales
 
 // Mouse inputs
 # define MOUSE_WHEEL_UP 4
@@ -109,6 +113,8 @@ typedef struct s_fractal
 	double		mu;
 	int 			bind_combo;
 	int 			modify_color;
+	int 			palette_n;
+	int 			imaginary_colors;
 }				t_fractal;
 
 // functions in files
@@ -118,7 +124,7 @@ int				quit(t_fractal *f);
 
 // color.c
 int				generate_smooth_color(int iteration, double mu,
-					int max_iterations, int color_modify);
+					int max_iterations, int color_modify, int palette_n);
 void			colorize_pixel(int x, int y, t_img *img, int color);
 
 

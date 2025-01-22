@@ -54,7 +54,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 	}
 	else if (key == MOUSE_L && f->bind_combo == 1) //select julia cx cy
 	{
-		if (f->fractal_number != 2) //revoir le switch back et un tmp pour garder le zoom de mandelbrot
+		if (f->fractal_number != 2) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
 		{
 			f->tmp_shift_x = f->shift_x;
 			f->tmp_shift_y = f->shift_y;
@@ -63,7 +63,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 			f->shift_y = 0.0;
 			f->zoom = 1.0;
 			f->fractal_number = 2;
-			printf("c = %f %fi\n", f->mouse_x, f->mouse_y);
+			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
 		}
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
@@ -72,9 +72,10 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 	return (key);
 }
 
+//conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)
 {
-	printf("key = %d\n", key);
+	/* printf("key = %d\n", key); */
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	else if (key == SHIFT)
@@ -132,7 +133,7 @@ int	kb_inputs(int key, t_fractal *f)
 			printf("max_iterations = %d\n", f->max_iterations);
 		}
 	}
-	else if (key == 49 && f->fractal_number != 1)
+	else if (key == 49 && f->fractal_number != 1) // A DEFINE !!
 	{
 		f->shift_x = f->tmp_shift_x;
 		f->shift_y = f->tmp_shift_y;
@@ -160,6 +161,12 @@ int	kb_inputs(int key, t_fractal *f)
 		f->zoom = 1.0;
 		f->fractal_number = 4;
 	}
+	else if (key == R)
+		f->palette_n = 3;
+	else if (key == G)
+		f->palette_n = 2;
+	else if (key == B)
+		f->palette_n = 1;
 	/* printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo, */
 		/* f->shift_x, f->shift_y, f->zoom); */
 	iterate_on_pixels(f);

@@ -87,7 +87,7 @@
  *
  * 5 : incorporer libft
  * 	- strncmp 
- * 	- printf
+ * 	- printf // cas des floats ?
  * 
  * 6 : Makefile bonus
  * 	- split bonus
