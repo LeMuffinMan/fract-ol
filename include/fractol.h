@@ -108,6 +108,7 @@ typedef struct s_fractal
 	t_complex	c;
 	double		mu;
 	int 			bind_combo;
+	int 			modify_color;
 }				t_fractal;
 
 // functions in files
@@ -117,10 +118,9 @@ int				quit(t_fractal *f);
 
 // color.c
 int				generate_smooth_color(int iteration, double mu,
-					int max_iterations);
+					int max_iterations, int color_modify);
 void			colorize_pixel(int x, int y, t_img *img, int color);
-int				generate_smooth_color(int iteration, double mu,
-					int max_iterations);
+
 
 // render_fractal.c
 void			calculate_f(t_fractal *f);

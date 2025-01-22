@@ -66,11 +66,11 @@
  * 		penser aux AUTRES cas d'erreur
  *
  * 2 : couleurs : Florent ?  
- * 	- trier et choisir les fct
  * 	- faire des sets de couleurs
+ * 	- faire un bitshift : modifier RGB avec le pavnum comme Florent
  *
  * 3 : inputs : 
- * 	- switch colors
+ * 	- switch palettes
  *
  * 4 : ranger et subdiviser
  * 	- init

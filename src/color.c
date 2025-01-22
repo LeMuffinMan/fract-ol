@@ -16,10 +16,13 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels + offset) = color;
 }
 
-
-int generate_smooth_color(int iteration, double mu, int max_iterations)
+//generer plusieurs palettes
+    //mettre la palette dans une fonction
+    //modifier dynamiquement 
+    //varier jeux de palettes
+int generate_smooth_color(int iteration, double mu, int max_iterations, int color_modify)
 {
-    int palette[] = {
+    int palette[] = { //la mettre dans une struct et proposer 3 variantes ?
     0xFF0000, // Rouge vif
     0xFF4500, // Orange rouge
     0xFF6347, // Rouge tomate
@@ -41,9 +44,9 @@ int generate_smooth_color(int iteration, double mu, int max_iterations)
     0x5F9EA0, // Bleu-gris
     0x4682B4  // Bleu acier
   	};
-    int palette_size = sizeof(palette) / sizeof(int);
-    double t = (iteration + mu) / max_iterations; // Fraction lissée
-    int index = (int)(t * palette_size) % palette_size; // Choix de la couleur
+    int palette_size = sizeof(palette) / sizeof(int); //a revoir
+    double t = (iteration + mu  + color_modify) / max_iterations; // Fraction lissée
+    int index = (int)(t * palette_size) % palette_size; // overkill : je connais la palette sixe
     return palette[index];
 }
 /**

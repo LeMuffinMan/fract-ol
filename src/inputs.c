@@ -74,7 +74,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 
 int	kb_inputs(int key, t_fractal *f)
 {
-	/* printf("key = %d\n", key); */
+	printf("key = %d\n", key);
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	else if (key == SHIFT)
@@ -102,13 +102,17 @@ int	kb_inputs(int key, t_fractal *f)
 		else
 			f->shift_y += (0.2 * f->zoom);
 	}
-	else if (key == PLUS)
+	else if (key == PLUS && f->bind_combo == 1)
+		f->modify_color += 1, printf("color modify : %d\n", f->modify_color);
+	else if (key == PLUS && f->bind_combo == 0)
 	{
 		f->switch_iterations += 1;
 		printf("iterations switch = %d\n", f->switch_iterations); // A VIRER !!!
 		return (0);
 	}
-	else if (key == MINUS && f->switch_iterations > 1)
+	else if (key == MINUS && f->bind_combo == 1)
+		f->modify_color -= 1;
+	else if (key == MINUS && f->switch_iterations > 1 && f->bind_combo == 0)
 	{
 		f->switch_iterations -= 1;
 		printf("iterations switch = %d\n", f->switch_iterations);
