@@ -15,6 +15,15 @@ int init_win(t_fractal *f)
 	f->img.img_p = mlx_new_image(f->mlx, WINSIZE_X, WINSIZE_Y);
 	f->img.pixels=mlx_get_data_addr(f->img.img_p, &f->img.bpp, &f->img.line_len, &f->img.endian);
 	f->img.bpp /= 8; //conseil pour afficher 4 pixels d'un coup ?
+		return (0);
+}
+
+int init_fra(t_fractal *f)
+{
+	f->fractal_number = 0;
+	f->escape_value = 4; // pour mandelbrot : hypothenus et pythagore
+	f->max_iterations = 100;
+	f->switch_iterations = 100;
 	f->shift_x = 0.0;
 	f->shift_y = 0.0;
 	f->zoom = 1.0;
@@ -26,15 +35,6 @@ int init_win(t_fractal *f)
 	f->palette_n = 1;
 	f->psychedelic_colors = 0;
 	f->power = 2;
-	return (0);
-}
-
-int init_fra(t_fractal *f)
-{
-	f->fractal_number = 0;
-	f->escape_value = 4; // pour mandelbrot : hypothenus et pythagore
-	f->max_iterations = 50;
-	f->switch_iterations = 40;
 // a move
 	f->j_x = 0;
 	f->j_y = 0;

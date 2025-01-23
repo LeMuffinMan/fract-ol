@@ -10,14 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// 6 fonctions :
-// trier et garder ce qu'on veut
-
 #include "../include/fractol.h"
 #include <math.h>
 
 void	colorize_pixel(int x, int y, t_img *img, int color)
-// degrader a gerer ic.y ?
 // je capte pas ce que je fais la
 {
 	int offset;
@@ -51,10 +47,7 @@ int	*palette_selector(int n) // on voudrait que ca plafonne sur du noir
 	return (palettes[0]);
 }
 
-// generer plusieurs palettes
-// mettre la palette dans une fonction
-// modifier dynamiquement
-// varier jeux de palettes
+//A revoir
 int	generate_smooth_color(int iteration, double mu, int max_iterations,
 		int color_modify, int palette_n)
 {

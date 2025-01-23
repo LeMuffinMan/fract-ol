@@ -152,7 +152,6 @@ typedef union u_color // permet
 		};
 } t_color;
 
-
 // functions in files
 // a classer ou virer
 void			set_mandelbrot(int x, int y, t_fractal *f);
@@ -165,7 +164,6 @@ void			colorize_pixel(int x, int y, t_img *img, int color);
 
 
 // render_fractal.c
-void			calculate_f(t_fractal *f);
 void			set_complexes(int x, int y, t_fractal *f);
 void			iterate_on_pixels(t_fractal *f);
 void			render_fractal(int x, int y, t_fractal *f);
@@ -184,7 +182,26 @@ int				init_fra(t_fractal *f);
 
 // maths.c
 double			norm_complex(t_complex z);
+void 				burning_ship(t_fractal *f);
+void 				tricorn(t_fractal *f);
+void 				multibrot(t_fractal *f);
+void				calculate_f(t_fractal *f);
 t_complex		sum_complex(t_complex z1, t_complex z2);
 t_complex		square_complex(t_complex z);
+
+//check_input.c
+void check_input(int ac, char **av, t_fractal *f);
+void param_error();
+double atodbl(char *s, int *max_digits);
+double get_double(char *s, int sign, int *max_digits);
+int skip_spaces(char *s, int *sign, int *max_digits);
+
+//mouse_inputs.c
+int	julia_dynamic(int x, int y, t_fractal *f);
+int wheel(int key, int x, int y, t_fractal *f);
+
+//libft
+int		ft_strcmp(const char *s1, const char *s2);
+int	mouse_inputs(int key, int x, int y, t_fractal *f);
 
 #endif
