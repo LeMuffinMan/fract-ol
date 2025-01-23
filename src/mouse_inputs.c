@@ -1,6 +1,14 @@
-// Header
-//
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_inputs.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 17:39:54 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/23 17:52:31 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
 /* #include <stdlib.h> */
@@ -25,7 +33,7 @@ int	julia_dynamic(int x, int y, t_fractal *f)
 	return (0);
 }
 
-int	wheel(int key, int x, int y, t_fractal *f)
+int	static wheel(int key, int x, int y, t_fractal *f)
 {
 	if (key == MOUSE_WHEEL_DOWN) // zoom normal
 	{
@@ -51,7 +59,9 @@ int	wheel(int key, int x, int y, t_fractal *f)
 	return (0);
 }
 
-void	clicks_combo(int key, t_fractal *f)
+// ne pas regenerer une julia
+void	static clicks_combo(int key, t_fractal *f)
+		// generer burningship au cub ? tricron multi ?
 {
 	if (key == MOUSE_L && f->bind_combo == 1) // select julia cx cy
 	{
@@ -72,7 +82,7 @@ void	clicks_combo(int key, t_fractal *f)
 	}
 }
 
-void	clicks(int key, int x, int y, t_fractal *f)
+void	static clicks(int key, int x, int y, t_fractal *f)
 {
 	if (key == MOUSE_R) // zoom opti
 	{

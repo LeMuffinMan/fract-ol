@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   kb_inputs.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 17:53:43 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/23 17:53:45 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 /* switch color */
 /* switch renderer ? */
@@ -7,9 +17,7 @@
 #include "../include/fractol.h"
 #include <stdio.h> //remplacer par ft_printf
 
-// 8 fonctions !
-
-int static arrows(int key, t_fractal *f)
+int arrows(int key, t_fractal *f)
 {
 	if (key == RIGHT)
 		f->shift_x += (0.2 * f->zoom);
@@ -32,7 +40,7 @@ int static arrows(int key, t_fractal *f)
 	return (key);
 }
 
-int static pav_num_enter(int key, t_fractal *f)
+int pav_num_enter(int key, t_fractal *f)
 {
 	if (key == NUM_ENTER)
 	{
@@ -48,7 +56,7 @@ int static pav_num_enter(int key, t_fractal *f)
 	return (key);
 }
 
-int static pav_num_operators(int key, t_fractal *f)
+int pav_num_operators(int key, t_fractal *f)
 {
 	if (key == PLUS && f->bind_combo == 1)
 	{
@@ -71,7 +79,7 @@ int static pav_num_operators(int key, t_fractal *f)
 }
 
 //ajouter un racourci pour chaque variante de julia
-void static num_fractal_switch(int key, t_fractal *f)
+void num_fractal_switch(int key, t_fractal *f)
 {
 	if (key >= 49 && key <= 53)
 	{
@@ -86,7 +94,7 @@ void static num_fractal_switch(int key, t_fractal *f)
 	}
 }
 
-void static color_shift(int key, t_fractal *f)
+void color_shift(int key, t_fractal *f)
 {
 	if (key == R)
 	{
@@ -112,7 +120,7 @@ void static color_shift(int key, t_fractal *f)
 	}
 }
 
-void static multibrot_power_switch(int key, t_fractal *f)
+void multibrot_power_switch(int key, t_fractal *f)
 {
 	if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7))
 	{
@@ -131,7 +139,7 @@ void static multibrot_power_switch(int key, t_fractal *f)
 	}
 }
 
-void static backspace_switch(int key, t_fractal *f) // marche pas !
+void backspace_switch(int key, t_fractal *f) // marche pas !
 {
 	if (key == BACKSPACE)
 	{
@@ -151,15 +159,6 @@ void static backspace_switch(int key, t_fractal *f) // marche pas !
 	}
 
 }
-
-//on key release
-int	static shift_toggle(int key, t_fractal *f)
-{
-	if (key == SHIFT)
-		f->bind_combo = 0;
-	return (0);
-}
-
 //conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)
 {
@@ -183,4 +182,10 @@ int	kb_inputs(int key, t_fractal *f)
 	return (0);
 }
 
-
+//on key release
+int	shift_toggle(int key, t_fractal *f)
+{
+	if (key == SHIFT)
+		f->bind_combo = 0;
+	return (0);
+}

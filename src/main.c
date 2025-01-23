@@ -101,7 +101,7 @@
  * 			- maths : MU !
  *
  *  /// !!! VIRER NOTES.C du GIT !
- *
+ * //mettre des fonctions en static
  * */
 
 #include "../include/fractol.h"

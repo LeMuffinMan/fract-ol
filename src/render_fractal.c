@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/21 10:30:47 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 17:53:56 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	set_complexes(int x, int y, t_fractal *f)
 		f->c.x = f->j_x; //-0.8;
 		f->c.y = f->j_y; // 0.156;
 	}
-
 }
 
 void	iterate_on_pixels(t_fractal *f)

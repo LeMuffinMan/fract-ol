@@ -1,5 +1,14 @@
-//HEADER
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/23 17:40:10 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/23 17:40:23 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -131,6 +140,4 @@ void check_input(int ac, char **av, t_fractal *f)
 		}
 		else 
 			param_error();
-	//ajouter julia multi
-	//ajouter julia tricorn
 }

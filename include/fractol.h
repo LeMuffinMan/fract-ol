@@ -173,7 +173,6 @@ double			scale(double unscaled_num, double new_min, double new_max,
 // inputs.c
 int				mouse_inputs(int key, int x, int y, t_fractal *f);
 int				kb_inputs(int key, t_fractal *f);
-int				julia_dynamic(int x, int y, t_fractal *f);
 int shift_toggle(int key, t_fractal *f);
 
 // init.c
@@ -198,7 +197,6 @@ int skip_spaces(char *s, int *sign, int *max_digits);
 
 //mouse_inputs.c
 int	julia_dynamic(int x, int y, t_fractal *f);
-int wheel(int key, int x, int y, t_fractal *f);
 
 //libft
 int		ft_strcmp(const char *s1, const char *s2);
