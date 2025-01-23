@@ -94,6 +94,8 @@ void param_error()
   exit (1);
 }
 
+//utiliser strncmp
+// Le sujet veut une entree par fractale !!
 void check_input(int ac, char **av, t_fractal *f)
 {
 	int check_double;
@@ -107,16 +109,16 @@ void check_input(int ac, char **av, t_fractal *f)
 			f->fractal_number = 3;
 		else if (ft_strcmp(av[1], "tricorn") == 0 && ac == 2)
 			f->fractal_number = 4;
-		else if (ft_strcmp(av[1], "multibrot") == 0 && ac == 2)
+		else if (ft_strcmp(av[1], "multibrot") == 0 && ac == 2) // renseigner un double qui fait la puissacne 2 minim
 			f->fractal_number = 7;
-		else if (ft_strcmp(av[1], "julia_mandel") == 0 && (ac == 2 || ac == 4))
+		else if (ft_strcmp(av[1], "julia") == 0 && (ac == 2 || ac == 4))
 		{
 			if (ac == 4)
 			{
 				f->j_x = atodbl(av[2], &check_double);
 				f->j_y = atodbl(av[3], &check_double);
 			}
-			f->fractal_number = 2;
+			f->fractal_number = 4;
 		}
 		else if (ft_strcmp(av[1], "julia_ship") == 0 && (ac == 2 || ac == 4))
 		{
@@ -129,4 +131,6 @@ void check_input(int ac, char **av, t_fractal *f)
 		}
 		else 
 			param_error();
-	}
+	//ajouter julia multi
+	//ajouter julia tricorn
+}

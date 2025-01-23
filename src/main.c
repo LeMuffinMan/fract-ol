@@ -62,6 +62,8 @@
 
 /* to do 
  *
+ * Coordones en input marche pas pour julia
+ *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
  * 		penser aux AUTRES cas d'erreur

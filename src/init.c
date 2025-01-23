@@ -6,7 +6,7 @@
 #include "../include/fractol.h"
 #include <stdlib.h>
 
-int init_win(t_fractal *f)
+int init_win(t_fractal *f) // A PROTEGER !!!
 {
 	f->mlx = mlx_init();
 	if (f->mlx == NULL)

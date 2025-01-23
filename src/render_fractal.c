@@ -65,8 +65,8 @@ void	iterate_on_pixels(t_fractal *f)
 		}
 		y++;
 	}
-	#include <stdio.h>
-	printf("fractal_number = %d\n", f->fractal_number);
+	/* #include <stdio.h> */
+	/* printf("fractal_number = %d\n", f->fractal_number); */
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img_p, 0, 0);
 }
 

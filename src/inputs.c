@@ -76,6 +76,7 @@ int	kb_inputs(int key, t_fractal *f)
 		f->shift_y = 0.0;
 		f->zoom = 1.0;
 		f->fractal_number = 1;
+		f->power = 2;
 	}
 	//2/@
 	else if (key == 50 && f->fractal_number != 2)
@@ -133,7 +134,7 @@ int	kb_inputs(int key, t_fractal *f)
 	else if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7))
 	{
 		f->power++;
-		printf("multibrot %f\n", f->power);
+		printf("multibrot power %f\n", f->power);
 		f->fractal_number = 7;
 	}
 	else if (key == 45 && f->fractal_number == 7)
@@ -143,7 +144,7 @@ int	kb_inputs(int key, t_fractal *f)
 		else 
 			f->fractal_number = 7;
 		f->power--;
-		printf("multibrot %f\n", f->power);
+		printf("multibrot power %f\n", f->power);
 	}
 	else if (key == BACKSPACE)
 	{
