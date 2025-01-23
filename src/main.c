@@ -62,10 +62,13 @@
 
 /* to do 
  *
+ * 1 : reorganiser :
+ * 			1 mandelbrot
+ * 			2 burning ship
+ * 			3 tricorn
  *
- * 1 : generer julia de mandelbrot
- *
- * 2 : switch avec cache
+ * 	mandelbrot n : multibrot
+ * 	julia de chaque fractale
  *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
@@ -250,6 +253,8 @@ int main(int ac, char **av)
 			f.fractal_number = 3;
 		else if (ft_strcmp(av[1], "tricorn") == 0 && ac == 2)
 			f.fractal_number = 4;
+		else if (ft_strcmp(av[1], "multibrot") == 0 && ac == 2)
+			f.fractal_number = 7;
 		else if (ft_strcmp(av[1], "julia_mandel") == 0 && (ac == 2 || ac == 4))
 		{
 			if (ac == 4)

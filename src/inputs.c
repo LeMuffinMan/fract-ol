@@ -53,29 +53,56 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 		f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
 	else if (key == MOUSE_L && f->bind_combo == 1) //select julia cx cy
-	{
+	{ //les cdt de ces 3 ifs sont absurdes
 		if (f->fractal_number != 2 && f->fractal_number == 1) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
 		{
 			f->tmp_shift_x = f->shift_x;
 			f->tmp_shift_y = f->shift_y;
 			f->tmp_zoom = f->zoom;
+			f->tmp_fractal_number = f->fractal_number;
 			f->shift_x = 0.0;
 			f->shift_y = 0.0;
 			f->zoom = 1.0;
 			f->fractal_number = 2;
 			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
 		}
-		if (f->fractal_number != 2 && f->fractal_number == 3) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
+		if (f->fractal_number != 5 && f->fractal_number == 3) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
 		{
 			f->tmp_shift_x = f->shift_x;
 			f->tmp_shift_y = f->shift_y;
 			f->tmp_zoom = f->zoom;
+			f->tmp_fractal_number = f->fractal_number;
 			f->shift_x = 0.0;
 			f->shift_y = 0.0;
 			f->zoom = 1.0;
 			f->fractal_number = 5;
 			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
 		}
+		if (f->fractal_number != 6 && f->fractal_number == 4) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
+		{
+			f->tmp_shift_x = f->shift_x;
+			f->tmp_shift_y = f->shift_y;
+			f->tmp_zoom = f->zoom;
+			f->tmp_fractal_number = f->fractal_number;
+			f->shift_x = 0.0;
+			f->shift_y = 0.0;
+			f->zoom = 1.0;
+			f->fractal_number = 6;
+			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
+		}
+		if (f->fractal_number != 8 && f->fractal_number == 7) //faire une structure tmp pour chaque fractale pour garder en memoire ou j'etais
+		{
+			f->tmp_shift_x = f->shift_x;
+			f->tmp_shift_y = f->shift_y;
+			f->tmp_zoom = f->zoom;
+			f->tmp_fractal_number = f->fractal_number;
+			f->shift_x = 0.0;
+			f->shift_y = 0.0;
+			f->zoom = 1.0;
+			f->fractal_number = 8;
+			printf("c = %f %fi\n", f->mouse_x, f->mouse_y); //voir le tip de david pour ca 
+		}
+		//backspace pour revenir d'une julia a l'origine
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
 	}
@@ -144,13 +171,15 @@ int	kb_inputs(int key, t_fractal *f)
 			printf("max_iterations = %d\n", f->max_iterations);
 		}
 	}
+	//1/!
 	else if (key == 49 && f->fractal_number != 1) // A DEFINE !!
 	{
-		f->shift_x = f->tmp_shift_x;
-		f->shift_y = f->tmp_shift_y;
-		f->zoom = f->tmp_zoom;
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+		f->zoom = 1.0;
 		f->fractal_number = 1;
 	}
+	//2/@
 	else if (key == 50 && f->fractal_number != 2)
 	{
 		f->shift_x = 0.0;
@@ -158,19 +187,28 @@ int	kb_inputs(int key, t_fractal *f)
 		f->zoom = 1.0;
 		f->fractal_number = 2;
 	}
+	//3/#
 	else if (key == 51 && f->fractal_number != 3)
 	{
-		f->shift_x = f->tmp_shift_x;
-		f->shift_y = f->tmp_shift_y;
-		f->zoom = f->tmp_zoom;
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+		f->zoom = 1.0;
 		f->fractal_number = 3;
 	}
+	//4/$
 	else if (key == 52 && f->fractal_number != 4)
 	{
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
 		f->zoom = 1.0;
 		f->fractal_number = 4;
+	}
+	else if (key == 53 && f->fractal_number != 9)
+	{
+		f->shift_x = 0.0;
+		f->shift_y = 0.0;
+		f->zoom = 1.0;
+		f->fractal_number = 9;
 	}
 	else if (key == R)
 	{
@@ -193,6 +231,37 @@ int	kb_inputs(int key, t_fractal *f)
 			f->psychedelic_colors = 1;
 		else 
 			f->psychedelic_colors = 0;
+	}
+	else if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7))
+	{
+		f->power++;
+		printf("multibrot %f\n", f->power);
+		f->fractal_number = 7;
+	}
+	else if (key == 45 && f->fractal_number == 7)
+	{
+		if (f->power == 3) // pour deux on revient sur un mandelbrot normal ?
+			f->fractal_number = 1;
+		else 
+			f->fractal_number = 7;
+		f->power--;
+		printf("multibrot %f\n", f->power);
+	}
+	else if (key == BACKSPACE)
+	{
+		double tmp;
+		tmp = f->fractal_number;
+		f->fractal_number = f->tmp_fractal_number;
+		f->tmp_fractal_number = tmp;
+		tmp = f->shift_x;
+		f->shift_x = f->tmp_shift_x;
+		f->tmp_shift_x = tmp;
+		tmp = f->shift_y;
+		f->shift_y = f->tmp_shift_y;
+		f->tmp_shift_y = tmp;
+		tmp = f->zoom;
+		f->zoom = f->tmp_zoom;
+		f->tmp_zoom = tmp;
 	}
 	/* printf("SHIFT : %d\nshift_x = %f\nshift_y = %f\nzoom = %f\n", f->bind_combo, */
 		/* f->shift_x, f->shift_y, f->zoom); */

@@ -25,6 +25,7 @@ int init_win(t_fractal *f)
 	f->modify_color = 0;
 	f->palette_n = 1;
 	f->psychedelic_colors = 0;
+	f->power = 2;
 	return (0);
 }
 

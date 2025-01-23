@@ -34,6 +34,7 @@
 # define G 103
 # define B 98
 # define E 101
+# define BACKSPACE 65288
 //define les switch de fractales
 
 // Mouse inputs
@@ -89,6 +90,25 @@ typedef struct s_complex
 	double y; // imaginary
 }				t_complex;
 
+
+// 1 mandel
+// 2 julia
+// 3 bruning
+// 4 tricorn
+// 5 julia burning ship
+// 6 julia tricorn
+// 7 multibrot
+// 8 julia multibrot
+// 9 perpendicular burning ship // a virer partout 
+
+// typedef struct s_tmp //on veut garder 2 tmp en memoire a chaque fois 
+// {
+// 	double shift_x;
+// 	double shift_y;
+// 	double zoom;
+// 	int 		fractal_number;
+// } t_tmp;
+
 // to divide : mlx win / fractal / pointofview
 typedef struct s_fractal
 {
@@ -105,6 +125,7 @@ typedef struct s_fractal
 	double		tmp_shift_x;
 	double		tmp_shift_y;
 	double		tmp_zoom;
+	int 			tmp_fractal_number;
 	double		j_x;
 	double		j_y;
 	double		mouse_x;
@@ -115,7 +136,7 @@ typedef struct s_fractal
 	int 			bind_combo;
 	int 			modify_color;
 	int 			palette_n;
-	int 			imaginary_colors; // a virer
+	double 			power;
 	int 			psychedelic_colors;
 }				t_fractal;
 
@@ -131,12 +152,6 @@ typedef union u_color // permet
 		};
 } t_color;
 
-typedef struct s_cache //on veut garder 2 tmp en memoire a chaque fois 
-{
-	double shift_x;
-	double shift_y;
-	double zoom;
-} 		t_tmp;
 
 // functions in files
 // a classer ou virer
