@@ -269,12 +269,13 @@ int	kb_inputs(int key, t_fractal *f)
 	backspace_switch(key, f);
 	julia_moves(key, f);
 	julia_constant_selector(key, f);
-	/* printf("zoom = %f\n", f->zoom); */
 	iterate_on_pixels(f);
-	if (key == 32)
+	if (key == 32) //espace
+	{
 		f->traveling = 0;
-	if (f->traveling == 1)
-		travel_between_fractals(f);
+		f->zooming_in = 0;
+		f->zooming_out = 0;
+	}
 	return (0);
 }
 

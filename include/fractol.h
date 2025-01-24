@@ -149,6 +149,10 @@ typedef struct s_fractal
 	double 				tc;
 	int 					debug;
 	int 					traveling;
+	int 					zooming_in;
+	int 					zooming_out;
+	int 					zooming_in_x;
+	int 					zooming_in_y;
 }						t_fractal;
 
 typedef union u_color // permet
