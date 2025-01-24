@@ -135,7 +135,7 @@ typedef struct s_fractal
 	t_complex			c;
 	double				mu;
 	int					bind_combo;
-	int					modify_color;
+	double					modify_color;
 	int					palette_n;
 	double				power;
 	int					psychedelic_colors;

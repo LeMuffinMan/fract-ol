@@ -61,8 +61,8 @@ int static	wheel(int key, int x, int y, t_fractal *f)
 }
 
 // ne pas regenerer une julia
-void static	clicks_combo(int key, t_fractal *f)
 // generer burningship au cub ? tricron multi ?
+void static	clicks_combo(int key, t_fractal *f)
 {
 	if (key == MOUSE_L && f->bind_combo == 1) // select julia cx cy
 	{
@@ -105,25 +105,30 @@ void static	clicks(int key, int x, int y, t_fractal *f)
 	clicks_combo(key, f);
 }
 
-// coder t
 void	travel_between_fractals(t_fractal *f)
 {
 	f->j_x = f->o.x;
 	f->j_y = f->o.y;
 	while (f->t <= pi)
-		// le faire boucler a l'infini tant qu'une touche est pas activee
 	{
 		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
 		mlx_clear_window(f->mlx, f->win);
 		f->t += f->tc;
 		f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
 		f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
+		/* if (f->psychedelic_colors == 1) */
+		/* { */
+		/* 	f->modify_color += 0.5; */
+		/* } */
+		printf("modify_color = %f\n", f->modify_color);
 		iterate_on_pixels(f);
 		mlx_do_sync(f->mlx);
 		f->origin = 0;
 	}
 	f->t = 0;
 }
+
+/* void  */
 
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {

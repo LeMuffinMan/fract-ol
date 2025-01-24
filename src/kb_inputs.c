@@ -61,7 +61,7 @@ int pav_num_operators(int key, t_fractal *f)
 	if (key == PLUS && f->bind_combo == 1)
 	{
 		f->modify_color += 1;
-		printf("color modify : %d\n", f->modify_color);
+		printf("color modify : %f\n", f->modify_color);
 	}
 	else if (key == PLUS && f->bind_combo == 0)
 	{
