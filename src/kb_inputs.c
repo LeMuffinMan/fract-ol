@@ -75,6 +75,7 @@ int pav_num_operators(int key, t_fractal *f)
 		f->switch_iterations -= 1;
 		printf("iterations switch = %d\n", f->switch_iterations);
 	}
+	pav_num_enter(key, f);
 	return (key);
 }
 
@@ -157,7 +158,6 @@ void backspace_switch(int key, t_fractal *f) // marche pas !
 		f->zoom = f->tmp_zoom;
 		f->tmp_zoom = tmp;
 	}
-
 }
 //conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)

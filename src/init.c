@@ -51,5 +51,8 @@ int	init_fra(t_fractal *f)
 	f->j_y = 0;
 	f->mouse_x = 0;
 	f->mouse_y = 0;
+	f->origin = 0;
+	f->t = 0;
+	f->tc = 0.01;
 	return (0);
 }

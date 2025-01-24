@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:28:27 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/22 17:33:20 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 18:30:25 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 // HSL ?
 int	*palette_selector(int n) // on voudrait que ca plafonne sur du noir
 {
-	int	paletteR[] = {0xFF0000, 0xFF4500, 0xFF6347, 0xFF7F00, 0xFFB300,
-			0xFFD700, 0xFFFF00, 0xEEDD82, 0xF0E68C, 0xDAA520, 0xB8860B,
-			0x9ACD32, 0xADFF2F, 0x7FFF00, 0x32CD32, 0x00FF00, 0x00FA9A,
-			0x20B2AA, 0x5F9EA0, 0x4682B4};
-	int	paletteG[] = {0x0000FF, 0x1E90FF, 0x6495ED, 0x4169E1, 0x00008B,
-			0x0000CD, 0x4682B4, 0x5F9EA0, 0xB0C4DE, 0xADD8E6, 0x87CEFA,
-			0x87CEEB, 0x4682B4, 0x5F9EA0, 0x191970, 0x8A2BE2, 0x7B68EE,
-			0x6A5ACD, 0x8B008B, 0x9932CC};
-	int	paletteB[] = {0x008000, 0x006400, 0x228B22, 0x32CD32, 0x00FF00,
-			0x7FFF00, 0x9ACD32, 0x6B8E23, 0x556B2F, 0x8FBC8F, 0x2E8B57,
-			0x3CB371, 0x20B2AA, 0xADFF2F, 0x7CFC00, 0x98FB98, 0x00FA9A,
-			0x00FF7F, 0x00FF00, 0x66CDAA};
-	int	*palettes[] = {paletteR, paletteG, paletteB};
+	int paletteR[] = {0xFF0000, 0xFF4500, 0xFF6347, 0xFF7F00, 0xFFB300,
+		0xFFD700, 0xFFFF00, 0xEEDD82, 0xF0E68C, 0xDAA520, 0xB8860B, 0x9ACD32,
+		0xADFF2F, 0x7FFF00, 0x32CD32, 0x00FF00, 0x00FA9A, 0x20B2AA, 0x5F9EA0,
+		0x4682B4};
+	int paletteG[] = {0x0000FF, 0x1E90FF, 0x6495ED, 0x4169E1, 0x00008B,
+		0x0000CD, 0x4682B4, 0x5F9EA0, 0xB0C4DE, 0xADD8E6, 0x87CEFA, 0x87CEEB,
+		0x4682B4, 0x5F9EA0, 0x191970, 0x8A2BE2, 0x7B68EE, 0x6A5ACD, 0x8B008B,
+		0x9932CC};
+	int paletteB[] = {0x008000, 0x006400, 0x228B22, 0x32CD32, 0x00FF00,
+		0x7FFF00, 0x9ACD32, 0x6B8E23, 0x556B2F, 0x8FBC8F, 0x2E8B57, 0x3CB371,
+		0x20B2AA, 0xADFF2F, 0x7CFC00, 0x98FB98, 0x00FA9A, 0x00FF7F, 0x00FF00,
+		0x66CDAA};
+	int *palettes[] = {paletteR, paletteG, paletteB};
 
 	if (n >= 0 && n < 3)
 		return (palettes[n]);
@@ -47,7 +47,7 @@ int	*palette_selector(int n) // on voudrait que ca plafonne sur du noir
 	return (palettes[0]);
 }
 
-//A revoir
+// A revoir
 int	generate_smooth_color(int iteration, double mu, int max_iterations,
 		int color_modify, int palette_n)
 {

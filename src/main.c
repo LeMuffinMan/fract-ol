@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/21 12:21:28 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/23 18:30:21 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 /* to do 
  *
  * Coordones en input marche pas pour julia
+ * reparer la selection fine de julia
  *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
@@ -103,6 +104,18 @@
  *  /// !!! VIRER NOTES.C du GIT !
  * //mettre des fonctions en static
  * */
+
+// choisir un point a click droit
+// choisir un point b click droit
+//  d.x = a.x - b.x
+//  d.y = a.y - b.y
+// render la premiere avec le point click droit
+// t entre 1 et 0 avec cos et sin
+// boucle while t < 1
+// 	c.x * t
+// 	c.y * t
+//  render_fractal(julia)
+//
 
 #include "../include/fractol.h"
 #include <X11/X.h> //checker la doc
