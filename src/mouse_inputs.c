@@ -64,7 +64,7 @@ int static	wheel(int key, int x, int y, t_fractal *f)
 // generer burningship au cub ? tricron multi ?
 void static	clicks_combo(int key, t_fractal *f)
 {
-	if (key == MOUSE_L && f->bind_combo == 1) // select julia cx cy
+	if (key == MOUSE_L && f->bind_combo == 1 && f->bind_combo_z == 0) // select julia cx cy
 	{
 		if (f->fractal_number < 4 || f->fractal_number == 7)
 		{
@@ -90,13 +90,13 @@ void static	clicks_combo(int key, t_fractal *f)
 
 void static	clicks(int key, int x, int y, t_fractal *f)
 {
-	if (key == MOUSE_R && f->bind_combo == 0) // zoom opti
+	if (key == MOUSE_R && f->bind_combo == 0 && f->bind_combo_z == 0) // zoom opti
 	{
 		f->zoom *= 1.2;
 		f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 100;
 		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
-	else if (key == MOUSE_L && f->bind_combo == 0) // zoom opti
+	else if (key == MOUSE_L && f->bind_combo == 0 && f->bind_combo_z == 0) // zoom opti
 	{
 		f->zoom *= 0.8;
 		f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 100;
@@ -111,14 +111,16 @@ void	travel_between_fractals(t_fractal *f)
 	f->j_y = f->o.y;
 	while (f->t <= pi)
 	{
-		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
+		if (f->debug == 1)
+			printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
 		mlx_clear_window(f->mlx, f->win);
 		f->t += f->tc;
 		f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
 		f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
 		if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
 			f->modify_color += f->t;
-		printf("modify_color = %f\n", f->modify_color);
+		if (f->debug == 1)
+			printf("modify_color = %f\n", f->modify_color);
 		iterate_on_pixels(f);
 		mlx_do_sync(f->mlx);
 		f->origin = 0;
@@ -126,28 +128,62 @@ void	travel_between_fractals(t_fractal *f)
 	f->t = 0;
 }
 
+void animated_zoom(int key, int x, int y, t_fractal *f)
+{
+	(void)x;
+	(void)y;
+	if (key == MOUSE_R && f->bind_combo_z == 1)
+	{
+		while (f->zoom < 1)
+		{
+			f->zoom *= 1.1;
+			if (f->zoom > 0.09)
+			{
+				f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
+				f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
+				f->shift_x *= 0.9; // Ajuste ce facteur pour ralentir ou accélérer
+      	f->shift_y *= 0.9;
+      }
+      if (f->zoom > 1)
+      {
+      	f->zoom = 1;
+      	f->shift_x = 0;
+      	f->shift_y = 0;
+      }
+			iterate_on_pixels(f);
+			mlx_do_sync(f->mlx);
+		}
+	}
+}
 /* void  */
 
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
 	wheel(key, x, y, f);
 	clicks(key, x, y, f);
+	animated_zoom(key, x, y, f);
 	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 1)
 	{
 		if (f->origin == 0)
 		{
 			f->o.x = f->mouse_x;
 			f->o.y = f->mouse_y;
-			printf("o.x = %f\n", f->o.x);
-			printf("o.y = %f\n", f->o.y);
+			if (f->debug == 1)
+			{
+				printf("o.x = %f\n", f->o.x);
+				printf("o.y = %f\n", f->o.y);
+			}
 			f->origin = 1;
 		}
 		else
 		{
 			f->a.x = f->mouse_x;
 			f->a.y = f->mouse_y;
-			printf("a.x = %f\n", f->a.x);
-			printf("a.y = %f\n", f->a.y);
+			if (f->debug == 1)
+			{
+				printf("a.x = %f\n", f->a.x);
+				printf("a.y = %f\n", f->a.y);
+			}
 			f->origin = 0;
 			f->d.x = f->a.x - f->o.x;
 			f->d.y = f->a.y - f->o.y;

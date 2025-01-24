@@ -42,6 +42,7 @@ int	init_fra(t_fractal *f)
 	f->tmp_shift_y = 0.0;
 	f->tmp_zoom = 1.0;
 	f->bind_combo = 0;
+	f->bind_combo_z = 0;
 	f->modify_color = 0;
 	f->palette_n = 1;
 	f->psychedelic_colors = 0;
@@ -55,5 +56,6 @@ int	init_fra(t_fractal *f)
 	f->t = 0;
 	f->tc = 0.01;
 	f->psyche_switch = 0;
+	f->debug = 0;
 	return (0);
 }

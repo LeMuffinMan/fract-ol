@@ -135,6 +135,7 @@ typedef struct s_fractal
 	t_complex			c;
 	double				mu;
 	int					bind_combo;
+	int 				bind_combo_z;
 	double					modify_color;
 	int					palette_n;
 	double				power;
@@ -146,6 +147,7 @@ typedef struct s_fractal
 	t_complex			d;
 	double 				t;
 	double 				tc;
+	int 					debug;
 }						t_fractal;
 
 typedef union u_color // permet
