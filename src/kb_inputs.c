@@ -82,13 +82,13 @@ int pav_num_operators(int key, t_fractal *f)
 //ajouter un racourci pour chaque variante de julia
 void num_fractal_switch(int key, t_fractal *f)
 {
-	if (key >= 49 && key <= 53)
+	if (key >= 49 && key <= 54)
 	{
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
 		f->zoom = 1.0;
 		f->fractal_number = 1;
-		if (f->fractal_number != 1) //on voudrait reset les power quand on appuie sur 1/!
+		/* if (f->fractal_number != 1) //on voudrait reset les power quand on appuie sur 1/! */
 			f->power = 2;
 		if (f->fractal_number != key - '0')
 			f->fractal_number = key - '0';

@@ -62,8 +62,7 @@
 
 /* to do 
  *
- * Coordones en input marche pas pour julia
- * reparer la selection fine de julia
+ * // 4 5 6 pour les julias en racourcis
  *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
