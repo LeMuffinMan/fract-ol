@@ -229,7 +229,7 @@ void julia_constant_selector(int key, t_fractal *f)
 //conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)
 {
-	/* printf("key = %d\n", key); */
+	printf("key = %d\n", key);
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	arrows(key, f);
@@ -271,6 +271,10 @@ int	kb_inputs(int key, t_fractal *f)
 	julia_constant_selector(key, f);
 	/* printf("zoom = %f\n", f->zoom); */
 	iterate_on_pixels(f);
+	if (key == 32)
+		f->traveling = 0;
+	if (f->traveling == 1)
+		travel_between_fractals(f);
 	return (0);
 }
 

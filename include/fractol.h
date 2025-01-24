@@ -185,6 +185,7 @@ double					scale(double unscaled_num, double new_min,
 int						mouse_inputs(int key, int x, int y, t_fractal *f);
 int						kb_inputs(int key, t_fractal *f);
 int						shift_toggle(int key, t_fractal *f);
+int 					travel_update(void *param);
 
 // init.c
 int						init_win(t_fractal *f);

@@ -105,28 +105,64 @@ void clicks(int key, int x, int y, t_fractal *f)
 	clicks_combo(key, f);
 }
 
+
+int travel_update(void *param)
+{
+	t_fractal *f = (t_fractal *)param;
+
+	if (f->traveling == 1)
+		travel_between_fractals(f);
+	return (0);
+}
+
 void	travel_between_fractals(t_fractal *f)
 {
 	f->traveling = 1;
-	f->j_x = f->o.x;
-	f->j_y = f->o.y;
-	while (f->t <= pi)
+	if (f->t > M_PI) // Vérifie si l'animation est terminée
 	{
-		if (f->debug == 1)
-			printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
-		mlx_clear_window(f->mlx, f->win);
-		f->t += f->tc;
-		f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
-		f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
-		if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
-			f->modify_color += f->t;
-		if (f->debug == 1)
-			printf("modify_color = %f\n", f->modify_color);
-		iterate_on_pixels(f);
-		mlx_do_sync(f->mlx);
+		f->t = 0;
+		f->traveling = 0;
 		f->origin = 0;
+		return;
 	}
-	f->t = 0;
+
+	// Mise à jour des coordonnées
+	if (f->debug == 1)
+		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
+
+	mlx_clear_window(f->mlx, f->win);
+	f->t += f->tc;
+	f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
+	f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
+
+	if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
+		f->modify_color += f->t;
+
+	if (f->debug == 1)
+		printf("modify_color = %f\n", f->modify_color);
+
+	iterate_on_pixels(f);
+	mlx_do_sync(f->mlx);
+	/* f->traveling = 1; */
+	/* f->j_x = f->o.x; */
+	/* f->j_y = f->o.y; */
+	/* while (f->t <= pi) */
+	/* { */
+	/* 	if (f->debug == 1) */
+	/* 		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y); */
+	/* 	mlx_clear_window(f->mlx, f->win); */
+	/* 	f->t += f->tc; */
+	/* 	f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x; */
+	/* 	f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y; */
+	/* 	if (f->psyche_switch == 1 && f->psychedelic_colors == 1) */
+	/* 		f->modify_color += f->t; */
+	/* 	if (f->debug == 1) */
+	/* 		printf("modify_color = %f\n", f->modify_color); */
+	/* 	iterate_on_pixels(f); */
+	/* 	mlx_do_sync(f->mlx); */
+	/* 	f->origin = 0; */
+	/* } */
+	/* f->t = 0; */
 }
 
 void animated_zoom(int key, int x, int y, t_fractal *f)

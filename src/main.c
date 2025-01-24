@@ -64,6 +64,8 @@
  *
  * // 4 5 6 pour les julias en racourcis
  *
+ * // ajouter un flag pour pause le travel et le faireboucler a l'infini
+ *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
  * 		penser aux AUTRES cas d'erreur
@@ -168,7 +170,11 @@ int main(int ac, char **av)
 	mlx_hook(f.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?
 	mlx_hook(f.win, KeyRelease, KeyReleaseMask, shift_toggle, &f);
 	mlx_mouse_hook(f.win, mouse_inputs, &f);
+	//
+	mlx_loop_hook(f.mlx, travel_update, &f);
+	//
 	/* mlx_mouse_hook(f.win, wheel, &f); // marche pas */
+
 	mlx_hook(f.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
 	/* mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f); */
 

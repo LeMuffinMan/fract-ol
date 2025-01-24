@@ -57,5 +57,6 @@ int	init_fra(t_fractal *f)
 	f->tc = 0.01;
 	f->psyche_switch = 0;
 	f->debug = 0;
+	f->traveling = 0;
 	return (0);
 }
