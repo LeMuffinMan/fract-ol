@@ -34,7 +34,7 @@ int	julia_dynamic(int x, int y, t_fractal *f)
 	return (0);
 }
 
-int static	wheel(int key, int x, int y, t_fractal *f)
+int 	wheel(int key, int x, int y, t_fractal *f)
 {
 	if (key == MOUSE_WHEEL_DOWN) // zoom normal
 	{
@@ -62,7 +62,7 @@ int static	wheel(int key, int x, int y, t_fractal *f)
 
 // ne pas regenerer une julia
 // generer burningship au cub ? tricron multi ?
-void static	clicks_combo(int key, t_fractal *f)
+void 	clicks_combo(int key, t_fractal *f)
 {
 	if (key == MOUSE_L && f->bind_combo == 1 && f->bind_combo_z == 0) // select julia cx cy
 	{
@@ -88,7 +88,7 @@ void static	clicks_combo(int key, t_fractal *f)
 	}
 }
 
-void static	clicks(int key, int x, int y, t_fractal *f)
+void clicks(int key, int x, int y, t_fractal *f)
 {
 	if (key == MOUSE_R && f->bind_combo == 0 && f->bind_combo_z == 0) // zoom opti
 	{
@@ -107,6 +107,7 @@ void static	clicks(int key, int x, int y, t_fractal *f)
 
 void	travel_between_fractals(t_fractal *f)
 {
+	f->traveling = 1;
 	f->j_x = f->o.x;
 	f->j_y = f->o.y;
 	while (f->t <= pi)
@@ -137,21 +138,74 @@ void animated_zoom(int key, int x, int y, t_fractal *f)
 		while (f->zoom < 1)
 		{
 			f->zoom *= 1.1;
-			if (f->zoom > 0.09)
+			if (f->zoom > 0.09 && f->zoom < 1)
 			{
 				f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
 				f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
-				f->shift_x *= 0.9; // Ajuste ce facteur pour ralentir ou accélérer
-      	f->shift_y *= 0.9;
+				f->shift_x *= 0.99; // Ajuste ce facteur pour ralentir ou accélérer
+      	f->shift_y *= 0.99;
       }
       if (f->zoom > 1)
       {
       	f->zoom = 1;
-      	f->shift_x = 0;
-      	f->shift_y = 0;
+      	/* f->shift_x = 0; */
+      	/* f->shift_y = 0; */
       }
 			iterate_on_pixels(f);
 			mlx_do_sync(f->mlx);
+		}
+	}
+	/* else if (key == MOUSE_L && f->bind_combo_z == 1) */
+	/* { */
+ /*    	double initial_zoom = f->zoom;         // Zoom initial */
+ /*    	double target_zoom = f->zoom / 100000; // Zoom cible (beaucoup plus petit) */
+ /*    	double progress = 0.0;                // Progression de 0.0 à 1.0 */
+ /*    	double speed_factor = 0.02;           // Contrôle de la durée totale du zoom */
+	/**/
+ /*    	while (progress < 1.0) */
+ /*    	{ */
+ /*        	// Calcul d'un eased_progress avec une courbe sinus */
+ /*        	double eased_progress = (1 - cos(progress * pi)) / 2; // Ease-in-out */
+	/**/
+ /*        	// Interpolation entre initial_zoom et target_zoom */
+ /*        	f->zoom = initial_zoom * pow(target_zoom / initial_zoom, eased_progress); */
+	/**/
+ /*        	// Mettre à jour les pixels et synchroniser l'affichage */
+ /*        	iterate_on_pixels(f); */
+ /*        	mlx_do_sync(f->mlx); */
+	/**/
+ /*        	// Augmenter la progression (ralentir en ajustant speed_factor) */
+ /*        	progress += speed_factor; */
+	/**/
+ /*        	// Condition de sortie pour éviter les erreurs de précision flottante */
+ /*        	if (fabs(f->zoom - target_zoom) < 0.000001) */
+ /*            	break; */
+ /*    	} */
+	/* } */
+	else if (key == MOUSE_L && f->bind_combo_z == 1)
+	{
+    double target_zoom = f->zoom / 100000; // Définir un zoom cible très petit
+    double speed_factor = 0.02; // Contrôle de la vitesse du zoom
+
+    while (f->zoom > target_zoom)
+    {
+        // Calcul d'une interpolation linéaire pour une transition fluide
+        f->zoom *= (1 - speed_factor); // Réduction progressive du zoom
+
+        // Mettre à jour les pixels et synchroniser l'affichage
+        iterate_on_pixels(f);
+        mlx_do_sync(f->mlx);
+
+        // Condition de sortie si très proche du zoom cible
+        if (fabs(f->zoom - target_zoom) < f->zoom / 100000)
+            break;
+		{
+			/* f->zoom *= 0.99; */
+			/* iterate_on_pixels(f); */
+			/* mlx_do_sync(f->mlx); */
+   /*    if (fabs(f->zoom - target_zoom) < f->zoom / 100000) */
+   /*    	break; */
+		}
 		}
 	}
 }

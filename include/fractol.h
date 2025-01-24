@@ -148,6 +148,7 @@ typedef struct s_fractal
 	double 				t;
 	double 				tc;
 	int 					debug;
+	int 					traveling;
 }						t_fractal;
 
 typedef union u_color // permet

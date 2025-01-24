@@ -34,7 +34,7 @@ int	init_fra(t_fractal *f)
 	f->fractal_number = 0;
 	f->escape_value = 4; // pour mandelbrot : hypothenus et pythagore
 	f->max_iterations = 50;
-	f->switch_iterations = 50;
+	f->switch_iterations = 20;
 	f->shift_x = 0.0;
 	f->shift_y = 0.0;
 	f->zoom = 1.0;
