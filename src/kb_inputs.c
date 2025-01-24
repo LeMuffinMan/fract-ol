@@ -159,10 +159,69 @@ void backspace_switch(int key, t_fractal *f) // marche pas !
 		f->tmp_zoom = tmp;
 	}
 }
+
+void julia_moves(int key, t_fractal *f)
+{
+	if (key == 65431) // pav num 8
+		f->j_x += 1 * f->tmp_zoom / 1000;
+	else if (key == 65433) //pav num 2
+		f->j_x -= 1 * f->tmp_zoom / 1000;
+	else if (key == 65430) //pav num 4
+		f->j_y += 1 * f->tmp_zoom / 1000;
+	else if (key == 65432) // pav num 6
+		f->j_y -= 1 * f->tmp_zoom / 1000;
+	printf("j_x = %f\nj_y = %f\n", f->j_x, f->j_y);
+}
+/**/
+
+// 115 = S
+// 97 == a
+void julia_constant_selector(int key, t_fractal *f)
+{
+	if (key == 97 && f->bind_combo == 1)
+		f->origin = 0;
+	if (key == 97 && f->bind_combo == 0)
+	{
+		if (f->origin == 0)
+		{
+			f->o.x = f->j_x;
+			f->o.y = f->j_y;
+			printf("o.x = %f\n", f->o.x);
+			printf("o.y = %f\n", f->o.y);
+			f->origin = 1;
+		}
+		else
+		{
+			f->a.x = f->j_x;
+			f->a.y = f->j_y;
+			printf("a.x = %f\n", f->a.x);
+			printf("a.y = %f\n", f->a.y);
+			f->origin = 0;
+			f->d.x = f->a.x - f->o.x;
+			f->d.y = f->a.y - f->o.y;
+			f->tmp_shift_x = f->shift_x;
+			f->tmp_shift_y = f->shift_y;
+			f->tmp_zoom = f->zoom;
+			f->tmp_fractal_number = f->fractal_number;
+			if (f->fractal_number <= 3)
+				f->fractal_number = f->fractal_number + 3;
+			/* if (f->fractal_number > 3 && f->fractal_number < 7)
+				//on veut rester en julia si on est en julia */
+			/* 	f->fractal_number = f->fractal_number; */
+			else if (f->fractal_number == 7)
+				f->fractal_number++;
+			/* f->shift_x = 0.0; */
+			/* f->shift_y = 0.0; */
+			/* f->zoom = 1.0; */
+			travel_between_fractals(f);
+		}
+	}
+}
+
 //conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)
 {
-	/* printf("key = %d\n", key); */
+	printf("key = %d\n", key);
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	arrows(key, f);
@@ -174,10 +233,20 @@ int	kb_inputs(int key, t_fractal *f)
 		else
 			f->bind_combo = 0;
 	}
+	if (key == 112) // 112 == p
+	{
+		if (f->psyche_switch == 0)
+			f->psyche_switch = 1;
+		else 
+			f->psyche_switch = 0;
+
+	}	
 	num_fractal_switch(key, f);
 	color_shift(key, f);
 	multibrot_power_switch(key, f);
 	backspace_switch(key, f);
+	julia_moves(key, f);
+	julia_constant_selector(key, f);
 	iterate_on_pixels(f);
 	return (0);
 }

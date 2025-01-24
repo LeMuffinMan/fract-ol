@@ -50,7 +50,7 @@ int static	wheel(int key, int x, int y, t_fractal *f)
 		f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 		return (1);
 	}
-	else if (key == MOUSE_WHEEL_CLICK) // reset zoom
+	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 0) // reset zoom
 	{
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
@@ -116,10 +116,8 @@ void	travel_between_fractals(t_fractal *f)
 		f->t += f->tc;
 		f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
 		f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
-		/* if (f->psychedelic_colors == 1) */
-		/* { */
-		/* 	f->modify_color += 0.5; */
-		/* } */
+		if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
+			f->modify_color += f->t;
 		printf("modify_color = %f\n", f->modify_color);
 		iterate_on_pixels(f);
 		mlx_do_sync(f->mlx);
@@ -134,7 +132,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
 	wheel(key, x, y, f);
 	clicks(key, x, y, f);
-	if (key == MOUSE_R && f->bind_combo == 1)
+	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 1)
 	{
 		if (f->origin == 0)
 		{
@@ -170,6 +168,7 @@ int	mouse_inputs(int key, int x, int y, t_fractal *f)
 			travel_between_fractals(f);
 		}
 	}
-	iterate_on_pixels(f);
+
+		iterate_on_pixels(f);
 	return (key);
 }

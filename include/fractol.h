@@ -139,6 +139,7 @@ typedef struct s_fractal
 	int					palette_n;
 	double				power;
 	int					psychedelic_colors;
+	int 				psyche_switch;
 	int					origin;
 	t_complex			o;
 	t_complex			a;
@@ -204,6 +205,7 @@ int						skip_spaces(char *s, int *sign, int *max_digits);
 
 // mouse_inputs.c
 int						julia_dynamic(int x, int y, t_fractal *f);
+void	travel_between_fractals(t_fractal *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);
