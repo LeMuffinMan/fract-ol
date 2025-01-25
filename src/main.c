@@ -62,8 +62,6 @@
 
 /* to do 
  *
- * 8 pour les multi-julias en racourcis
- *
  * moduler la vitesse du zoom :
  * 	- zoom factor pour in et out
  * 	- zoom factor en flag
