@@ -62,14 +62,24 @@
 
 /* to do 
  *
+ * 	Pierre leaks finding :
+ * 		des variable non init
+ * 		smooth color : invalid read of size
+ * 		traveling : non init
+ * 		pav num operator non init
+ * 		kb input : non init pour un raccourci
+ *
  * moduler la vitesse du zoom :
- * 	- zoom factor pour in et out
- * 	- zoom factor en flag
- * revoir la rapidite du mode psyche
+ * 	- revoir fin du zoom out ?
+ * 	- mettre des limites a la vitesse du zoom et dezoom
+ *
+ * mode psyche marche pas en zoom et en anim ?
+ * 	- probleme palette verte
  *
  * 1 : gestion d'erreurs
- * 		revoir si les coordonees sont niquees 
  * 		penser aux AUTRES cas d'erreur
+ *
+ * 2 : revoir tout le .h
  *
  * 2 : ranger et subdiviser
  * 	- check_input : a normer

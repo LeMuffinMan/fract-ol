@@ -21,7 +21,7 @@ int	init_win(t_fractal *f) // A PROTEGER !!!
 	if (f->mlx == NULL)
 		return (-1);
 	f->win = mlx_new_window(f->mlx, WINSIZE_X, WINSIZE_Y, "Fractol");
-		// changer selon l'input le nom de la fenetre
+	// changer selon l'input le nom de la fenetre
 	f->img.img_p = mlx_new_image(f->mlx, WINSIZE_X, WINSIZE_Y);
 	f->img.pixels = mlx_get_data_addr(f->img.img_p, &f->img.bpp,
 			&f->img.line_len, &f->img.endian);
@@ -29,6 +29,7 @@ int	init_win(t_fractal *f) // A PROTEGER !!!
 	return (0);
 }
 
+// revoir apres avoir ranger le .h
 int	init_fra(t_fractal *f)
 {
 	f->fractal_number = 0;
@@ -41,6 +42,9 @@ int	init_fra(t_fractal *f)
 	f->tmp_shift_x = 0.0;
 	f->tmp_shift_y = 0.0;
 	f->tmp_zoom = 1.0;
+	f->speed_factor = 0.02; // a rename pour zoom
+	f->zooming_out = 0;
+	f->zooming_in = 0;
 	f->bind_combo = 0;
 	f->bind_combo_z = 0;
 	f->modify_color = 0;

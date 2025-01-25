@@ -36,19 +36,24 @@
 # define G 103
 # define B 98
 # define E 101
+# define P 112
+# define D 100
+# define SPACE 32
 # define BACKSPACE 65288
+# define CTRL_L 65507
+# define ALT_L 65513
 // define les switch de fractales
 
 // Mouse inputs
-# define MOUSE_WHEEL_UP 4
-# define MOUSE_WHEEL_DOWN 5
+# define MOUSE_WHEEL_UP 4 // zoom in
+# define MOUSE_WHEEL_DOWN 5 // zoom out
 # define MOUSE_WHEEL_CLICK 2
 # define MOUSE_L 1
 # define MOUSE_R 3
 
 // Window datas
-# define WINSIZE_X 750
-# define WINSIZE_Y 750
+# define WINSIZE_X 500
+# define WINSIZE_Y 500
 # define WIN_X 17
 
 // A virer en fonction de comment on gere les couleurs
@@ -118,11 +123,12 @@ typedef struct s_fractal
 	void				*win;
 	t_img				img;
 	double				escape_value;
-	int					max_iterations;
+	double					max_iterations;
 	int					switch_iterations;
 	double				shift_x;
 	double				shift_y;
 	double				zoom;
+	double 				speed_factor;
 	double				tmp_shift_x;
 	double				tmp_shift_y;
 	double				tmp_zoom;

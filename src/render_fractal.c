@@ -27,7 +27,9 @@ void	set_complexes(int x, int y, t_fractal *f)
 {
 	f->z.x = 0.0;
 	f->z.y = 0.0;
-  if (f->fractal_number == 2 || f->fractal_number == 7 || f->fractal_number == 1 || f->fractal_number == 9) //burning ship // multibrot 
+	if (f->fractal_number == 2 || f->fractal_number == 7
+		|| f->fractal_number == 1 || f->fractal_number == 9) // burning ship
+		// multibrot
 	{
 		f->c.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
 		f->c.y = (scale(y, -3, +3, 0, WINSIZE_Y) * f->zoom) - f->shift_y;
@@ -37,11 +39,11 @@ void	set_complexes(int x, int y, t_fractal *f)
 		f->c.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
 		f->c.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
 	}
-	else if (f->fractal_number == 4 || f->fractal_number == 5 || f->fractal_number == 6 || f->fractal_number == 8) // julia m
+	else if (f->fractal_number == 4 || f->fractal_number == 5
+		|| f->fractal_number == 6 || f->fractal_number == 8) // julia m
 	{
 		f->z.x = (scale(x, -3, +3, 0, WINSIZE_X) * f->zoom) + f->shift_x;
 		f->z.y = (scale(y, +3, -3, 0, WINSIZE_Y) * f->zoom) + f->shift_y;
-
 		f->c.x = f->j_x; //-0.8;
 		f->c.y = f->j_y; // 0.156;
 	}
@@ -51,7 +53,7 @@ void	iterate_on_pixels(t_fractal *f)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < WINSIZE_Y)
 	{
@@ -67,13 +69,15 @@ void	iterate_on_pixels(t_fractal *f)
 	mlx_put_image_to_window(f->mlx, f->win, f->img.img_p, 0, 0);
 }
 
-void bit_shift_rgb(int i, int *color, t_fractal *f)
+void	bit_shift_rgb(int i, int *color, t_fractal *f)
 {
-	t_color colors;
-	double t;
-		
-	t = (double)i / f->max_iterations; //color shift applique aussi a la methode erwan
-	colors.r = (char)(9 * (1 - t) * t * t * t * t * 255); // on cast en char pour avoir un type en 8 bits
+	t_color	colors;
+	double	t;
+
+	t = (double)i / f->max_iterations;                   
+		// color shift applique aussi a la methode erwan
+	colors.r = (char)(9 * (1 - t) * t * t * t * t * 255);
+		// on cast en char pour avoir un type en 8 bits
 	colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
 	colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 	*color = colors.color;
@@ -96,7 +100,7 @@ void	render_fractal(int x, int y, t_fractal *f)
 				color = generate_smooth_color(i, f->mu, f->max_iterations,
 						f->modify_color, f->palette_n);
 			}
-			else 
+			else
 				bit_shift_rgb(i, &color, f);
 			colorize_pixel(x, y, &f->img, color);
 			return ;

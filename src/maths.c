@@ -13,7 +13,6 @@
 #include "../include/fractol.h"
 #include <math.h>
 
-// je peux declarer des structures ici ? qule interet ?
 t_complex	sum_complex(t_complex z1, t_complex z2)
 {
 	t_complex	result;
@@ -47,6 +46,7 @@ void	burning_ship(t_fractal *f)
 	f->z.x = f->z.x * f->z.x - f->z.y * f->z.y + f->c.x;
 	f->z.y = tmp;
 }
+
 void	tricorn(t_fractal *f)
 {
 	double	tmp;
@@ -55,6 +55,7 @@ void	tricorn(t_fractal *f)
 	f->z.x = f->z.x * f->z.x - f->z.y * f->z.y + f->c.x;
 	f->z.y = tmp;
 }
+
 void	multibrot(t_fractal *f)
 {
 	double	tmp;
@@ -70,7 +71,6 @@ void	multibrot(t_fractal *f)
 
 void	calculate_f(t_fractal *f) // a optimiser
 {
-	#include <stdio.h>
 	if (f->fractal_number == 1 || f->fractal_number == 4)
 		f->z = sum_complex(square_complex(f->z), f->c); // choisir la strat ?
 	if (f->fractal_number == 2 || f->fractal_number == 5)

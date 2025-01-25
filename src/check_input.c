@@ -76,7 +76,7 @@ double	atodbl(char *s, int *max_digits)
 			*max_digits = -1;
 		if (s[i] == '.')
 		{
-			if (dot > 0 || s[i - 1] > '9' || s[i - 1] < '0')
+			if (dot > 0 || s[i - 1] > '9' || s[i - 1] < '0' || s[i + 1] == '\0')
 				*max_digits = -1;
 			else
 				dot++;
@@ -84,8 +84,6 @@ double	atodbl(char *s, int *max_digits)
 	}
 	if (*max_digits >= 0)
 		return (get_double(s, sign, max_digits));
-	else
-		printf("Coordinates incorrect\n"); // a revoir
 	return (0.0);
 }
 
@@ -95,17 +93,57 @@ void	param_error(void)
 	printf("||          Incorrect input !          ||\n");
 	printf("||-------------------------------------||\n");
 	printf("||  ./fractol <set_name>               ||\n");
-	printf("||  ./fractol julia <x> <y>            ||\n");
+	printf("||  ./fractol julia_mandel <x> <y>     ||\n");
 	printf("||                                     ||\n");
 	printf("||-----------------SETS----------------||\n");
-	printf("||   mandelbrot     ||      julia      ||\n");
-	printf("||   burning_ship   ||      tricorn    ||\n");
+	printf("||   mandelbrot     |   multibrot      ||\n");
+	printf("||   burning_ship   |   tricorn        ||\n");
+	printf("||-------------------------------------||\n");
+	printf("||   julia_mandel   |   julia_multi    ||\n");
+	printf("||   julia_ship     |   julia_tricorn  ||\n");
 	printf("=========================================\n");
 	exit(1);
 }
 
+void	get_coords(int ac, char **av, t_fractal *f, int *check_double)
+{
+	if (ac == 4)
+	{
+		f->j_x = atodbl(av[2], check_double);
+		f->j_y = atodbl(av[3], check_double);
+		if (*check_double == -1)
+			param_error();
+	}
+}
+
+void	check_julia_input(int ac, char **av, t_fractal *f, int *check_double)
+{
+	if (ft_strcmp(av[1], "julia_mandel") == 0 && (ac == 2 || ac == 4))
+	{
+		get_coords(ac, av, f, check_double);
+		f->fractal_number = 4;
+	}
+	else if (ft_strcmp(av[1], "julia_ship") == 0 && (ac == 2 || ac == 4))
+	{
+		get_coords(ac, av, f, check_double);
+		f->fractal_number = 5;
+	}
+	else if (ft_strcmp(av[1], "julia_tricorn") == 0 && (ac == 2 || ac == 4))
+	{
+		get_coords(ac, av, f, check_double);
+		f->fractal_number = 6;
+	}
+	else if (ft_strcmp(av[1], "julia_multi") == 0 && (ac == 2 || ac == 4))
+	{
+		get_coords(ac, av, f, check_double);
+		f->power = 3;
+		f->fractal_number = 8;
+	}
+	else
+		param_error();
+}
+
 // utiliser strncmp
-// Le sujet veut une entree par fractale !!
 void	check_input(int ac, char **av, t_fractal *f)
 {
 	int	check_double;
@@ -120,26 +158,10 @@ void	check_input(int ac, char **av, t_fractal *f)
 	else if (ft_strcmp(av[1], "tricorn") == 0 && ac == 2)
 		f->fractal_number = 4;
 	else if (ft_strcmp(av[1], "multibrot") == 0 && ac == 2)
-		// renseigner un double qui fait la puissacne 2 minim
+	{
+		f->power = 3;
 		f->fractal_number = 7;
-	else if (ft_strcmp(av[1], "julia") == 0 && (ac == 2 || ac == 4))
-	{
-		if (ac == 4)
-		{
-			f->j_x = atodbl(av[2], &check_double);
-			f->j_y = atodbl(av[3], &check_double);
-		}
-		f->fractal_number = 4;
-	}
-	else if (ft_strcmp(av[1], "julia_ship") == 0 && (ac == 2 || ac == 4))
-	{
-		if (ac == 4)
-		{
-			f->j_x = atodbl(av[2], &check_double);
-			f->j_y = atodbl(av[3], &check_double);
-		}
-		f->fractal_number = 5;
 	}
 	else
-		param_error();
+		check_julia_input(ac, av, f, &check_double);
 }
