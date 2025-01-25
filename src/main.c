@@ -62,11 +62,12 @@
 
 /* to do 
  *
- * // 4 5 6 pour les julias en racourcis
+ * 8 pour les multi-julias en racourcis
  *
- * // erwan faireboucler a l'infini
- * zoom out animated qui zoom in un coup ?
- * moduler la vitesse de l'animation
+ * moduler la vitesse du zoom :
+ * 	- zoom factor pour in et out
+ * 	- zoom factor en flag
+ * revoir la rapidite du mode psyche
  *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 
@@ -76,12 +77,13 @@
  * 	- check_input : a normer
  * 	- color : a normer
  * 	- init : a normer
- * 	- inputs : renomer kb_inputs.c
- * 		- kbinputs : diviser
+ * 		- a rediviser en fonction du .h
+ * 	- kbinputs : 
+ * 		- diviser
+ * 		- normer
  * 	- maths 
  * 		-choisir si on garde les deux strats de calcul
  * 	- mouse_inputs 
- * 		-wheel marche pas 
  * 		- diviser
  * 	- render fractal to norm
  * 		- CHANGER ZX POUR ZR ETC
@@ -107,18 +109,6 @@
  *  /// !!! VIRER NOTES.C du GIT !
  * //mettre des fonctions en static
  * */
-
-// choisir un point a click droit
-// choisir un point b click droit
-//  d.x = a.x - b.x
-//  d.y = a.y - b.y
-// render la premiere avec le point click droit
-// t entre 1 et 0 avec cos et sin
-// boucle while t < 1
-// 	c.x * t
-// 	c.y * t
-//  render_fractal(julia)
-//
 
 #include "../include/fractol.h"
 #include <X11/X.h> //checker la doc

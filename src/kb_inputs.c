@@ -59,19 +59,19 @@ int pav_num_enter(int key, t_fractal *f)
 
 int pav_num_operators(int key, t_fractal *f)
 {
-	if (key == PLUS && f->bind_combo == 1)
+	if (key == PLUS && f->bind_combo == 1 && f->bind_combo_t == 0)
 	{
 		f->modify_color += 1;
 		/* printf("color modify : %f\n", f->modify_color); */
 	}
-	else if (key == PLUS && f->bind_combo == 0)
+	else if (key == PLUS && f->bind_combo == 0 && f->bind_combo_t == 0)
 	{
 		f->switch_iterations += 1;
 		printf("iterations switch = %d\n", f->switch_iterations); // A VIRER !!!
 	}
-	else if (key == MINUS && f->bind_combo == 1)
+	else if (key == MINUS && f->bind_combo == 1 && f->bind_combo_t == 0)
 		f->modify_color -= 1;
-	else if (key == MINUS && f->switch_iterations > 1 && f->bind_combo == 0)
+	else if (key == MINUS && f->switch_iterations > 1 && f->bind_combo == 0 && f->bind_combo_t == 0)
 	{
 		f->switch_iterations -= 1;
 		printf("iterations switch = %d\n", f->switch_iterations);
@@ -83,7 +83,7 @@ int pav_num_operators(int key, t_fractal *f)
 //ajouter un racourci pour chaque variante de julia
 void num_fractal_switch(int key, t_fractal *f)
 {
-	if (key >= 49 && key <= 54)
+	if (key >= 49 && key <= 55) // de 1 
 	{
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
@@ -93,6 +93,12 @@ void num_fractal_switch(int key, t_fractal *f)
 			f->power = 2;
 		if (f->fractal_number != key - '0')
 			f->fractal_number = key - '0';
+		if (f->fractal_number != 8 && key == 55)
+		{
+			f->fractal_number = 8;
+			if (f->power == 2)
+				f->power++;
+		}
 	}
 }
 
@@ -256,6 +262,13 @@ int	kb_inputs(int key, t_fractal *f)
 		else 
 			f->bind_combo_z = 0;
 	}
+	if ( key == 65513) //alt_l
+	{
+		if (f->bind_combo_t == 0)
+			f->bind_combo_t = 1;
+		else 
+			f->bind_combo_t = 0;
+	}
 	if (key == 100) //D
 	{
 		if (f->debug == 0)
@@ -263,6 +276,10 @@ int	kb_inputs(int key, t_fractal *f)
 		else if (f->debug == 1)
 			f->debug = 0;
 	}
+	if (key == PLUS && f->bind_combo_t == 1)
+		f->tc *= 2;
+	if (key == MINUS && f->bind_combo_t == 1)
+		f->tc /= 2;
 	num_fractal_switch(key, f);
 	color_shift(key, f);
 	multibrot_power_switch(key, f);
@@ -272,7 +289,10 @@ int	kb_inputs(int key, t_fractal *f)
 	iterate_on_pixels(f);
 	if (key == 32) //espace
 	{
-		f->traveling = 0;
+		if (f->traveling == 1)
+			f->traveling = 0;
+		else 
+			f->traveling = 1;
 		f->zooming_in = 0;
 		f->zooming_out = 0;
 	}
@@ -286,5 +306,7 @@ int	shift_toggle(int key, t_fractal *f)
 		f->bind_combo = 0;
 	else if (key == 65507) //ctrl_L
 		f->bind_combo_z = 0;
+	else if (key == 65513) //alt_l
+		f->bind_combo_t = 0;
 	return (0);
 }

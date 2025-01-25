@@ -136,6 +136,7 @@ typedef struct s_fractal
 	double				mu;
 	int					bind_combo;
 	int 				bind_combo_z;
+	int         bind_combo_t;
 	double					modify_color;
 	int					palette_n;
 	double				power;

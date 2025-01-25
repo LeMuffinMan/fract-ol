@@ -113,7 +113,7 @@ void animated_zoom_out(int x, int y, t_fractal *f)
 		if (f->zoom < 1)
 		{
 			f->zooming_out = 1;
-			f->zoom *= 1.1;
+			f->zoom *= 1.1; // implementer zoom factor
 			if (f->zoom > 0.09 && f->zoom < 1)
 			{
 				f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
@@ -127,8 +127,8 @@ void animated_zoom_out(int x, int y, t_fractal *f)
       	/* f->shift_x = 0; */
       	/* f->shift_y = 0; */
       }
-			if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
-				f->modify_color += f->t;
+			/* if (f->psyche_switch == 1 && f->psychedelic_colors == 1) */
+			/* 	f->modify_color += f->t; */
 			iterate_on_pixels(f);
 			mlx_do_sync(f->mlx);
 		}
@@ -137,22 +137,21 @@ void animated_zoom_out(int x, int y, t_fractal *f)
 
 void animated_zoom_in(t_fractal *f)
 {
-    double target_zoom = f->zoom / 100000; // Définir un zoom cible très petit
-    double speed_factor = 0.02; // Contrôle de la vitesse du zoom
-		
+    double target_zoom = f->zoom / 100000; // rendre le zoom in infini
+    double speed_factor = 0.02; //mettre en strcut		
 		f->zooming_in = 0;
     if (f->zoom > target_zoom)
     {
         f->zooming_in = 1;
         // Calcul d'une interpolation linéaire pour une transition fluide
         f->zoom *= (1 - speed_factor); // Réduction progressive du zoom
-				if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
-					f->modify_color += f->t;
+				/* if (f->psyche_switch == 1 && f->psychedelic_colors == 1) */
+				/* 	f->modify_color += f->t; */
         // Mettre à jour les pixels et synchroniser l'affichage
         iterate_on_pixels(f);
         mlx_do_sync(f->mlx);
 
-        // Condition de sortie si très proche du zoom cible
+        // a virer ?
         if (fabs(f->zoom - target_zoom) < f->zoom / 100000)
             f->zooming_in = 0;
 		{
@@ -174,33 +173,6 @@ void animated_zoom(int key, int x, int y, t_fractal *f)
 		f->zooming_out_y = y;
 		animated_zoom_out(x, y, f);
 	}
-	/* else if (key == MOUSE_L && f->bind_combo_z == 1) */
-	/* { */
- /*    	double initial_zoom = f->zoom;         // Zoom initial */
- /*    	double target_zoom = f->zoom / 100000; // Zoom cible (beaucoup plus petit) */
- /*    	double progress = 0.0;                // Progression de 0.0 à 1.0 */
- /*    	double speed_factor = 0.02;           // Contrôle de la durée totale du zoom */
-	/**/
- /*    	while (progress < 1.0) */
- /*    	{ */
- /*        	// Calcul d'un eased_progress avec une courbe sinus */
- /*        	double eased_progress = (1 - cos(progress * pi)) / 2; // Ease-in-out */
-	/**/
- /*        	// Interpolation entre initial_zoom et target_zoom */
- /*        	f->zoom = initial_zoom * pow(target_zoom / initial_zoom, eased_progress); */
-	/**/
- /*        	// Mettre à jour les pixels et synchroniser l'affichage */
- /*        	iterate_on_pixels(f); */
- /*        	mlx_do_sync(f->mlx); */
-	/**/
- /*        	// Augmenter la progression (ralentir en ajustant speed_factor) */
- /*        	progress += speed_factor; */
-	/**/
- /*        	// Condition de sortie pour éviter les erreurs de précision flottante */
- /*        	if (fabs(f->zoom - target_zoom) < 0.000001) */
- /*            	break; */
- /*    	} */
-	/* } */
 	else if (key == MOUSE_L && f->bind_combo_z == 1)
 	{
 		animated_zoom_in(f);
@@ -210,7 +182,7 @@ void animated_zoom(int key, int x, int y, t_fractal *f)
 
 int travel_update(void *param)
 {
-	t_fractal *f = (t_fractal *)param;
+	t_fractal *f = (t_fractal *)param; //revoir ca
 
 	if (f->traveling == 1)
 		travel_between_fractals(f);
@@ -218,19 +190,21 @@ int travel_update(void *param)
 		animated_zoom_out(f->zooming_out_x, f->zooming_out_y, f);
 	if (f->zooming_in == 1)
 		animated_zoom_in(f);
+	if (f->psyche_switch == 1 && (f->zooming_in == 1 || f->zooming_out == 1 || f->traveling == 1))
+		f->modify_color += f->t / 10; // / color_factor (entre 1 et 10 ?)
 	return (0);
 }
 
 void	travel_between_fractals(t_fractal *f)
 {
 	f->traveling = 1;
-	if (f->t > M_PI) //utiliser pi de math.h ?
-	{
-		f->t = 0;
-		f->traveling = 0;
-		f->origin = 0;
-		return;
-	}
+	/* if (f->t > M_PI) //utiliser pi de math.h ? */
+	/* { */
+	/* 	f->t = 0; */
+	/* 	f->traveling = 0; */
+	/* 	f->origin = 0; */
+	/* 	return; */
+	/* } */
 	if (f->debug == 1)
 		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
 
@@ -238,8 +212,8 @@ void	travel_between_fractals(t_fractal *f)
 	f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x; //Demander a erwan pour faire boucler a l'infini
 	f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
 
-	if (f->psyche_switch == 1 && f->psychedelic_colors == 1)
-		f->modify_color += f->t;
+	/* if (f->psyche_switch == 1 && f->psychedelic_colors == 1) */
+	/* 	f->modify_color += f->t; */
 
 	if (f->debug == 1)
 		printf("modify_color = %f\n", f->modify_color);
