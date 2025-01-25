@@ -66,6 +66,7 @@
  *
  * // erwan faireboucler a l'infini
  * zoom out animated qui zoom in un coup ?
+ * moduler la vitesse de l'animation
  *
  * 1 : gestion d'erreurs
  * 		revoir si les coordonees sont niquees 

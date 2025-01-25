@@ -47,8 +47,8 @@ int pav_num_enter(int key, t_fractal *f)
 	{
 		if (f->bind_combo == 1)
 		{
-			f->max_iterations = 100;
-			f->switch_iterations = 100; //a virer du coup ?
+			f->max_iterations = 20;
+			f->switch_iterations = 20; //a virer du coup ?
 		}
 		else
 			f->max_iterations = f->switch_iterations; // revoir le nom

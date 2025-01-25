@@ -47,8 +47,8 @@
 # define MOUSE_R 3
 
 // Window datas
-# define WINSIZE_X 1000
-# define WINSIZE_Y 1000
+# define WINSIZE_X 750
+# define WINSIZE_Y 750
 # define WIN_X 17
 
 // A virer en fonction de comment on gere les couleurs
@@ -151,8 +151,8 @@ typedef struct s_fractal
 	int 					traveling;
 	int 					zooming_in;
 	int 					zooming_out;
-	int 					zooming_in_x;
-	int 					zooming_in_y;
+	int 					zooming_out_x;
+	int 					zooming_out_y;
 }						t_fractal;
 
 typedef union u_color // permet
