@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/26 22:36:34 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/26 23:02:22 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@
  * 		kb input : non init pour un raccourci
  * 			faire le menage dans tous les raccourcis
  *
- * remettre en double pour moins de lag ?
+ *  pour le scaling d'iterations ET pour le plafond de TOUS les zooms : 
+ *  	f->zoom = 0.00000000000000215778
  *
- * passer en animated zoom depuis le pshce mode passe la palette a rouge direct ?
- *
- * rechecker les combos wheels
- * 	les touches combos et leur flag semblent pas marcher 
+ * Space pour pause ne marche plus
  *
  * 1 : gestion d'erreurs
  *  - coordonnees rondes renvoient une erreur ? 0.4 0
