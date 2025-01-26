@@ -61,8 +61,8 @@
 # define MOUSE_R 3
 
 // Window datas // mettre une seule variable
-# define WINSIZE_X 1000
-# define WINSIZE_Y 1000
+# define WINSIZE_X 800
+# define WINSIZE_Y 800
 
 // A virer en fonction de comment on gere les couleurs
 # define PALETTE_SIZE 20
@@ -158,9 +158,9 @@ typedef struct s_fractal
 	int					zooming_out;
 	int					zooming_out_x;
 	int					zooming_out_y;
-	int					bind_combo;
-	int					bind_combo_z;
-	int					bind_combo_t;
+	int					bind_combo_shift;
+	int					bind_combo_ctrl_l;
+	int					bind_combo_alt_l;
 	long double			tmp_shift_x;
 	long double			tmp_shift_y;
 	long double			tmp_zoom;

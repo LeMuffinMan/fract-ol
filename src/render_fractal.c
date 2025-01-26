@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/23 17:53:56 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/26 22:18:07 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	debug(t_fractal *f)
 	#include <stdio.h>
 	printf("======================================\n");
 	printf("boucle t = %f\nj_x = %Lf\nj_y = %Lf\n", f->t, f->j_x, f->j_y);
-	printf("f->zoom = %.20Lf\n", f->zoom);
 	printf("shift_x = %.20Lf\n", f->shift_x);
 	printf("shift_y = %.20Lf\n", f->shift_y);
 	printf("a.x = %Lf\n", f->a.x);
@@ -62,8 +61,15 @@ void	debug(t_fractal *f)
 	printf("o.x = %Lf\n", f->o.x);
 	printf("o.y = %Lf\n", f->o.y);
 	printf("multibrot power %f\n", f->power);
-	printf("max_iterations = %Lf\n", f->max_iterations);
-}
+	printf("--------------------------------------\n");
+	printf("max_iterations = %Lf\n", f->max_iterations); //pour les iterations
+	printf("f->tc = %f\n", f->tc); //pour l'anim
+	printf("speed_factor = %f\n", f->speed_factor); // pour le zoom
+	printf("--------------------------------------\n");
+	printf("f->zoom = %.20Lf\n", f->zoom);
+	printf("f->zooming_in = %.d\n", f->zooming_in);
+	printf("f->zooming_out = %.d\n", f->zooming_out);
+	}
 
 void	iterate_on_pixels(t_fractal *f)
 {

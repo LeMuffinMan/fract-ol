@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:40:50 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/23 17:40:53 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/26 22:22:18 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ void init_flag(t_fractal *f)
 	f->traveling = 0;
 	f->origin = 0;
 	f->psychedelic_colors = 0;
-	f->bind_combo = 0;
-	f->bind_combo_z = 0;
-	f->bind_combo_t = 0;
+	f->bind_combo_shift = 0;
+	f->bind_combo_alt_l = 0;
+	f->bind_combo_ctrl_l = 0;
 	f->red_toggle = 1;
 	f->green_toggle = 1;
 	f->blue_toggle = 1;

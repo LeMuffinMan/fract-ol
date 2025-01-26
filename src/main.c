@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/23 18:30:21 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/26 22:36:34 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,10 @@
  *
  * remettre en double pour moins de lag ?
  *
- * rechecker les combos wheels
+ * passer en animated zoom depuis le pshce mode passe la palette a rouge direct ?
  *
- * mode psyche marche pas en zoom et en anim ?
- *  - revoir tout le mode psyche avec le scaling
- *  - supprimer le psyche switch et tous les modify_color
+ * rechecker les combos wheels
+ * 	les touches combos et leur flag semblent pas marcher 
  *
  * 1 : gestion d'erreurs
  *  - coordonnees rondes renvoient une erreur ? 0.4 0

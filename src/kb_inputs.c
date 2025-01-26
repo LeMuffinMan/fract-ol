@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:53:43 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/23 17:53:45 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/26 22:35:39 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	arrows(int key, t_fractal *f)
 		f->shift_x -= (0.2 * f->zoom);
 	else if (key == DOWN)
 	{
-		if (f->bind_combo == 1)
+		if (f->bind_combo_shift == 1)
 			f->zoom *= 0.7;
 		else
 			f->shift_y -= (0.2 * f->zoom);
 	}
 	else if (key == UP)
 	{
-		if (f->bind_combo == 1)
+		if (f->bind_combo_shift == 1)
 			f->zoom *= 1.3;
 		else
 			f->shift_y += (0.2 * f->zoom);
@@ -41,24 +41,26 @@ int	pav_num_enter(int key, t_fractal *f)
 {
 	if (key == NUM_ENTER)
 	{
-		if (f->bind_combo == 1)
+		if (f->bind_combo_shift == 1)
 		{
 			f->max_iterations = 20;
 			f->switch_iterations = 20; // a virer du coup ?
 		}
 		else
 			f->max_iterations = f->switch_iterations; // revoir le nom
-		/* printf("max_iterations = %f\n", f->max_iterations); */
+														/* printf("max_iterations =
+															%f\n",
+															f->max_iterations); */
 	}
 	return (key);
 }
 
 int	pav_num_operators(int key, t_fractal *f)
 {
-	if (key == PLUS && f->bind_combo == 0 && f->bind_combo_t == 0)
+	if (key == PLUS && f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0)
 		f->switch_iterations += 1;
-	else if (key == MINUS && f->switch_iterations > 1 && f->bind_combo == 0
-		&& f->bind_combo_t == 0)
+	else if (key == MINUS && f->switch_iterations > 1
+		&& f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0)
 		f->switch_iterations -= 1;
 	pav_num_enter(key, f);
 	return (key);
@@ -92,7 +94,7 @@ void	color_shift(int key, t_fractal *f) // renommer
 	{
 		if (f->psychedelic_colors == 1)
 			f->palette.n = 0;
-		else 
+		else
 		{
 			if (f->red_toggle == 0)
 				f->red_toggle = 1;
@@ -100,7 +102,7 @@ void	color_shift(int key, t_fractal *f) // renommer
 				f->red_toggle = 0;
 		}
 	}
-	else if (key == G)
+	else if (key == B)
 	{
 		if (f->psychedelic_colors == 1)
 			f->palette.n = 2;
@@ -112,7 +114,7 @@ void	color_shift(int key, t_fractal *f) // renommer
 				f->green_toggle = 0;
 		}
 	}
-	else if (key == B)
+	else if (key == G)
 	{
 		if (f->psychedelic_colors == 1)
 			f->palette.n = 1;
@@ -135,9 +137,10 @@ void	color_shift(int key, t_fractal *f) // renommer
 
 void	multibrot_power_switch(int key, t_fractal *f)
 {
-	if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7)) /* key 61 = "=" */
+	if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7))
+		/* key 61 = "=" */
 	{
-		if (f->bind_combo == 1)
+		if (f->bind_combo_shift == 1)
 			f->power += 0.1;
 		else
 			f->power++;
@@ -149,9 +152,9 @@ void	multibrot_power_switch(int key, t_fractal *f)
 			f->fractal_number = 1;
 		else
 			f->fractal_number = 7;
-		if (f->bind_combo == 1)
+		if (f->bind_combo_shift == 1)
 			f->power -= 0.1;
-		else 
+		else
 			f->power--;
 	}
 }
@@ -186,7 +189,6 @@ void	julia_moves(int key, t_fractal *f)
 		f->j_y += 1 * f->tmp_zoom / 1000;
 	else if (key == 65432) // pav num 6
 		f->j_y -= 1 * f->tmp_zoom / 1000;
-
 }
 
 void	set_origin(t_fractal *f)
@@ -200,7 +202,6 @@ void	set_arrival(t_fractal *f)
 {
 	f->a.x = f->j_x;
 	f->a.y = f->j_y;
-
 	f->origin = 0;
 	f->d.x = f->a.x - f->o.x;
 	f->d.y = f->a.y - f->o.y;
@@ -219,9 +220,9 @@ void	set_arrival(t_fractal *f)
 // 97 == a
 void	julia_constant_selector(int key, t_fractal *f)
 {
-	if (key == 97 && f->bind_combo == 1)
+	if (key == 97 && f->bind_combo_shift == 1)
 		f->origin = 0;
-	if (key == 97 && f->bind_combo == 0)
+	if (key == 97 && f->bind_combo_shift == 0)
 	{
 		if (f->origin == 0)
 			set_origin(f);
@@ -234,24 +235,42 @@ void	combo_keys(int key, t_fractal *f)
 {
 	if (key == SHIFT)
 	{
-		if (f->bind_combo == 0)
-			f->bind_combo = 1;
-		else
-			f->bind_combo = 0;
+		if (f->bind_combo_shift == 0)
+		{
+			f->bind_combo_shift = 1;
+			/* printf("SHIFT FLAG = %d\n", f->bind_combo_shift); */
+		}
+		else if (f->bind_combo_shift == 1)
+		{
+			f->bind_combo_shift = 0;
+			/* printf("SHIFT FLAG = %d\n", f->bind_combo_shift); */
+		}
 	}
-	if (key == CTRL_L) // ctrl L ?
+	if (key == ALT_L) // ctrl L ?
 	{
-		if (f->bind_combo_z == 0)
-			f->bind_combo_z = 1;
-		else
-			f->bind_combo_z = 0;
+		if (f->bind_combo_alt_l == 0)
+		{
+			f->bind_combo_alt_l = 1;
+			/* printf("ALT FLAG = %d\n", f->bind_combo_alt_l); */
+		}
+		else if (f->bind_combo_alt_l == 1)
+		{
+			f->bind_combo_alt_l = 0;
+			/* printf("ALT FLAG = %d\n", f->bind_combo_alt_l); */
+		}
 	}
-	if (key == ALT_L) // alt_l // le color shift marche plus ?
+	if (key == CTRL_L) // alt_l // le color shift marche plus ?
 	{
-		if (f->bind_combo_t == 0)
-			f->bind_combo_t = 1;
-		else
-			f->bind_combo_t = 0;
+		if (f->bind_combo_ctrl_l == 0)
+		{
+			f->bind_combo_ctrl_l = 1;
+			/* printf("CTRL FLAG = %d\n", f->bind_combo_ctrl_l); */
+		}
+		else if (f->bind_combo_ctrl_l == 1)
+		{
+			f->bind_combo_ctrl_l = 0;
+			/* printf("CTRL FLAG = %d\n", f->bind_combo_ctrl_l); */
+		}
 	}
 }
 
@@ -292,9 +311,9 @@ void	space_pause(int key, t_fractal *f)
 
 void	animation_speed_keys(int key, t_fractal *f)
 {
-	if (key == PLUS && f->bind_combo_t == 1)
+	if (key == PLUS && f->bind_combo_ctrl_l == 1)
 		f->tc *= 2;
-	if (key == MINUS && f->bind_combo_t == 1)
+	if (key == MINUS && f->bind_combo_ctrl_l == 1)
 		f->tc /= 2;
 }
 
@@ -302,11 +321,20 @@ void	animation_speed_keys(int key, t_fractal *f)
 int	shift_toggle(int key, t_fractal *f)
 {
 	if (key == SHIFT)
-		f->bind_combo = 0;
+	{
+		f->bind_combo_shift = 0;
+		/* printf("SHIFT FLAG = %d\n", f->bind_combo_shift); */
+	}
 	else if (key == CTRL_L) // ctrl_L
-		f->bind_combo_z = 0;
+	{
+		f->bind_combo_ctrl_l = 0;
+		/* printf("CTRL_L FLAG = %d\n", f->bind_combo_ctrl_l); */
+	}
 	else if (key == ALT_L) // alt_l
-		f->bind_combo_t = 0;
+	{
+		f->bind_combo_alt_l = 0;
+		/* printf("ALT_L FLAG = %d\n", f->bind_combo_alt_l); */
+	}
 	return (0);
 }
 
@@ -316,9 +344,9 @@ int	kb_inputs(int key, t_fractal *f)
 	/* printf("key = %d\n", key); */
 	if (key == WIN_X || key == ESC)
 		quit(f);
+	combo_keys(key, f);
 	arrows(key, f);
 	pav_num_operators(key, f);
-	combo_keys(key, f);
 	psyche_switch(key, f);
 	debug_switch(key, f);
 	num_fractal_switch(key, f);

@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:39:54 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/23 18:30:27 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/26 22:37:19 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,63 +68,56 @@ void	wheel_set_arrival(t_fractal *f)
 // erwan : comment scaler sur la dif entre le zoom actuel et le zoom de fin ?
 void	dynamic_iterations(t_fractal *f)
 {
-	if (f->zooming_in == 1)
+	if (f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0
+		&& f->bind_combo_alt_l == 0)
 	{
-		if (f->max_iterations < MAX_I)
-			f->max_iterations += scale(f->max_iterations, 1.0, LDMIN, MIN_I,
-					MAX_I) * 0.5;
-		/* printf("max_iterations = %f\n", f->max_iterations); */
+		if (f->zooming_in == 1)
+		{
+			if (f->max_iterations < MAX_I)
+				f->max_iterations += scale(f->max_iterations, 1.0, LDMIN, MIN_I,
+						MAX_I) * 0.5;
+			/* printf("max_iterations = %f\n", f->max_iterations); */
+		}
+		else if (f->zooming_out == 1)
+		{
+			if (f->max_iterations > MIN_I)
+				f->max_iterations -= scale(f->max_iterations, 1.0, LDMIN, MIN_I,
+						MAX_I) * 0.5;
+			/* 	printf("max_iterations = %f\n", f->max_iterations); */
+		}
+		/* double	zoom; */
+		/**/
+		/* zoom = f->zoom; */
+		/* if (f->zooming_in == 1) */
+		/* { */
+		/* 	while (zoom * 10 < 10 && f->max_iterations < 250) */
+		/* 	{ */
+		/* 		f->max_iterations *= 1.005; */
+		/* 		printf("iterupadte = %f\n", f->max_iterations); */
+		/* 		zoom *= 10; */
+		/* 	} */
+		/* } */
+		/* else if (f->zooming_out == 1) */
+		/* { */
+		/* 	while (zoom * 10 < 10 && f->max_iterations > 42) */
+		/* 	{ */
+		/* 		f->max_iterations *= 0.995; */
+		/* 		printf("iterupadte = %f\n", f->max_iterations); */
+		/* 		zoom *= 10; */
+		/* 	} */
+		/* } */
 	}
-	else if (f->zooming_out == 1)
-	{
-		if (f->max_iterations > MIN_I)
-			f->max_iterations -= scale(f->max_iterations, 1.0, LDMIN, MIN_I, MAX_I) * 0.5;
-		/* 	printf("max_iterations = %f\n", f->max_iterations); */
-	}
-	/* double	zoom; */
-	/**/
-	/* zoom = f->zoom; */
-	/* if (f->zooming_in == 1) */
-	/* { */
-	/* 	while (zoom * 10 < 10 && f->max_iterations < 250) */
-	/* 	{ */
-	/* 		f->max_iterations *= 1.005; */
-	/* 		printf("iterupadte = %f\n", f->max_iterations); */
-	/* 		zoom *= 10; */
-	/* 	} */
-	/* } */
-	/* else if (f->zooming_out == 1) */
-	/* { */
-	/* 	while (zoom * 10 < 10 && f->max_iterations > 42) */
-	/* 	{ */
-	/* 		f->max_iterations *= 0.995; */
-	/* 		printf("iterupadte = %f\n", f->max_iterations); */
-	/* 		zoom *= 10; */
-	/* 	} */
-	/* } */
 }
 
+//integrer dynamic iterations dans le zoom normal ?
 void	wheel_zoom_out(int key, int x, int y, t_fractal *f)
 {
-	if (key == MOUSE_WHEEL_DOWN) // zoom out
+	if (key == MOUSE_WHEEL_DOWN && f->bind_combo_ctrl_l == 0
+		&& f->bind_combo_alt_l == 0 && f->bind_combo_shift == 0)
 	{
-		if (f->bind_combo == 1) // shift pour les iterations
-		{
-			if (f->max_iterations > 10)
-				f->max_iterations--;
-		}
-		else if (f->bind_combo_z == 1 && f->speed_factor > 0.001)
-			f->speed_factor *= 0.9;
-		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
-			&& f->bind_combo == 0)
-		{
-			f->zoom *= 1.1;
-			f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
-			f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
-		}
-		f->zooming_out = 1;
-		dynamic_iterations(f);
-		f->zooming_out = 0;
+		f->zoom *= 1.1;
+		f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
+		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 	}
 }
 
@@ -134,30 +127,15 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 	double	relative_x;
 	double	relative_y;
 
-	if (key == MOUSE_WHEEL_UP) // zoom normal
+	if (key == MOUSE_WHEEL_UP && f->bind_combo_shift == 0
+		&& f->bind_combo_ctrl_l == 0 && f->bind_combo_alt_l == 0) // zoom normal
 	{
-		if (f->bind_combo == 1) // shift pour les iterations
-			f->max_iterations++;
-		else if (f->bind_combo_z == 1 && f->speed_factor < 0.1)
-			f->speed_factor *= 1.1;
-		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
-			&& f->bind_combo == 0)
-		{
-			old_zoom = f->zoom;
-			f->zoom *= 0.9;
-			relative_x = (x - WINSIZE_X / 2.0) * f->zoom / 1000;
-			relative_y = (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
-			f->shift_x += relative_x;
-			f->shift_y -= relative_y;
-		}
-		/* { */
-		/* 	f->zoom *= 0.9; */
-		/* 	f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 1000; */
-		/* 	f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 1000; */
-		/* } */
-		f->zooming_in = 1;
-		dynamic_iterations(f);
-		f->zooming_in = 0;
+		old_zoom = f->zoom;
+		f->zoom *= 0.9;
+		relative_x = (x - WINSIZE_X / 2.0) * f->zoom / 1000;
+		relative_y = (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
+		f->shift_x += relative_x;
+		f->shift_y -= relative_y;
 	}
 }
 
@@ -167,10 +145,46 @@ void	wheel_zoom(int key, int x, int y, t_fractal *f)
 	wheel_zoom_in(key, x, y, f);
 }
 
+void	wheel_combo(int key, t_fractal *f)
+{
+	if (key == MOUSE_WHEEL_UP)
+	{
+		if (f->bind_combo_shift == 1 
+			&& f->bind_combo_ctrl_l == 0
+			&& f->bind_combo_alt_l == 0
+			&& f->max_iterations < MAX_I) // shift pour les iterations
+			f->max_iterations++;
+		else if (f->bind_combo_alt_l == 1 && f->bind_combo_ctrl_l == 0
+			&& f->bind_combo_shift == 0 && f->speed_factor < 0.1)
+			f->speed_factor *= 1.2; // du zoom
+		else if (f->bind_combo_ctrl_l == 1 && f->bind_combo_alt_l == 0
+			&& f->bind_combo_shift == 0
+			&& f->tc < 1)
+			f->tc *= 1.1;
+	}
+	else if (key == MOUSE_WHEEL_DOWN)
+	{
+		if (f->bind_combo_shift == 1 
+			&& f->bind_combo_alt_l == 0
+			&& f->bind_combo_ctrl_l == 0 // shift pour les iterations
+			&& f->max_iterations > 10)
+			f->max_iterations--;
+		else if (f->bind_combo_alt_l == 1 && f->bind_combo_shift == 0
+			&& f->bind_combo_ctrl_l == 0 && f->speed_factor > 0.001)
+			f->speed_factor *= 0.8; // du zoom
+		else if (f->bind_combo_ctrl_l == 1 && f->bind_combo_alt_l == 0
+			&& f->bind_combo_shift == 0 && f->tc > 0.00001)
+			f->tc *= 0.9;
+	}
+}
+
 void	wheel(int key, int x, int y, t_fractal *f)
 {
+	// wheel vitesse zoom
+	// wheel vitesse animation
+	wheel_combo(key, f);
 	wheel_zoom(key, x, y, f);
-	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 0) // reset zoom
+	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0) // reset zoom
 	{
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
@@ -179,7 +193,7 @@ void	wheel(int key, int x, int y, t_fractal *f)
 		f->zooming_out = 0;
 		f->max_iterations = MIN_I; // ca ne marche pas ?
 	}
-	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 1) // set travel
+	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 1) // set travel
 	{
 		if (f->origin == 0)
 			wheel_set_origin(f);
@@ -190,19 +204,19 @@ void	wheel(int key, int x, int y, t_fractal *f)
 
 void	switch_palette(int key, t_fractal *f)
 {
-	if (key == MOUSE_L && f->bind_combo_t == 1)
+	if (key == MOUSE_L && f->bind_combo_alt_l == 1)
 	{
 		if (f->palette.n == 2)
 			f->palette.n = 0;
 		else if (f->palette.n < 2)
 		{
-			if ( f->palette.n == 2)
+			if (f->palette.n == 2)
 				f->palette.n = 0;
-			else 
+			else
 				f->palette.n++;
 		}
 	}
-	else if (key == MOUSE_R && f->bind_combo_t == 1)
+	else if (key == MOUSE_R && f->bind_combo_alt_l == 1)
 	{
 		if (f->palette.n == 0)
 			f->palette.n = 2;
@@ -220,8 +234,8 @@ void	switch_palette(int key, t_fractal *f)
 // generer burningship au cub ? tricron multi ?
 void	clicks_combo(int key, t_fractal *f)
 {
-	if (key == MOUSE_L && f->bind_combo == 1 && f->bind_combo_z == 0
-		&& f->bind_combo_t == 0)
+	if (key == MOUSE_L && f->bind_combo_shift == 1 && f->bind_combo_alt_l == 0
+		&& f->bind_combo_ctrl_l == 0)
 	{
 		if (f->fractal_number < 4 || f->fractal_number == 7)
 		{
@@ -246,21 +260,21 @@ void	clicks_combo(int key, t_fractal *f)
 
 void	clicks(int key, int x, int y, t_fractal *f)
 {
-	if (key == MOUSE_R && f->bind_combo == 0 && f->bind_combo_z == 0
-		&& f->bind_combo_t == 0)
+	clicks_combo(key, f);
+	if (key == MOUSE_R && f->bind_combo_shift == 0 && f->bind_combo_alt_l == 0
+		&& f->bind_combo_ctrl_l == 0)
 	{
 		f->zoom *= 1.2;
 		f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 100;
 		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
-	else if (key == MOUSE_L && f->bind_combo == 0 && f->bind_combo_z == 0
-		&& f->bind_combo_t == 0) // alt l
+	else if (key == MOUSE_L && f->bind_combo_shift == 0
+		&& f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0) // alt l
 	{
 		f->zoom *= 0.8;
 		f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 100;
 		f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
-	clicks_combo(key, f);
 }
 
 // diviser ou virer les *= 0.99
@@ -278,7 +292,7 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 			f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 			f->shift_x *= 0.99; // ralentir ou accélérer le recentrage
 			f->shift_y *= 0.99;
-			if (f->zoom > 0.99999) // revoir ca
+			if (f->zoom > 0.9) // revoir ca
 			{
 				f->zoom = 1;
 				f->shift_x = 0.0;
@@ -306,7 +320,8 @@ void	animated_zoom_in(t_fractal *f)
 
 void	animated_zoom(int key, int x, int y, t_fractal *f)
 {
-	if (key == MOUSE_R && f->bind_combo_z == 1)
+	if (key == MOUSE_R && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 1
+		&& f->bind_combo_shift == 0)
 	{
 		if (f->zooming_out == 0)
 		{
@@ -320,7 +335,8 @@ void	animated_zoom(int key, int x, int y, t_fractal *f)
 		else
 			f->zooming_out = 0;
 	}
-	else if (key == MOUSE_L && f->bind_combo_z == 1)
+	else if (key == MOUSE_L && f->bind_combo_ctrl_l == 1
+		&& f->bind_combo_alt_l == 0 && f->bind_combo_shift == 0)
 	{
 		if (f->zooming_in == 0)
 		{
@@ -331,8 +347,6 @@ void	animated_zoom(int key, int x, int y, t_fractal *f)
 			f->zooming_in = 0;
 	}
 }
-
-
 
 // a redeclarer correctement et a renommer
 int	travel_update(void *param)
