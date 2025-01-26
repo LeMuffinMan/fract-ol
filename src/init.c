@@ -50,6 +50,8 @@ void init_flag(t_fractal *f)
 {
 	f->zooming_out = 0;
 	f->zooming_in = 0;
+	f->zooming_out_start = 0;
+	f->zooming_in_start = 0;
 	f->psyche_switch = 0;
 	f->debug = 0;
 	f->traveling = 0;
@@ -66,7 +68,7 @@ void init_flag(t_fractal *f)
 void init_index(t_fractal *f)
 {
 	f->fractal_number = 0;
-	f->palette_n = 0;
+	f->palette.n = 0;
 }
 
 void init_switch(t_fractal *f)
@@ -88,6 +90,16 @@ void init_coords(t_fractal *f)
 	f->j_y = 0;
 	f->mouse_x = 0;
 	f->mouse_y = 0;
+	f->z.x = 0;
+	f->z.y = 0;
+	f->c.x = 0;
+	f->c.y = 0;
+	f->o.x = 0;
+	f->o.y = 0;
+	f->a.x = 0;
+	f->a.y = 0;
+	f->d.x = 0;
+	f->d.y = 0;
 }
 // revoir apres avoir ranger le .h
 int	init_fractal(t_fractal *f)
@@ -101,6 +113,7 @@ int	init_fractal(t_fractal *f)
 	init_coords(f);
 	f->t = 0;
 	f->tc = 0.01;
+	f->mu = 0;
 	return (0);
 }
 

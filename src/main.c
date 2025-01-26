@@ -64,16 +64,18 @@
  *
  * 	Pierre leaks finding :
  * 		des variable non init
- * 		smooth color : invalid read of size
- * 		traveling : non init
- * 		pav num operator non init
  * 		kb input : non init pour un raccourci
+ * 			faire le menage dans tous les raccourcis
  *
- * moduler la vitesse du zoom :
- * 	- revoir fin du zoom out ?
+ * le zoom sous la souris merde avec un zoom eleve
+ *
+ * remettre en double pour moins de lag ?
+ *
+ * rechecker les combos wheels
  *
  * mode psyche marche pas en zoom et en anim ?
  *  - revoir tout le mode psyche avec le scaling
+ *  - supprimer le psyche switch et tous les modify_color
  *
  * 1 : gestion d'erreurs
  *  - coordonnees rondes renvoient une erreur ? 0.4 0

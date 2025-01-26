@@ -95,10 +95,7 @@ void	color_shift(int key, t_fractal *f) // renommer
 	if (key == R)
 	{
 		if (f->psychedelic_colors == 1)
-		{
-			f->modify_color = 0;
-			f->palette_n = 0;
-		}
+			f->palette.n = 0;
 		else 
 		{
 			if (f->red_toggle == 0)
@@ -110,10 +107,7 @@ void	color_shift(int key, t_fractal *f) // renommer
 	else if (key == G)
 	{
 		if (f->psychedelic_colors == 1)
-		{
-			f->modify_color = 0;
-			f->palette_n = 2;
-		}
+			f->palette.n = 2;
 		else
 		{
 			if (f->green_toggle == 0)
@@ -125,10 +119,7 @@ void	color_shift(int key, t_fractal *f) // renommer
 	else if (key == B)
 	{
 		if (f->psychedelic_colors == 1)
-		{
-			f->modify_color = 0;
-			f->palette_n = 1;
-		}
+			f->palette.n = 1;
 		else
 		{
 			if (f->blue_toggle == 0)

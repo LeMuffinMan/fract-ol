@@ -14,13 +14,14 @@
 # define FRACTOL_H
 
 # include "../minilibx-linux/mlx.h"
+# include <float.h>
 
-//a virer 
+// a virer
 # define pi 3.141592653589793
-# define LDMIN 0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+# define LDMIN LDBL_MIN 
+// mettre float.h pour mettre la limite des l double ?
 
-
-//a implementer
+// a implementer
 # define MAX_I 100
 # define MIN_I 20
 
@@ -53,7 +54,7 @@
 // define les switch de fractales
 
 // Mouse inputs
-# define MOUSE_WHEEL_UP 4 // zoom in
+# define MOUSE_WHEEL_UP 4   // zoom in
 # define MOUSE_WHEEL_DOWN 5 // zoom out
 # define MOUSE_WHEEL_CLICK 2
 # define MOUSE_L 1
@@ -64,6 +65,7 @@
 # define WINSIZE_Y 500
 
 // A virer en fonction de comment on gere les couleurs
+# define PALETTE_SIZE 20
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
 
@@ -109,61 +111,70 @@ typedef struct s_mlx
 	void				*mlx;
 	void				*win;
 	t_img				img;
-} t_mlx;
+}						t_mlx;
 
-//longueur max ?
-//si non : diviser logiquement
+typedef struct s_palette
+{
+	int					n;
+	int					palette_R[20];
+	int					palette_G[20];
+	int					palette_B[20];
+	int					palettes[3][20];
+}						t_palette;
+
+// longueur max ?
+// si non : diviser logiquement
 typedef struct s_fractal
 {
-	t_mlx 				mlx;
-	int						fractal_number;
+	t_mlx				mlx;
+	int					fractal_number;
 	double				escape_value;
-	double				max_iterations;
-	int						switch_iterations;
-	long double				shift_x;
-	long double				shift_y;
-	long double				j_x;
-	long double				j_y;
-	long double				mouse_x;
-	long double				mouse_y;
-	long double				mu;
-	double				power; //essayer des floats power
-	int						origin;
+	long double				max_iterations;
+	int					switch_iterations;
+	long double			shift_x;
+	long double			shift_y;
+	long double			j_x;
+	long double			j_y;
+	long double			mouse_x;
+	long double			mouse_y;
+	long double			mu;
+	double power; // essayer des floats power
+	int					origin;
 	t_complex			z;
 	t_complex			c;
 	t_complex			o;
 	t_complex			a;
 	t_complex			d;
-	double 				t;
-	double 				tc;
-	int 					debug;
-	int 					traveling;
-	long double				zoom;
-	double 				speed_factor;
-	long double 				zooming_out_start;
-	long double 				max_iterations_start;
-	int 					zooming_in;
-	int 					zooming_out;
-	int 					zooming_out_x;
-	int 					zooming_out_y;
-	int						bind_combo;
-	int 					bind_combo_z;
-	int         	bind_combo_t;
-	long double				tmp_shift_x;
-	long double				tmp_shift_y;
-	long double				tmp_zoom;
-	int						tmp_fractal_number;
+	double				t;
+	double				tc;
+	int					debug;
+	int					traveling;
+	long double			zoom;
+	double				speed_factor;
+	long double			zooming_out_start;
+	long double			zooming_in_start;
+	long double			max_iterations_start;
+	int					zooming_in;
+	int					zooming_out;
+	int					zooming_out_x;
+	int					zooming_out_y;
+	int					bind_combo;
+	int					bind_combo_z;
+	int					bind_combo_t;
+	long double			tmp_shift_x;
+	long double			tmp_shift_y;
+	long double			tmp_zoom;
+	int					tmp_fractal_number;
 	double				modify_color;
-	int						palette_n;
-	int						psychedelic_colors;
-	int 					psyche_switch;
-	int 					red_toggle;
-	int 					green_toggle;
-	int 					blue_toggle;
-
+	int					psychedelic_colors;
+	int					psyche_switch;
+	int					red_toggle;
+	int					green_toggle;
+	int					blue_toggle;
+	t_palette			palette;
 }						t_fractal;
 
-typedef union u_color 
+typedef union u_color
 {
 	unsigned int color; // type de 32b
 	struct
@@ -182,8 +193,7 @@ int						quit(t_fractal *f);
 
 // color.c
 int						generate_smooth_color(int iteration, double mu,
-							int max_iterations, int color_modify,
-							int palette_n);
+							int max_iterations, t_palette *palette);
 void					colorize_pixel(int x, int y, t_img *img, int color);
 
 // render_fractal.c
@@ -197,7 +207,7 @@ double					scale(double unscaled_num, double new_min,
 int						mouse_inputs(int key, int x, int y, t_fractal *f);
 int						kb_inputs(int key, t_fractal *f);
 int						shift_toggle(int key, t_fractal *f);
-int 					travel_update(void *param);
+int						travel_update(void *param);
 
 // init.c
 int						init_win(t_fractal *f);
@@ -221,7 +231,7 @@ int						skip_spaces(char *s, int *sign, int *max_digits);
 
 // mouse_inputs.c
 int						julia_dynamic(int x, int y, t_fractal *f);
-void	travel_between_fractals(t_fractal *f);
+void					travel_between_fractals(t_fractal *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);

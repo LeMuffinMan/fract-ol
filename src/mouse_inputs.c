@@ -78,9 +78,7 @@ void	dynamic_iterations(t_fractal *f)
 	else if (f->zooming_out == 1)
 	{
 		if (f->max_iterations > MIN_I)
-			f->max_iterations -= (1 - scale(f->max_iterations, 1.0,
-						f->zooming_out_start, MIN_I, f->max_iterations_start))
-				* 0.5;
+			f->max_iterations -= scale(f->max_iterations, 1.0, LDMIN, MIN_I, MAX_I) * 0.5;
 		/* 	printf("max_iterations = %f\n", f->max_iterations); */
 	}
 	/* double	zoom; */
@@ -139,6 +137,7 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 	double	relative_y;
 	double	scaled_x;
 	double	scaled_y;
+	double 	zoom_factor;
 
 	if (key == MOUSE_WHEEL_UP) // zoom normal
 	{
@@ -155,10 +154,12 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 			f->zoom *= 0.9;
 			relative_x = (x - WINSIZE_X / 2.0);
 			relative_y = (y - WINSIZE_Y / 2.0);
-			scaled_x = scale(relative_x, -f->zoom, f->zoom, -old_zoom, old_zoom)
-				/ 1000;
-			scaled_y = scale(relative_y, -f->zoom, f->zoom, -old_zoom, old_zoom)
-				/ 1000;
+			if (f->zoom < 0.1)
+      	zoom_factor = 1000;
+      else
+        zoom_factor = 1000 * (1 / f->zoom);
+			scaled_x = scale(relative_x, -f->zoom, f->zoom, -old_zoom, old_zoom) / zoom_factor;
+			scaled_y = scale(relative_y, -f->zoom, f->zoom, -old_zoom, old_zoom) / zoom_factor;
 			f->shift_x += scaled_x;
 			f->shift_y -= scaled_y;
 		}
@@ -204,19 +205,27 @@ void	switch_palette(int key, t_fractal *f)
 {
 	if (key == MOUSE_L && f->bind_combo_t == 1)
 	{
-		if (f->palette_n == 2)
-			f->palette_n = 0;
-		else if (f->palette_n < 2)
-			f->palette_n++;
-		f->modify_color = 0;
+		if (f->palette.n == 2)
+			f->palette.n = 0;
+		else if (f->palette.n < 2)
+		{
+			if ( f->palette.n == 2)
+				f->palette.n = 0;
+			else 
+				f->palette.n++;
+		}
 	}
 	else if (key == MOUSE_R && f->bind_combo_t == 1)
 	{
-		if (f->palette_n == 0)
-			f->palette_n = 2;
-		else if (f->palette_n > 0)
-			f->palette_n--;
-		f->modify_color = 0;
+		if (f->palette.n == 0)
+			f->palette.n = 2;
+		else if (f->palette.n > 0)
+		{
+			if (f->palette.n == 0)
+				f->palette.n = 2;
+			else
+				f->palette.n--;
+		}
 	}
 }
 
@@ -282,7 +291,7 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 			f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 			f->shift_x *= 0.99; // ralentir ou accélérer le recentrage
 			f->shift_y *= 0.99;
-			if (f->zoom > 0.7) // revoir ca
+			if (f->zoom > 0.99999) // revoir ca
 			{
 				f->zoom = 1;
 				f->shift_x = 0.0;

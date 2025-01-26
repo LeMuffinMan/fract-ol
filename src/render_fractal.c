@@ -55,12 +55,14 @@ void	debug(t_fractal *f)
 	printf("======================================\n");
 	printf("boucle t = %f\nj_x = %Lf\nj_y = %Lf\n", f->t, f->j_x, f->j_y);
 	printf("f->zoom = %.20Lf\n", f->zoom);
+	printf("shift_x = %.20Lf\n", f->shift_x);
+	printf("shift_y = %.20Lf\n", f->shift_y);
 	printf("a.x = %Lf\n", f->a.x);
 	printf("a.y = %Lf\n", f->a.y);
 	printf("o.x = %Lf\n", f->o.x);
 	printf("o.y = %Lf\n", f->o.y);
 	printf("multibrot power %f\n", f->power);
-	printf("max_iterations = %f\n", f->max_iterations);
+	printf("max_iterations = %Lf\n", f->max_iterations);
 }
 
 void	iterate_on_pixels(t_fractal *f)
@@ -113,27 +115,27 @@ void	render_fractal(int x, int y, t_fractal *f)
 {
 	int	i;
 	int	color;
+	int max_i;
 
+	max_i = (int)f->max_iterations;
 	i = 0;
-	while (i < f->max_iterations)
+	while (i < max_i)
 	{
 		calculate_f(f);
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
 			//revoir le mode psyche en entier
-			//faire des raccourcis en toggle qui active/desactive le R / G / B dans le bit shift
 			if (f->psychedelic_colors == 1)
 			{
 				f->mu = log(log(norm_complex(f->z))) / log(2); // Mu ?
-				color = generate_smooth_color(i, f->mu, f->max_iterations,
-						f->modify_color, f->palette_n);
+				color = generate_smooth_color(i, f->mu, f->max_iterations, &f->palette);
 			}
 			else
 				bit_shift_rgb(i, &color, f);
 			colorize_pixel(x, y, &f->mlx.img, color);
 			return ;
 		}
-		i++;
+		i += 1;
 	}
 	colorize_pixel(x, y, &f->mlx.img, BLACK);
 }

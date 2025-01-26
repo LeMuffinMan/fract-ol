@@ -12,6 +12,7 @@
 
 #include "../include/fractol.h"
 #include <math.h>
+#include <stdlib.h>
 
 // lire la doc pour ca !
 void	colorize_pixel(int x, int y, t_img *img, int color)
@@ -94,66 +95,59 @@ void init_palette_G(int palette_G[20])
     palette_G[19] = 0xFFFFFF; // Blanc
 }
 
-int	*palette_selector(int n)
+void palette_selector(t_palette *palette)
 {
-	int	palette_R[20];
-	int	palette_G[20];
-	int	palette_B[20];
-	int	*palettes[3];
+    int i;
 
-	init_palette_R(palette_R);
-	init_palette_B(palette_B);
-	init_palette_G(palette_G);
-	palettes[0] = palette_R;
-	palettes[1] = palette_G;
-	palettes[2] = palette_B;
-	return (palettes[n]);
+    i = 0;
+	init_palette_R(palette->palette_R);
+	init_palette_B(palette->palette_B);
+	init_palette_G(palette->palette_G);
+
+    while (i < 20)
+    {
+        palette->palettes[0][i] = palette->palette_R[i];
+        i++;
+    }
+    i = 0;
+    while (i < 20)
+    {
+        palette->palettes[1][i] = palette->palette_G[i];
+        i++;
+    }
+    i = 0;
+    while (i < 20)
+    {
+        palette->palettes[2][i] = palette->palette_B[i];
+        i++;
+    }
+    
+	/* palette->palettes[0] = palette->palette_R; */
+	/* palette->palettes[1] = palette->palette_G; */
+	/* palette->palettes[2] = palette->palette_B; */
+	/* if (palette->n >= 0 && palette->n < 3) */
+	/*     return (palette->palettes[palette->n]); */
+	/* else  */
+	/*     return (palette->palettes[0]); */
 }
 // HSL ?
-/* int	*palette_selector(int n) */
-/* { */
-/* 	int palette_R[20]; */
-/* 	int palette_G[20]; */
-/* 	int palette_B[20]; */
-/* 	int palettes[3]; */
-/**/
-/* 	palette_R = {0xFF0000, 0xFF4500, 0xFF6347, 0xFF7F00, 0xFFB300, */
-/* 		0xFFD700, 0xFFFF00, 0xEEDD82, 0xF0E68C, 0xDAA520, 0xB8860B, 0x9ACD32, */
-/* 		0xADFF2F, 0x7FFF00, 0x32CD32, 0x00FF00, 0x00FA9A, 0x20B2AA, 0x5F9EA0, */
-/* 		0x4682B4}; */
-/* 	palette_G = {0x0000FF, 0x1E90FF, 0x6495ED, 0x4169E1, 0x00008B, */
-/* 		0x0000CD, 0x4682B4, 0x5F9EA0, 0xB0C4DE, 0xADD8E6, 0x87CEFA, 0x87CEEB, */
-/* 		0x4682B4, 0x5F9EA0, 0x191970, 0x8A2BE2, 0x7B68EE, 0x6A5ACD, 0x8B008B, */
-/* 		0x9932CC}; */
-/* 	palette_B = {0x00FF00, 0x006400, 0x228B22, 0x32CD32, 0x00FF00, */
-/* 		0x7FFF00, 0x9ACD32, 0x6B8E23, 0x556B2F, 0x8FBC8F, 0x2E8B57, 0x3CB371, */
-/* 		0x20B2AA, 0xADFF2F, 0x7CFC00, 0x98FB98, 0x00FA9A, 0x00FF7F, 0x00FF00, */
-/* 		0x66CDAA}; */
-/* 	palettes[] = {palette_R, palette_G, palette_B}; */
-/**/
-/* 	if (n >= 0 && n < 3) */
-/* 		return (palettes[n]); */
-/* 	else if (n >= 3) */
-/* 		return (palettes[n % 3]); */
-/* 	return (palettes[0]); */
-/* } */
-
 // A revoir
-int	generate_smooth_color(int iteration, double mu, int max_iterations,
-		int color_modify, int palette_n)
+int	generate_smooth_color(int iteration, double mu, int max_iterations, t_palette *palette)
 {
 	double	t;
 	int		index;
-	int		*palette;
-	int		palette_size;
 
-	(void)color_modify;
-	palette = palette_selector(palette_n);
-	palette_size = 20;
-	t = (iteration + mu) / max_iterations;
-	// Fraction lissée
-	index = (int)(t * palette_size) % palette_size;
-	return (palette[index]);
+	palette_selector(palette);
+    if (palette == NULL) 
+        return (0); 
+    t = (iteration + mu) / max_iterations;
+	if (t < 0) t = 0;
+    if (t > 1) t = 1;
+	index = (int)(t * PALETTE_SIZE) % PALETTE_SIZE;
+    if (index < 0) index = 0;
+    if (index >= PALETTE_SIZE) index = PALETTE_SIZE - 1;
+
+    return (palette->palettes[palette->n][index]);
 }
 
 // david tip :
@@ -189,7 +183,7 @@ int	generate_smooth_color(int iteration, double mu, int max_iterations,
 /**/
 /* int	generate_smooth_color(int iteration, double mu, int max_iterations) */
 /* { */
-/* 	int	palette_size; */
+/* 	int	PALETTE_SIZE; */
 /* 	int	color1; */
 /* 	int	color2; */
 /* 	int palette[] = { */
@@ -202,8 +196,8 @@ int	generate_smooth_color(int iteration, double mu, int max_iterations,
 /* 			0x8B00FF  // Violet */
 /* 	}; */
 /* 	double t = (iteration + 1 - mu) / max_iterations; // Fraction lissée */
-/* 	palette_size = sizeof(palette) / sizeof(int); */
-/* 	color1 = palette[(int)(t * palette_size) % palette_size]; */
-/* 	color2 = palette[((int)(t * palette_size) + 1) % palette_size]; */
-/* 	return (interpolate_color(color1, color2, fmod(t * palette_size, 1.0))); */
+/* 	PALETTE_SIZE = sizeof(palette) / sizeof(int); */
+/* 	color1 = palette[(int)(t * PALETTE_SIZE) % PALETTE_SIZE]; */
+/* 	color2 = palette[((int)(t * PALETTE_SIZE) + 1) % PALETTE_SIZE]; */
+/* 	return (interpolate_color(color1, color2, fmod(t * PALETTE_SIZE, 1.0))); */
 /* } */
