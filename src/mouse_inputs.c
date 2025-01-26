@@ -152,10 +152,21 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
 			&& f->bind_combo == 0)
 		{
+			double old_zoom = f->zoom;
 			f->zoom *= 0.9;
-			f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 1000;
-			f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
-		}
+			printf("zoom = %f\n", f->zoom);
+      double relative_x = (x - WINSIZE_X / 2.0);
+      double relative_y = (y - WINSIZE_Y / 2.0);
+      double scaled_x = scale(relative_x, -f->zoom, f->zoom, -old_zoom, old_zoom) / 1000;
+      double scaled_y = scale(relative_y, -f->zoom, f->zoom, -old_zoom, old_zoom) / 1000;
+      f->shift_x += scaled_x;
+      f->shift_y -= scaled_y;
+  	}
+		/* { */
+		/* 	f->zoom *= 0.9; */
+		/* 	f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 1000; */
+		/* 	f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 1000; */
+		/* } */
 		f->zooming_in = 1;
 		dynamic_iterations(f);
 		f->zooming_in = 0;
@@ -275,7 +286,7 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 			f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 			f->shift_x *= 0.99; // ralentir ou accélérer le recentrage
 			f->shift_y *= 0.99;
-			if (f->zoom > 0.999) // revoir ca
+			if (f->zoom > 0.7) // revoir ca
 			{
 				f->zoom = 1;
 				f->shift_x = 0.0;

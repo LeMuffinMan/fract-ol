@@ -19,7 +19,7 @@
 # define pi 3.141592653589793
 
 //a implementer
-# define MAX_I 100
+# define MAX_I 150
 # define MIN_I 42
 
 // keyboard inputs
@@ -136,7 +136,7 @@ typedef struct s_fractal
 	double 				tc;
 	int 					debug;
 	int 					traveling;
-	double				zoom;
+	long double				zoom;
 	double 				speed_factor;
 	double 				zooming_out_start;
 	double 				max_iterations_start;
