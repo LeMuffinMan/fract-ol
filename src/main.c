@@ -71,15 +71,16 @@
  *
  * moduler la vitesse du zoom :
  * 	- revoir fin du zoom out ?
- * 	- mettre des limites a la vitesse du zoom et dezoom
  *
  * mode psyche marche pas en zoom et en anim ?
- * 	- probleme palette verte
+ * 	- probleme paltte verte
  *
  * 1 : gestion d'erreurs
+ *  - coordonnees rondes renvoient une erreur ? 0.4 0
  * 		penser aux AUTRES cas d'erreur
  *
  * 2 : revoir tout le .h
+ * 	- longueur max pour une structure ?
  *
  * 2 : ranger et subdiviser
  * 	- check_input : a normer
@@ -113,6 +114,8 @@
  * 			- hooks
  * 			- couleurs
  * 			- maths : MU !
+ * 			- bitshift union
+ * 			- sin et anim erwan
  *
  *  /// !!! VIRER NOTES.C du GIT !
  * //mettre des fonctions en static
@@ -131,15 +134,15 @@ int quit(t_fractal *f)
 {
 	if (!f)
 		exit(1);
-	if (f->img.img_p)
-		mlx_destroy_image(f->mlx, f->img.img_p);
-	if (f->win)
-		mlx_destroy_window(f->mlx, f->win);
-	if (f->mlx)
+	if (f->mlx.img.img_p)
+		mlx_destroy_image(f->mlx.mlx, f->mlx.img.img_p);
+	if (f->mlx.win)
+		mlx_destroy_window(f->mlx.mlx, f->mlx.win);
+	if (f->mlx.mlx)
 	{
-		mlx_loop_end(f->mlx); //je capte pas cette fonction
-		mlx_destroy_display(f->mlx);
-		free(f->mlx);
+		mlx_loop_end(f->mlx.mlx); //je capte pas cette fonction
+		mlx_destroy_display(f->mlx.mlx);
+		free(f->mlx.mlx);
 	}
 	exit(0); //checker la dif entre exit 1 et exit 0
 }
@@ -162,24 +165,24 @@ int main(int ac, char **av)
 {
 	t_fractal f;
 
-	init_fra(&f);
+	init_fractal(&f);
 	check_input(ac, av, &f);
 	init_win(&f);
 	iterate_on_pixels(&f);
-	mlx_hook(f.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
-	mlx_hook(f.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?
-	mlx_hook(f.win, KeyRelease, KeyReleaseMask, shift_toggle, &f);
-	mlx_mouse_hook(f.win, mouse_inputs, &f);
+	mlx_hook(f.mlx.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
+	mlx_hook(f.mlx.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?
+	mlx_hook(f.mlx.win, KeyRelease, KeyReleaseMask, shift_toggle, &f);
+	mlx_mouse_hook(f.mlx.win, mouse_inputs, &f);
 	//
 	//
 	/* mlx_mouse_hook(f.win, wheel, &f); // marche pas */
 
-	mlx_hook(f.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
+	mlx_hook(f.mlx.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
 	/* mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f); */
 
-	mlx_loop_hook(f.mlx, travel_update, &f);
+	mlx_loop_hook(f.mlx.mlx, travel_update, &f);
 
-	mlx_loop(f.mlx);
+	mlx_loop(f.mlx.mlx);
 	
 	return (0);
 }

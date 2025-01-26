@@ -15,6 +15,7 @@
 
 # include "../minilibx-linux/mlx.h"
 
+//a virer 
 # define pi 3.141592653589793
 
 // keyboard inputs
@@ -116,39 +117,33 @@ typedef struct s_complex
 // } t_tmp;
 
 // to divide : mlx win / fractal / pointofview
-typedef struct s_fractal
+typedef struct s_mlx
 {
-	int					fractal_number;
 	void				*mlx;
 	void				*win;
 	t_img				img;
+} t_mlx;
+
+//longueur max ?
+//si non : diviser logiquement
+typedef struct s_fractal
+{
+	t_mlx 				mlx;
+	int						fractal_number;
 	double				escape_value;
-	double					max_iterations;
-	int					switch_iterations;
+	double				max_iterations;
+	int						switch_iterations;
 	double				shift_x;
 	double				shift_y;
-	double				zoom;
-	double 				speed_factor;
-	double				tmp_shift_x;
-	double				tmp_shift_y;
-	double				tmp_zoom;
-	int					tmp_fractal_number;
 	double				j_x;
 	double				j_y;
 	double				mouse_x;
 	double				mouse_y;
+	double				mu;
+	double				power;
+	int						origin;
 	t_complex			z;
 	t_complex			c;
-	double				mu;
-	int					bind_combo;
-	int 				bind_combo_z;
-	int         bind_combo_t;
-	double					modify_color;
-	int					palette_n;
-	double				power;
-	int					psychedelic_colors;
-	int 				psyche_switch;
-	int					origin;
 	t_complex			o;
 	t_complex			a;
 	t_complex			d;
@@ -156,13 +151,27 @@ typedef struct s_fractal
 	double 				tc;
 	int 					debug;
 	int 					traveling;
+	double				zoom;
+	double 				speed_factor;
 	int 					zooming_in;
 	int 					zooming_out;
 	int 					zooming_out_x;
 	int 					zooming_out_y;
+	int						bind_combo;
+	int 					bind_combo_z;
+	int         	bind_combo_t;
+	double				tmp_shift_x;
+	double				tmp_shift_y;
+	double				tmp_zoom;
+	int						tmp_fractal_number;
+	double				modify_color;
+	int						palette_n;
+	int						psychedelic_colors;
+	int 					psyche_switch;
+
 }						t_fractal;
 
-typedef union u_color // permet
+typedef union u_color 
 {
 	unsigned int color; // type de 32b
 	struct
@@ -200,7 +209,7 @@ int 					travel_update(void *param);
 
 // init.c
 int						init_win(t_fractal *f);
-int						init_fra(t_fractal *f);
+int						init_fractal(t_fractal *f);
 
 // maths.c
 double					norm_complex(t_complex z);

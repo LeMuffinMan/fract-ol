@@ -66,7 +66,7 @@ void	iterate_on_pixels(t_fractal *f)
 		}
 		y++;
 	}
-	mlx_put_image_to_window(f->mlx, f->win, f->img.img_p, 0, 0);
+	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
 }
 
 void	bit_shift_rgb(int i, int *color, t_fractal *f)
@@ -102,10 +102,10 @@ void	render_fractal(int x, int y, t_fractal *f)
 			}
 			else
 				bit_shift_rgb(i, &color, f);
-			colorize_pixel(x, y, &f->img, color);
+			colorize_pixel(x, y, &f->mlx.img, color);
 			return ;
 		}
 		i++;
 	}
-	colorize_pixel(x, y, &f->img, BLACK);
+	colorize_pixel(x, y, &f->mlx.img, BLACK);
 }

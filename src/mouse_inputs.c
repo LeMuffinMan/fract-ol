@@ -86,7 +86,7 @@ void	wheel_zoom_out(int key, int x, int y, t_fractal *f)
 		}
 		else if (f->bind_combo_t == 1)
 			f->modify_color--;
-		else if (f->bind_combo_z == 1)
+		else if (f->bind_combo_z == 1 && f->speed_factor > 0.001)
 			f->speed_factor *= 0.9;
 		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
 			&& f->bind_combo == 0)
@@ -106,7 +106,7 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 			f->max_iterations++;
 		else if (f->bind_combo_t == 1)
 			f->modify_color++;
-		else if (f->bind_combo_z == 1)
+		else if (f->bind_combo_z == 1 && f->speed_factor < 0.1)
 			f->speed_factor *= 1.1;
 		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
 			&& f->bind_combo == 0)
@@ -264,7 +264,7 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 	}
 	dynamic_iterations(f);
 	iterate_on_pixels(f);
-	mlx_do_sync(f->mlx);
+	mlx_do_sync(f->mlx.mlx);
 }
 
 void	animated_zoom_in(t_fractal *f)
@@ -278,7 +278,7 @@ void	animated_zoom_in(t_fractal *f)
 			printf("f->zoom = %f\n", f->zoom);
 		dynamic_iterations(f);
 		iterate_on_pixels(f);
-		mlx_do_sync(f->mlx);
+		mlx_do_sync(f->mlx.mlx);
 	}
 }
 
@@ -341,7 +341,7 @@ void	travel_between_fractals(t_fractal *f)
 	/* if (f->psyche_switch == 1 && f->psychedelic_colors == 1) MARCHE PAS !*/
 	/* 	f->modify_color += f->t; */
 	iterate_on_pixels(f);
-	mlx_do_sync(f->mlx);
+	mlx_do_sync(f->mlx.mlx);
 }
 
 /* void  */
