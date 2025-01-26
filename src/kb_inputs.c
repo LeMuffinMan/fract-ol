@@ -314,8 +314,8 @@ void	space_pause(int key, t_fractal *f)
 			f->traveling = 0;
 		else
 			f->traveling = 1;
-		f->zooming_in = 0;
-		f->zooming_out = 0;
+		/* f->zooming_in = 0; */
+		/* f->zooming_out = 0; */
 	}
 }
 

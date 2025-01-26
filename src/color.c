@@ -22,76 +22,148 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels + offset) = color;
 }
 
-void	init_palette_R(int palette_R[20])
+/* void	init_palette_R(int palette_R[20]) */
+/* { */
+/* 	palette_R[0] = 0x000000; // Noir */
+/* 	palette_R[1] = 0x330000; // Rouge très sombre (dominance de noir) */
+/* 	palette_R[2] = 0x660000; // Rouge profond */
+/* 	palette_R[3] = 0x990000; // Rouge intense */
+/* 	palette_R[4] = 0xCC0000; // Rouge vif foncé */
+/* 	palette_R[5] = 0xFF0000; // Rouge pur */
+/* 	palette_R[6] = 0xFF4500; // Rouge orangé vif (Orange Red) */
+/* 	palette_R[7] = 0xFF6347; // Tomate */
+/* 	palette_R[8] = 0xFF7F50; // Corail */
+/* 	palette_R[9] = 0xFFA500; // Orange pur */
+/* 	palette_R[10] = 0xFFB347; // Orange clair */
+/* 	palette_R[11] = 0xFFD700; // Jaune doré */
+/* 	palette_R[12] = 0xFFA07A; // Saumon clair */
+/* 	palette_R[13] = 0xCD5C5C; // Rouge saumon foncé */
+/* 	palette_R[14] = 0x8B0000; // Rouge bordeaux foncé */
+/* 	palette_R[15] = 0x5C0000; // Rouge brunâtre très foncé */
+/* 	palette_R[16] = 0x330000; // Rouge très sombre */
+/* 	palette_R[17] = 0x220000; // Rouge noirâtre */
+/* 	palette_R[18] = 0x110000; // Rouge très sombre (presque noir) */
+/* 	palette_R[19] = 0x000000; // Noir */
+/* } */
+/**/
+/* void	init_palette_B(int palette_B[20]) */
+/* { */
+/* 	palette_B[0] = 0x000000; // Noir */
+/* 	palette_B[1] = 0x000033; // Bleu très sombre (dominance de noir) */
+/* 	palette_B[2] = 0x000066; // Bleu profond */
+/* 	palette_B[3] = 0x000099; // Bleu intense */
+/* 	palette_B[4] = 0x0000CC; // Bleu vif foncé */
+/* 	palette_B[5] = 0x0000FF; // Bleu pur */
+/* 	palette_B[6] = 0x1E90FF; // Bleu dodger (un bleu vif) */
+/* 	palette_B[7] = 0x4682B4; // Bleu acier */
+/* 	palette_B[8] = 0x5F9EA0; // Bleu grisâtre */
+/* 	palette_B[9] = 0x87CEEB; // Bleu ciel clair */
+/* 	palette_B[10] = 0x00BFFF; // Bleu profond clair (Deep Sky Blue) */
+/* 	palette_B[11] = 0xADD8E6; // Bleu clair (Light Blue) */
+/* 	palette_B[12] = 0xB0E0E6; // Bleu pâle (Powder Blue) */
+/* 	palette_B[13] = 0x191970; // Bleu minuit (Midnight Blue) */
+/* 	palette_B[14] = 0x4169E1; // Bleu royal */
+/* 	palette_B[15] = 0x00008B; // Bleu marine */
+/* 	palette_B[16] = 0x000033; // Bleu très sombre */
+/* 	palette_B[17] = 0x000022; // Bleu noirâtre */
+/* 	palette_B[18] = 0x000011; // Bleu très sombre (presque noir) */
+/* 	palette_B[19] = 0x000000; // Noir */
+/* } */
+/**/
+/* void	init_palette_G(int palette_G[20]) */
+/* { */
+/* 	palette_G[0] = 0x000000; // Noir */
+/* 	palette_G[1] = 0x002200; // Vert très foncé (dominance de noir) */
+/* 	palette_G[2] = 0x004400; // Vert foncé */
+/* 	palette_G[3] = 0x006600; // Vert dense */
+/* 	palette_G[4] = 0x008000; // Vert standard */
+/* 	palette_G[5] = 0x228B22; // Vert forêt */
+/* 	palette_G[6] = 0x6B8E23; // Vert olive */
+/* 	palette_G[7] = 0x9ACD32; // Vert jaunâtre */
+/* 	palette_G[8] = 0xADFF2F; // Vert jaune vif */
+/* 	palette_G[9] = 0xF0E68C; // Kaki clair */
+/* 	palette_G[10] = 0xFFFF00; // Jaune pur */
+/* 	palette_G[11] = 0xFFD700; // Doré */
+/* 	palette_G[12] = 0xFFC000; // Jaune orangé */
+/* 	palette_G[13] = 0xB8860B; // Jaune foncé doré */
+/* 	palette_G[14] = 0x808000; // Olive foncé */
+/* 	palette_G[15] = 0x556B2F; // Olive très foncé */
+/* 	palette_G[16] = 0x2F4F4F; // Vert gris très foncé */
+/* 	palette_G[17] = 0x004400; // Vert foncé */
+/* 	palette_G[18] = 0x002200; // Vert très foncé (presque noir) */
+/* 	palette_G[19] = 0x000000; // Noir */
+/* } */
+
+void init_palette_R(int palette_R[20])
 {
-	palette_R[0] = 0x000000; // Noir
-	palette_R[1] = 0x330000; // Rouge très sombre (dominance de noir)
-	palette_R[2] = 0x660000; // Rouge profond
-	palette_R[3] = 0x990000; // Rouge intense
-	palette_R[4] = 0xCC0000; // Rouge vif foncé
-	palette_R[5] = 0xFF0000; // Rouge pur
-	palette_R[6] = 0xFF4500; // Rouge orangé vif (Orange Red)
-	palette_R[7] = 0xFF6347; // Tomate
-	palette_R[8] = 0xFF7F50; // Corail
-	palette_R[9] = 0xFFA500; // Orange pur
-	palette_R[10] = 0xFFB347; // Orange clair
-	palette_R[11] = 0xFFD700; // Jaune doré
-	palette_R[12] = 0xFFA07A; // Saumon clair
-	palette_R[13] = 0xCD5C5C; // Rouge saumon foncé
-	palette_R[14] = 0x8B0000; // Rouge bordeaux foncé
-	palette_R[15] = 0x5C0000; // Rouge brunâtre très foncé
-	palette_R[16] = 0x330000; // Rouge très sombre
-	palette_R[17] = 0x220000; // Rouge noirâtre
-	palette_R[18] = 0x110000; // Rouge très sombre (presque noir)
-	palette_R[19] = 0x000000; // Noir
+    palette_R[0] = 0x000000; // Noir
+    palette_R[1] = 0x330000; // Rouge très sombre
+    palette_R[2] = 0x660000; // Rouge profond
+    palette_R[3] = 0x990000; // Rouge intense
+    palette_R[4] = 0xCC0000; // Rouge vif foncé
+    palette_R[5] = 0xFF0000; // Rouge pur
+    palette_R[6] = 0xFF4C4C; // Rouge clair
+    palette_R[7] = 0xFF8080; // Rouge pâle
+    palette_R[8] = 0xFFB3B3; // Rose très clair
+    palette_R[9] = 0xFFCCCC; // Rose pâle
+    palette_R[10] = 0xFFD9D9; // Rose clair
+    palette_R[11] = 0xFFEBEB; // Très clair
+    palette_R[12] = 0xFFE6E6; // Pâle
+    palette_R[13] = 0xFFE0E0; // Rose pâle très clair
+    palette_R[14] = 0xFF9999; // Rosé très clair
+    palette_R[15] = 0xF2D7D7; // Rose presque blanc
+    palette_R[16] = 0xE6B7B7; // Rose clair
+    palette_R[17] = 0xCC6E6E; // Rouge clair
+    palette_R[18] = 0x990000; // Rouge intense
+    palette_R[19] = 0xFFFFFF; // Blanc
 }
 
-void	init_palette_B(int palette_B[20])
+void init_palette_B(int palette_B[20])
 {
-	palette_B[0] = 0x000000; // Noir
-	palette_B[1] = 0x000033; // Bleu très sombre (dominance de noir)
-	palette_B[2] = 0x000066; // Bleu profond
-	palette_B[3] = 0x000099; // Bleu intense
-	palette_B[4] = 0x0000CC; // Bleu vif foncé
-	palette_B[5] = 0x0000FF; // Bleu pur
-	palette_B[6] = 0x1E90FF; // Bleu dodger (un bleu vif)
-	palette_B[7] = 0x4682B4; // Bleu acier
-	palette_B[8] = 0x5F9EA0; // Bleu grisâtre
-	palette_B[9] = 0x87CEEB; // Bleu ciel clair
-	palette_B[10] = 0x00BFFF; // Bleu profond clair (Deep Sky Blue)
-	palette_B[11] = 0xADD8E6; // Bleu clair (Light Blue)
-	palette_B[12] = 0xB0E0E6; // Bleu pâle (Powder Blue)
-	palette_B[13] = 0x191970; // Bleu minuit (Midnight Blue)
-	palette_B[14] = 0x4169E1; // Bleu royal
-	palette_B[15] = 0x00008B; // Bleu marine
-	palette_B[16] = 0x000033; // Bleu très sombre
-	palette_B[17] = 0x000022; // Bleu noirâtre
-	palette_B[18] = 0x000011; // Bleu très sombre (presque noir)
-	palette_B[19] = 0x000000; // Noir
+    palette_B[0] = 0x000000; // Noir
+    palette_B[1] = 0x000033; // Bleu très sombre
+    palette_B[2] = 0x000066; // Bleu profond
+    palette_B[3] = 0x000099; // Bleu intense
+    palette_B[4] = 0x0000CC; // Bleu vif foncé
+    palette_B[5] = 0x0000FF; // Bleu pur
+    palette_B[6] = 0x4C4CFF; // Bleu clair
+    palette_B[7] = 0x8080FF; // Bleu pâle
+    palette_B[8] = 0xA6A6FF; // Bleu très pâle
+    palette_B[9] = 0xB3B3FF; // Bleu clair pâle
+    palette_B[10] = 0xCCCCFF; // Bleu très clair
+    palette_B[11] = 0xE0E0FF; // Bleu très pâle
+    palette_B[12] = 0xF2F2FF; // Bleu presque blanc
+    palette_B[13] = 0xE6E6FF; // Très pâle
+    palette_B[14] = 0xB3B3FF; // Clair
+    palette_B[15] = 0x8080FF; // Très clair
+    palette_B[16] = 0x4C4CFF; // Bleu clair
+    palette_B[17] = 0x0000CC; // Bleu vif foncé
+    palette_B[18] = 0x000099; // Bleu intense
+    palette_B[19] = 0xFFFFFF; // Blanc
 }
 
-void	init_palette_G(int palette_G[20])
+void init_palette_G(int palette_G[20])
 {
-	palette_G[0] = 0x000000; // Noir
-	palette_G[1] = 0x002200; // Vert très foncé (dominance de noir)
-	palette_G[2] = 0x004400; // Vert foncé
-	palette_G[3] = 0x006600; // Vert dense
-	palette_G[4] = 0x008000; // Vert standard
-	palette_G[5] = 0x228B22; // Vert forêt
-	palette_G[6] = 0x6B8E23; // Vert olive
-	palette_G[7] = 0x9ACD32; // Vert jaunâtre
-	palette_G[8] = 0xADFF2F; // Vert jaune vif
-	palette_G[9] = 0xF0E68C; // Kaki clair
-	palette_G[10] = 0xFFFF00; // Jaune pur
-	palette_G[11] = 0xFFD700; // Doré
-	palette_G[12] = 0xFFC000; // Jaune orangé
-	palette_G[13] = 0xB8860B; // Jaune foncé doré
-	palette_G[14] = 0x808000; // Olive foncé
-	palette_G[15] = 0x556B2F; // Olive très foncé
-	palette_G[16] = 0x2F4F4F; // Vert gris très foncé
-	palette_G[17] = 0x004400; // Vert foncé
-	palette_G[18] = 0x002200; // Vert très foncé (presque noir)
-	palette_G[19] = 0x000000; // Noir
+    palette_G[0] = 0x000000; // Noir
+    palette_G[1] = 0x003300; // Vert très sombre
+    palette_G[2] = 0x006600; // Vert foncé
+    palette_G[3] = 0x009900; // Vert intense
+    palette_G[4] = 0x00CC00; // Vert vif foncé
+    palette_G[5] = 0x00FF00; // Vert pur
+    palette_G[6] = 0x4CFF4C; // Vert clair
+    palette_G[7] = 0x80FF80; // Vert pâle
+    palette_G[8] = 0xA6FFA6; // Vert très pâle
+    palette_G[9] = 0xB3FFB3; // Vert clair pâle
+    palette_G[10] = 0xCCFFCC; // Vert très clair
+    palette_G[11] = 0xE0FFE0; // Vert très pâle
+    palette_G[12] = 0xF2FFF2; // Vert presque blanc
+    palette_G[13] = 0xE6FFE6; // Très pâle
+    palette_G[14] = 0xB3FFB3; // Clair
+    palette_G[15] = 0x80FF80; // Très clair
+    palette_G[16] = 0x4CFF4C; // Vert clair
+    palette_G[17] = 0x00CC00; // Vert vif foncé
+    palette_G[18] = 0x009900; // Vert intense
+    palette_G[19] = 0xFFFFFF; // Blanc
 }
 
 int	*palette_selector(int n)
@@ -103,7 +175,7 @@ int	*palette_selector(int n)
 
 	init_palette_R(palette_R);
 	init_palette_B(palette_B);
-	init_palette_G(palette_B);
+	init_palette_G(palette_G);
 	palettes[0] = palette_R;
 	palettes[1] = palette_G;
 	palettes[2] = palette_B;
@@ -150,7 +222,7 @@ int	generate_smooth_color(int iteration, double mu, int max_iterations,
 	(void)color_modify;
 	palette = palette_selector(palette_n);
 	palette_size = 20;
-	t = (iteration + mu /* + color_modify */) / max_iterations;
+	t = (iteration + mu) / max_iterations;
 	// Fraction lissée
 	index = (int)(t * palette_size) % palette_size;
 	return (palette[index]);

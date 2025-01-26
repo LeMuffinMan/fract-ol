@@ -75,6 +75,44 @@ void	wheel_set_arrival(t_fractal *f)
 	travel_between_fractals(f);
 }
 
+// erwan : comment scaler sur la dif entre le zoom actuel et le zoom de fin ?
+void	dynamic_iterations(t_fractal *f)
+{
+	if (f->zooming_in == 1)
+	{
+		if (f->max_iterations < MAX_I)
+			f->max_iterations += scale(f->max_iterations, 1.0, 0.000000000000001, MIN_I, MAX_I) * 0.5;
+		printf("max_iterations = %f\n", f->max_iterations);
+	}
+	else if (f->zooming_out == 1)
+	{
+		if (f->max_iterations > MIN_I)
+			f->max_iterations -= (1 - scale(f->max_iterations, 1.0, f->zooming_out_start, MIN_I, f->max_iterations_start)) * 0.5;
+		printf("max_iterations = %f\n", f->max_iterations);
+	}
+	/* double	zoom; */
+	/**/
+	/* zoom = f->zoom; */
+	/* if (f->zooming_in == 1) */
+	/* { */
+	/* 	while (zoom * 10 < 10 && f->max_iterations < 250) */
+	/* 	{ */
+	/* 		f->max_iterations *= 1.005; */
+	/* 		printf("iterupadte = %f\n", f->max_iterations); */
+	/* 		zoom *= 10; */
+	/* 	} */
+	/* } */
+	/* else if (f->zooming_out == 1) */
+	/* { */
+	/* 	while (zoom * 10 < 10 && f->max_iterations > 42) */
+	/* 	{ */
+	/* 		f->max_iterations *= 0.995; */
+	/* 		printf("iterupadte = %f\n", f->max_iterations); */
+	/* 		zoom *= 10; */
+	/* 	} */
+	/* } */
+}
+
 void	wheel_zoom_out(int key, int x, int y, t_fractal *f)
 {
 	if (key == MOUSE_WHEEL_DOWN) // zoom out
@@ -95,6 +133,9 @@ void	wheel_zoom_out(int key, int x, int y, t_fractal *f)
 			f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
 			f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 		}
+		f->zooming_out = 1;
+		dynamic_iterations(f);
+		f->zooming_out = 0;
 	}
 }
 
@@ -115,6 +156,9 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 			f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 1000;
 			f->shift_y -= (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 		}
+		f->zooming_in = 1;
+		dynamic_iterations(f);
+		f->zooming_in = 0;
 	}
 }
 
@@ -134,6 +178,7 @@ void	wheel(int key, int x, int y, t_fractal *f)
 		f->shift_y = 0.0;
 		f->zooming_in = 0;
 		f->zooming_out = 0;
+		f->max_iterations = 42; //ca ne marche pas ?
 	}
 	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 1) // set travel
 	{
@@ -211,43 +256,7 @@ void	clicks(int key, int x, int y, t_fractal *f)
 	clicks_combo(key, f);
 }
 
-// erwan : comment scaler sur la dif entre le zoom actuel et le zoom de fin ?
-void	dynamic_iterations(t_fractal *f)
-{
-	if (f->zooming_in == 1)
-	{
-		if (f->max_iterations < MAX_I)
-			f->max_iterations += scale(f->max_iterations, 1.0, 0.000000000000001, MIN_I, MAX_I) * 0.5;
-		printf("max_iterations = %f\n", f->max_iterations);
-	}
-	else if (f->zooming_out == 1)
-	{
-		if (f->max_iterations > MIN_I)
-			f->max_iterations -= (1 - scale(f->max_iterations, 1.0, f->zooming_out_start, MIN_I, f->max_iterations_start)) * 0.5;
-		printf("max_iterations = %f\n", f->max_iterations);
-	}
-	/* double	zoom; */
-	/**/
-	/* zoom = f->zoom; */
-	/* if (f->zooming_in == 1) */
-	/* { */
-	/* 	while (zoom * 10 < 10 && f->max_iterations < 250) */
-	/* 	{ */
-	/* 		f->max_iterations *= 1.005; */
-	/* 		printf("iterupadte = %f\n", f->max_iterations); */
-	/* 		zoom *= 10; */
-	/* 	} */
-	/* } */
-	/* else if (f->zooming_out == 1) */
-	/* { */
-	/* 	while (zoom * 10 < 10 && f->max_iterations > 42) */
-	/* 	{ */
-	/* 		f->max_iterations *= 0.995; */
-	/* 		printf("iterupadte = %f\n", f->max_iterations); */
-	/* 		zoom *= 10; */
-	/* 	} */
-	/* } */
-}
+
 
 // diviser ou virer les *= 0.99
 // ou revoir le debug en entier
@@ -266,7 +275,7 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 			f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
 			f->shift_x *= 0.99; // ralentir ou accélérer le recentrage
 			f->shift_y *= 0.99;
-			if (f->zoom > 0.9) // revoir ca
+			if (f->zoom > 0.999) // revoir ca
 			{
 				f->zoom = 1;
 				f->shift_x = 0.0;
@@ -278,6 +287,7 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 	iterate_on_pixels(f);
 	mlx_do_sync(f->mlx.mlx);
 }
+
 
 void	animated_zoom_in(t_fractal *f)
 {
@@ -336,7 +346,7 @@ int	travel_update(void *param)
 	if (f->psyche_switch == 1 && (f->zooming_in == 1 || f->zooming_out == 1
 			|| f->traveling == 1))
 	{
-		f->modify_color++; // / color_factor (entre 1 et 10 ?)
+		f->modify_color -= 0.5; // / color_factor (entre 1 et 10 ?)
 		if (f->debug == 1)
 			printf("modify_color = %f\n", f->modify_color);
 	}

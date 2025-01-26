@@ -19,7 +19,7 @@
 # define pi 3.141592653589793
 
 //a implementer
-# define MAX_I 250
+# define MAX_I 100
 # define MIN_I 42
 
 // keyboard inputs
@@ -47,6 +47,7 @@
 # define BACKSPACE 65288
 # define CTRL_L 65507
 # define ALT_L 65513
+# define WIN_X 17
 // define les switch de fractales
 
 // Mouse inputs
@@ -59,7 +60,6 @@
 // Window datas
 # define WINSIZE_X 500
 # define WINSIZE_Y 500
-# define WIN_X 17
 
 // A virer en fonction de comment on gere les couleurs
 # define BLACK 0x000000
