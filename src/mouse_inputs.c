@@ -135,9 +135,6 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 	double	old_zoom;
 	double	relative_x;
 	double	relative_y;
-	double	scaled_x;
-	double	scaled_y;
-	double 	zoom_factor;
 
 	if (key == MOUSE_WHEEL_UP) // zoom normal
 	{
@@ -152,16 +149,10 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 		{
 			old_zoom = f->zoom;
 			f->zoom *= 0.9;
-			relative_x = (x - WINSIZE_X / 2.0);
-			relative_y = (y - WINSIZE_Y / 2.0);
-			if (f->zoom < 0.1)
-      	zoom_factor = 1000;
-      else
-        zoom_factor = 1000 * (1 / f->zoom);
-			scaled_x = scale(relative_x, -f->zoom, f->zoom, -old_zoom, old_zoom) / zoom_factor;
-			scaled_y = scale(relative_y, -f->zoom, f->zoom, -old_zoom, old_zoom) / zoom_factor;
-			f->shift_x += scaled_x;
-			f->shift_y -= scaled_y;
+			relative_x = (x - WINSIZE_X / 2.0) * f->zoom / 1000;
+			relative_y = (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
+			f->shift_x += relative_x;
+			f->shift_y -= relative_y;
 		}
 		/* { */
 		/* 	f->zoom *= 0.9; */
