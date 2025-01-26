@@ -189,7 +189,7 @@ void	wheel(int key, int x, int y, t_fractal *f)
 		f->shift_y = 0.0;
 		f->zooming_in = 0;
 		f->zooming_out = 0;
-		f->max_iterations = 42; // ca ne marche pas ?
+		f->max_iterations = MIN_I; // ca ne marche pas ?
 	}
 	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 1) // set travel
 	{

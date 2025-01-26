@@ -22,7 +22,7 @@
 
 //a implementer
 # define MAX_I 100
-# define MIN_I 42
+# define MIN_I 20
 
 // keyboard inputs
 # define ESC 65307

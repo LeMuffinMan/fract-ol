@@ -60,6 +60,7 @@ void	debug(t_fractal *f)
 	printf("o.x = %Lf\n", f->o.x);
 	printf("o.y = %Lf\n", f->o.y);
 	printf("multibrot power %f\n", f->power);
+	printf("max_iterations = %f\n", f->max_iterations);
 }
 
 void	iterate_on_pixels(t_fractal *f)

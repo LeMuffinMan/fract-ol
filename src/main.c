@@ -75,9 +75,6 @@
  * mode psyche marche pas en zoom et en anim ?
  *  - revoir tout le mode psyche avec le scaling
  *
- * wheel_zoom avec iterations scaled ?
- * click wheel ne rester pas le max iter
- *
  * 1 : gestion d'erreurs
  *  - coordonnees rondes renvoient une erreur ? 0.4 0
  * 		penser aux AUTRES cas d'erreur
