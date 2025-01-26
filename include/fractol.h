@@ -60,25 +60,6 @@
 // A virer en fonction de comment on gere les couleurs
 # define BLACK 0x000000
 # define WHITE 0xFFFFFF
-//
-# define PURE_GREEN 0x00FF00
-# define PURE_BLUE 0x0000FF
-// #define COLOR_1 0xFF00FF  // Magenta
-// #define COLOR_2 0x00FFFF  // Cyan
-// #define COLOR_3 0xFFFF00  // Yellow
-// #define COLOR_4 0xFF6347  // Tomato Red
-// #define COLOR_5 0x7FFF00  // Chartreuse Green
-// #define COLOR_6 0x8A2BE2  // BlueViolet
-// #define COLOR_7 0xFF1493  // DeepPink
-// #define COLOR_8 0x00FF7F  // SpringGreen
-// #define COLOR_9 0xFFD700  // Gold
-// #define COLOR_10 0xFF4500 // OrangeRed
-// #define COLOR_11 0x32CD32 // LimeGreen
-// #define COLOR_12 0x00BFFF // DeepSkyBlue
-// #define COLOR_13 0x8B008B // DarkMagenta
-// #define COLOR_14 0xFF69B4 // HotPink
-// #define COLOR_15 0xD2691E // Chocolate
-// #define COLOR_16 0x4B0082 // Indigo
 
 // structures
 // mlx-img
