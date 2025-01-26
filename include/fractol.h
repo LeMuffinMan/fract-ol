@@ -18,6 +18,10 @@
 //a virer 
 # define pi 3.141592653589793
 
+//a implementer
+# define MAX_I 250
+# define MIN_I 42
+
 // keyboard inputs
 # define ESC 65307
 # define PLUS 65451
@@ -134,6 +138,8 @@ typedef struct s_fractal
 	int 					traveling;
 	double				zoom;
 	double 				speed_factor;
+	double 				zooming_out_start;
+	double 				max_iterations_start;
 	int 					zooming_in;
 	int 					zooming_out;
 	int 					zooming_out_x;

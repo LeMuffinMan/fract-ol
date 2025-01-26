@@ -214,27 +214,39 @@ void	clicks(int key, int x, int y, t_fractal *f)
 // erwan : comment scaler sur la dif entre le zoom actuel et le zoom de fin ?
 void	dynamic_iterations(t_fractal *f)
 {
-	double	zoom;
-
-	zoom = f->zoom;
 	if (f->zooming_in == 1)
 	{
-		while (zoom * 10 < 10 && f->max_iterations < 250)
-		{
-			f->max_iterations *= 1.005;
-			printf("iterupadte = %f\n", f->max_iterations);
-			zoom *= 10;
-		}
+		if (f->max_iterations < MAX_I)
+			f->max_iterations += scale(f->max_iterations, 1.0, 0.000000000000001, MIN_I, MAX_I) * 0.5;
+		printf("max_iterations = %f\n", f->max_iterations);
 	}
 	else if (f->zooming_out == 1)
 	{
-		while (zoom * 10 < 10 && f->max_iterations > 42)
-		{
-			f->max_iterations *= 0.995;
-			printf("iterupadte = %f\n", f->max_iterations);
-			zoom *= 10;
-		}
+		if (f->max_iterations > MIN_I)
+			f->max_iterations -= (1 - scale(f->max_iterations, 1.0, f->zooming_out_start, MIN_I, f->max_iterations_start)) * 0.5;
+		printf("max_iterations = %f\n", f->max_iterations);
 	}
+	/* double	zoom; */
+	/**/
+	/* zoom = f->zoom; */
+	/* if (f->zooming_in == 1) */
+	/* { */
+	/* 	while (zoom * 10 < 10 && f->max_iterations < 250) */
+	/* 	{ */
+	/* 		f->max_iterations *= 1.005; */
+	/* 		printf("iterupadte = %f\n", f->max_iterations); */
+	/* 		zoom *= 10; */
+	/* 	} */
+	/* } */
+	/* else if (f->zooming_out == 1) */
+	/* { */
+	/* 	while (zoom * 10 < 10 && f->max_iterations > 42) */
+	/* 	{ */
+	/* 		f->max_iterations *= 0.995; */
+	/* 		printf("iterupadte = %f\n", f->max_iterations); */
+	/* 		zoom *= 10; */
+	/* 	} */
+	/* } */
 }
 
 // diviser ou virer les *= 0.99
@@ -288,6 +300,8 @@ void	animated_zoom(int key, int x, int y, t_fractal *f)
 	{
 		if (f->zooming_out == 0)
 		{
+			f->max_iterations_start = f->max_iterations;
+			f->zooming_out_start = f->zoom;
 			f->zooming_in = 0;
 			f->zooming_out_x = x;
 			f->zooming_out_y = y;
