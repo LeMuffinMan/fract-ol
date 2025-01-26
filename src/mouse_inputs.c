@@ -148,17 +148,17 @@ void	switch_palette(int key, t_fractal *f)
 {
 	if (key == MOUSE_L && f->bind_combo_t == 1)
 	{
-		if (f->palette_n == 3)
-			f->palette_n = 1;
-		else if (f->palette_n < 3)
+		if (f->palette_n == 2)
+			f->palette_n = 0;
+		else if (f->palette_n < 2)
 			f->palette_n++;
 		f->modify_color = 0;
 	}
 	else if (key == MOUSE_R && f->bind_combo_t == 1)
 	{
-		if (f->palette_n == 1)
-			f->palette_n = 3;
-		else if (f->palette_n > 1)
+		if (f->palette_n == 0)
+			f->palette_n = 2;
+		else if (f->palette_n > 0)
 			f->palette_n--;
 		f->modify_color = 0;
 	}
@@ -350,7 +350,6 @@ void	travel_between_fractals(t_fractal *f)
 		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
 	f->t += f->tc;
 	f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
-	// Demander a erwan pour faire boucler a l'infini
 	f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
 	/* if (f->psyche_switch == 1 && f->psychedelic_colors == 1) MARCHE PAS !*/
 	/* 	f->modify_color += f->t; */

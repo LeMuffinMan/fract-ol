@@ -155,6 +155,9 @@ typedef struct s_fractal
 	int						palette_n;
 	int						psychedelic_colors;
 	int 					psyche_switch;
+	int 					red_toggle;
+	int 					green_toggle;
+	int 					blue_toggle;
 
 }						t_fractal;
 

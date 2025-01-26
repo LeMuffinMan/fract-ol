@@ -73,7 +73,9 @@
  * 	- revoir fin du zoom out ?
  *
  * mode psyche marche pas en zoom et en anim ?
- * 	- probleme paltte verte
+ *  - revoir tout le mode psyche avec le scaling
+ *  - ajouter raccourcis pour ajouter / supprimer RGB en bit shift
+ *
  *
  * 1 : gestion d'erreurs
  *  - coordonnees rondes renvoient une erreur ? 0.4 0

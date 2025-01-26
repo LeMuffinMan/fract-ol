@@ -75,11 +75,21 @@ void	bit_shift_rgb(int i, int *color, t_fractal *f)
 	double	t;
 
 	t = (double)i / f->max_iterations;                   
-		// color shift applique aussi a la methode erwan
-	colors.r = (char)(9 * (1 - t) * t * t * t * t * 255);
-		// on cast en char pour avoir un type en 8 bits
-	colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
-	colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+	/* colors.r = (char)(9 * (1 - t) * t * t * t * t * 255); */
+	/* colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255); */
+	/* colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255); */
+	if (f->red_toggle)
+		colors.r = (char)(9 * (1 - t) * t * t * t * t * 255);
+	else
+		colors.r = 0;
+	if (f->green_toggle)
+		colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
+	else
+		colors.g = 0;
+	if (f->blue_toggle)
+		colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+	else
+		colors.b = 0;
 	*color = colors.color;
 }
 
@@ -94,6 +104,8 @@ void	render_fractal(int x, int y, t_fractal *f)
 		calculate_f(f);
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
+			//revoir le mode psyche en entier
+			//faire des raccourcis en toggle qui active/desactive le R / G / B dans le bit shift
 			if (f->psychedelic_colors == 1)
 			{
 				f->mu = log(log(norm_complex(f->z))) / log(2); // Mu ?

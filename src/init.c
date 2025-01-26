@@ -58,12 +58,15 @@ void init_flag(t_fractal *f)
 	f->bind_combo = 0;
 	f->bind_combo_z = 0;
 	f->bind_combo_t = 0;
+	f->red_toggle = 1;
+	f->green_toggle = 1;
+	f->blue_toggle = 1;
 }
 
 void init_index(t_fractal *f)
 {
 	f->fractal_number = 0;
-	f->palette_n = 1;
+	f->palette_n = 0;
 }
 
 void init_switch(t_fractal *f)
