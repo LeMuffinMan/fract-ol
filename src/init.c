@@ -79,7 +79,7 @@ void init_switch(t_fractal *f)
 void init_limits(t_fractal *f)
 {
 	f->escape_value = 4;
-	f->max_iterations = 20;
+	f->max_iterations = MIN_I;
 }
 
 void init_coords(t_fractal *f)
