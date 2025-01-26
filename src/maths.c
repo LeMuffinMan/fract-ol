@@ -40,8 +40,8 @@ void	burning_ship(t_fractal *f)
 {
 	double	tmp;
 
-	f->z.x = fabs(f->z.x);
-	f->z.y = fabs(f->z.y);
+	f->z.x = fabsl(f->z.x);
+	f->z.y = fabsl(f->z.y);
 	tmp = 2 * f->z.x * f->z.y + f->c.y;
 	f->z.x = f->z.x * f->z.x - f->z.y * f->z.y + f->c.x;
 	f->z.y = tmp;

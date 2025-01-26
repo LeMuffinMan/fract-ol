@@ -41,11 +41,6 @@ void	wheel_set_origin(t_fractal *f)
 {
 	f->o.x = f->mouse_x;
 	f->o.y = f->mouse_y;
-	if (f->debug == 1)
-	{
-		printf("o.x = %f\n", f->o.x);
-		printf("o.y = %f\n", f->o.y);
-	}
 	f->origin = 1;
 }
 
@@ -53,11 +48,6 @@ void	wheel_set_arrival(t_fractal *f)
 {
 	f->a.x = f->mouse_x;
 	f->a.y = f->mouse_y;
-	if (f->debug == 1)
-	{
-		printf("a.x = %f\n", f->a.x);
-		printf("a.y = %f\n", f->a.y);
-	}
 	f->origin = 0;
 	f->d.x = f->a.x - f->o.x;
 	f->d.y = f->a.y - f->o.y;
@@ -81,14 +71,17 @@ void	dynamic_iterations(t_fractal *f)
 	if (f->zooming_in == 1)
 	{
 		if (f->max_iterations < MAX_I)
-			f->max_iterations += scale(f->max_iterations, 1.0, 0.000000000000001, MIN_I, MAX_I) * 0.5;
-		printf("max_iterations = %f\n", f->max_iterations);
+			f->max_iterations += scale(f->max_iterations, 1.0, LDMIN, MIN_I,
+					MAX_I) * 0.5;
+		/* printf("max_iterations = %f\n", f->max_iterations); */
 	}
 	else if (f->zooming_out == 1)
 	{
 		if (f->max_iterations > MIN_I)
-			f->max_iterations -= (1 - scale(f->max_iterations, 1.0, f->zooming_out_start, MIN_I, f->max_iterations_start)) * 0.5;
-		printf("max_iterations = %f\n", f->max_iterations);
+			f->max_iterations -= (1 - scale(f->max_iterations, 1.0,
+						f->zooming_out_start, MIN_I, f->max_iterations_start))
+				* 0.5;
+		/* 	printf("max_iterations = %f\n", f->max_iterations); */
 	}
 	/* double	zoom; */
 	/**/
@@ -141,6 +134,12 @@ void	wheel_zoom_out(int key, int x, int y, t_fractal *f)
 
 void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 {
+	double	old_zoom;
+	double	relative_x;
+	double	relative_y;
+	double	scaled_x;
+	double	scaled_y;
+
 	if (key == MOUSE_WHEEL_UP) // zoom normal
 	{
 		if (f->bind_combo == 1) // shift pour les iterations
@@ -152,16 +151,17 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
 			&& f->bind_combo == 0)
 		{
-			double old_zoom = f->zoom;
+			old_zoom = f->zoom;
 			f->zoom *= 0.9;
-			printf("zoom = %f\n", f->zoom);
-      double relative_x = (x - WINSIZE_X / 2.0);
-      double relative_y = (y - WINSIZE_Y / 2.0);
-      double scaled_x = scale(relative_x, -f->zoom, f->zoom, -old_zoom, old_zoom) / 1000;
-      double scaled_y = scale(relative_y, -f->zoom, f->zoom, -old_zoom, old_zoom) / 1000;
-      f->shift_x += scaled_x;
-      f->shift_y -= scaled_y;
-  	}
+			relative_x = (x - WINSIZE_X / 2.0);
+			relative_y = (y - WINSIZE_Y / 2.0);
+			scaled_x = scale(relative_x, -f->zoom, f->zoom, -old_zoom, old_zoom)
+				/ 1000;
+			scaled_y = scale(relative_y, -f->zoom, f->zoom, -old_zoom, old_zoom)
+				/ 1000;
+			f->shift_x += scaled_x;
+			f->shift_y -= scaled_y;
+		}
 		/* { */
 		/* 	f->zoom *= 0.9; */
 		/* 	f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 1000; */
@@ -189,7 +189,7 @@ void	wheel(int key, int x, int y, t_fractal *f)
 		f->shift_y = 0.0;
 		f->zooming_in = 0;
 		f->zooming_out = 0;
-		f->max_iterations = 42; //ca ne marche pas ?
+		f->max_iterations = 42; // ca ne marche pas ?
 	}
 	if (key == MOUSE_WHEEL_CLICK && f->bind_combo == 1) // set travel
 	{
@@ -240,7 +240,7 @@ void	clicks_combo(int key, t_fractal *f)
 				f->fractal_number++;
 			else if (f->fractal_number > 0 && f->fractal_number < 4)
 				f->fractal_number += 3;
-			printf("c = %f %fi\n", f->mouse_x, f->mouse_y);
+			printf("c = %Lf %Lfi\n", f->mouse_x, f->mouse_y);
 		}
 		f->j_x = f->mouse_x;
 		f->j_y = f->mouse_y;
@@ -267,8 +267,6 @@ void	clicks(int key, int x, int y, t_fractal *f)
 	clicks_combo(key, f);
 }
 
-
-
 // diviser ou virer les *= 0.99
 // ou revoir le debug en entier
 void	animated_zoom_out(int x, int y, t_fractal *f)
@@ -278,8 +276,6 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 	{
 		f->zooming_out = 1;
 		f->zoom /= (1 - f->speed_factor);
-		if (f->debug == 1)
-			printf("f->zoom = %f\n", f->zoom);
 		if (f->zoom > 0.1)
 		{
 			f->shift_x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
@@ -299,7 +295,6 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 	mlx_do_sync(f->mlx.mlx);
 }
 
-
 void	animated_zoom_in(t_fractal *f)
 {
 	f->zooming_in = 0;
@@ -307,8 +302,6 @@ void	animated_zoom_in(t_fractal *f)
 	{
 		f->zooming_in = 1;
 		f->zoom *= (1 - f->speed_factor);
-		if (f->debug == 1)
-			printf("f->zoom = %f\n", f->zoom);
 		dynamic_iterations(f);
 		iterate_on_pixels(f);
 		mlx_do_sync(f->mlx.mlx);
@@ -343,6 +336,8 @@ void	animated_zoom(int key, int x, int y, t_fractal *f)
 	}
 }
 
+
+
 // a redeclarer correctement et a renommer
 int	travel_update(void *param)
 {
@@ -358,17 +353,14 @@ int	travel_update(void *param)
 			|| f->traveling == 1))
 	{
 		f->modify_color -= 0.5; // / color_factor (entre 1 et 10 ?)
-		if (f->debug == 1)
-			printf("modify_color = %f\n", f->modify_color);
 	}
+
 	return (0);
 }
 
 void	travel_between_fractals(t_fractal *f)
 {
 	f->traveling = 1;
-	if (f->debug == 1)
-		printf("boucle t = %f\nj_x = %f\nj_y = %f\n", f->t, f->j_x, f->j_y);
 	f->t += f->tc;
 	f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
 	f->j_y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
@@ -382,7 +374,7 @@ void	travel_between_fractals(t_fractal *f)
 
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
-	printf("key = %d\n", key);
+	/* printf("key = %d\n", key); */
 	wheel(key, x, y, f);
 	clicks(key, x, y, f);
 	animated_zoom(key, x, y, f);

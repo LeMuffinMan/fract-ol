@@ -17,9 +17,11 @@
 
 //a virer 
 # define pi 3.141592653589793
+# define LDMIN 0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001
+
 
 //a implementer
-# define MAX_I 150
+# define MAX_I 100
 # define MIN_I 42
 
 // keyboard inputs
@@ -79,8 +81,8 @@ typedef struct s_img
 // complex numbers
 typedef struct s_complex
 {
-	double x; // real
-	double y; // imaginary
+	long double x; // real
+	long double y; // imaginary
 }						t_complex;
 
 // 1 mandel
@@ -118,14 +120,14 @@ typedef struct s_fractal
 	double				escape_value;
 	double				max_iterations;
 	int						switch_iterations;
-	double				shift_x;
-	double				shift_y;
-	double				j_x;
-	double				j_y;
-	double				mouse_x;
-	double				mouse_y;
-	double				mu;
-	double				power;
+	long double				shift_x;
+	long double				shift_y;
+	long double				j_x;
+	long double				j_y;
+	long double				mouse_x;
+	long double				mouse_y;
+	long double				mu;
+	double				power; //essayer des floats power
 	int						origin;
 	t_complex			z;
 	t_complex			c;
@@ -138,8 +140,8 @@ typedef struct s_fractal
 	int 					traveling;
 	long double				zoom;
 	double 				speed_factor;
-	double 				zooming_out_start;
-	double 				max_iterations_start;
+	long double 				zooming_out_start;
+	long double 				max_iterations_start;
 	int 					zooming_in;
 	int 					zooming_out;
 	int 					zooming_out_x;
@@ -147,9 +149,9 @@ typedef struct s_fractal
 	int						bind_combo;
 	int 					bind_combo_z;
 	int         	bind_combo_t;
-	double				tmp_shift_x;
-	double				tmp_shift_y;
-	double				tmp_zoom;
+	long double				tmp_shift_x;
+	long double				tmp_shift_y;
+	long double				tmp_zoom;
 	int						tmp_fractal_number;
 	double				modify_color;
 	int						palette_n;

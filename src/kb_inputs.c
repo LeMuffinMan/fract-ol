@@ -48,7 +48,7 @@ int	pav_num_enter(int key, t_fractal *f)
 		}
 		else
 			f->max_iterations = f->switch_iterations; // revoir le nom
-		printf("max_iterations = %f\n", f->max_iterations);
+		/* printf("max_iterations = %f\n", f->max_iterations); */
 	}
 	return (key);
 }
@@ -56,24 +56,14 @@ int	pav_num_enter(int key, t_fractal *f)
 int	pav_num_operators(int key, t_fractal *f)
 {
 	if (key == PLUS && f->bind_combo == 1 && f->bind_combo_t == 0)
-	{
 		f->modify_color += 1;
-		if (f->debug == 1)
-			printf("color modify : %f\n", f->modify_color);
-	}
 	else if (key == PLUS && f->bind_combo == 0 && f->bind_combo_t == 0)
-	{
 		f->switch_iterations += 1;
-		printf("iterations switch = %d\n", f->switch_iterations); // A VIRER !!!
-	}
 	else if (key == MINUS && f->bind_combo == 1 && f->bind_combo_t == 0)
 		f->modify_color -= 1;
 	else if (key == MINUS && f->switch_iterations > 1 && f->bind_combo == 0
 		&& f->bind_combo_t == 0)
-	{
 		f->switch_iterations -= 1;
-		printf("iterations switch = %d\n", f->switch_iterations);
-	}
 	pav_num_enter(key, f);
 	return (key);
 }
@@ -158,9 +148,12 @@ void	color_shift(int key, t_fractal *f) // renommer
 
 void	multibrot_power_switch(int key, t_fractal *f)
 {
-	if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7))
+	if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7)) /* key 61 = "=" */
 	{
-		f->power++;
+		if (f->bind_combo == 1)
+			f->power += 0.1;
+		else
+			f->power++;
 		f->fractal_number = 7;
 	}
 	else if (key == 45 && f->fractal_number == 7)
@@ -169,10 +162,11 @@ void	multibrot_power_switch(int key, t_fractal *f)
 			f->fractal_number = 1;
 		else
 			f->fractal_number = 7;
-		f->power--;
+		if (f->bind_combo == 1)
+			f->power -= 0.1;
+		else 
+			f->power--;
 	}
-	if (f->debug == 1)
-		printf("multibrot power %f\n", f->power);
 }
 
 void	backspace_switch(int key, t_fractal *f) // marche pas !
@@ -205,19 +199,13 @@ void	julia_moves(int key, t_fractal *f)
 		f->j_y += 1 * f->tmp_zoom / 1000;
 	else if (key == 65432) // pav num 6
 		f->j_y -= 1 * f->tmp_zoom / 1000;
-	if (f->debug == 1)
-		printf("j_x = %f\nj_y = %f\n", f->j_x, f->j_y);
+
 }
 
 void	set_origin(t_fractal *f)
 {
 	f->o.x = f->j_x;
 	f->o.y = f->j_y;
-	if (f->debug == 1)
-	{
-		printf("o.x = %f\n", f->o.x);
-		printf("o.y = %f\n", f->o.y);
-	}
 	f->origin = 1;
 }
 
@@ -225,11 +213,7 @@ void	set_arrival(t_fractal *f)
 {
 	f->a.x = f->j_x;
 	f->a.y = f->j_y;
-	if (f->debug == 1)
-	{
-		printf("a.x = %f\n", f->a.x);
-		printf("a.y = %f\n", f->a.y);
-	}
+
 	f->origin = 0;
 	f->d.x = f->a.x - f->o.x;
 	f->d.y = f->a.y - f->o.y;
@@ -342,7 +326,7 @@ int	shift_toggle(int key, t_fractal *f)
 // conserver le zoom et le shift de chaque fractale quand on switch
 int	kb_inputs(int key, t_fractal *f)
 {
-	printf("key = %d\n", key);
+	/* printf("key = %d\n", key); */
 	if (key == WIN_X || key == ESC)
 		quit(f);
 	arrows(key, f);

@@ -49,6 +49,19 @@ void	set_complexes(int x, int y, t_fractal *f)
 	}
 }
 
+void	debug(t_fractal *f)
+{
+	#include <stdio.h>
+	printf("======================================\n");
+	printf("boucle t = %f\nj_x = %Lf\nj_y = %Lf\n", f->t, f->j_x, f->j_y);
+	printf("f->zoom = %.20Lf\n", f->zoom);
+	printf("a.x = %Lf\n", f->a.x);
+	printf("a.y = %Lf\n", f->a.y);
+	printf("o.x = %Lf\n", f->o.x);
+	printf("o.y = %Lf\n", f->o.y);
+	printf("multibrot power %f\n", f->power);
+}
+
 void	iterate_on_pixels(t_fractal *f)
 {
 	int	x;
@@ -67,6 +80,8 @@ void	iterate_on_pixels(t_fractal *f)
 		y++;
 	}
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
+	if (f->debug == 1)
+		debug(f);
 }
 
 void	bit_shift_rgb(int i, int *color, t_fractal *f)
