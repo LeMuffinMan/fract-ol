@@ -165,7 +165,6 @@ typedef struct s_fractal
 	long double			tmp_shift_y;
 	long double			tmp_zoom;
 	int					tmp_fractal_number;
-	double				modify_color;
 	int					psychedelic_colors;
 	int					psyche_switch;
 	int					red_toggle;

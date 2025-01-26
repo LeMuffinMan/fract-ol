@@ -113,8 +113,6 @@ void	wheel_zoom_out(int key, int x, int y, t_fractal *f)
 			if (f->max_iterations > 10)
 				f->max_iterations--;
 		}
-		else if (f->bind_combo_t == 1)
-			f->modify_color--;
 		else if (f->bind_combo_z == 1 && f->speed_factor > 0.001)
 			f->speed_factor *= 0.9;
 		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
@@ -140,8 +138,6 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 	{
 		if (f->bind_combo == 1) // shift pour les iterations
 			f->max_iterations++;
-		else if (f->bind_combo_t == 1)
-			f->modify_color++;
 		else if (f->bind_combo_z == 1 && f->speed_factor < 0.1)
 			f->speed_factor *= 1.1;
 		else if (f->bind_combo_t == 0 && f->bind_combo_z == 0
@@ -348,13 +344,6 @@ int	travel_update(void *param)
 		animated_zoom_out(f->zooming_out_x, f->zooming_out_y, f);
 	if (f->zooming_in == 1)
 		animated_zoom_in(f);
-	// non marche pas !
-	if (f->psyche_switch == 1 && (f->zooming_in == 1 || f->zooming_out == 1
-			|| f->traveling == 1))
-	{
-		f->modify_color -= 0.5; // / color_factor (entre 1 et 10 ?)
-	}
-
 	return (0);
 }
 

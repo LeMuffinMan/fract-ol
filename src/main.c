@@ -67,8 +67,6 @@
  * 		kb input : non init pour un raccourci
  * 			faire le menage dans tous les raccourcis
  *
- * le zoom sous la souris merde avec un zoom eleve
- *
  * remettre en double pour moins de lag ?
  *
  * rechecker les combos wheels

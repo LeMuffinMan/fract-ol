@@ -55,12 +55,8 @@ int	pav_num_enter(int key, t_fractal *f)
 
 int	pav_num_operators(int key, t_fractal *f)
 {
-	if (key == PLUS && f->bind_combo == 1 && f->bind_combo_t == 0)
-		f->modify_color += 1;
-	else if (key == PLUS && f->bind_combo == 0 && f->bind_combo_t == 0)
+	if (key == PLUS && f->bind_combo == 0 && f->bind_combo_t == 0)
 		f->switch_iterations += 1;
-	else if (key == MINUS && f->bind_combo == 1 && f->bind_combo_t == 0)
-		f->modify_color -= 1;
 	else if (key == MINUS && f->switch_iterations > 1 && f->bind_combo == 0
 		&& f->bind_combo_t == 0)
 		f->switch_iterations -= 1;

@@ -74,7 +74,6 @@ void init_index(t_fractal *f)
 void init_switch(t_fractal *f)
 {
 	f->switch_iterations = 20;
-	f->modify_color = 0;
 	f->power = 2;
 }
 
