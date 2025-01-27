@@ -240,4 +240,10 @@ void					travel_between_fractals(t_fractal *f);
 int						ft_strcmp(const char *s1, const char *s2);
 int						mouse_inputs(int key, int x, int y, t_fractal *f);
 
+//atodbl.c
+
+int	skip_spaces(char *s, int *sign, int *max_digits);
+double	get_double(char *s, int sign, int *max_digits);
+double	atodbl(char *s, int *max_digits);
+
 #endif
