@@ -65,24 +65,23 @@ void	wheel_set_arrival(t_fractal *f)
 	travel_between_fractals(f);
 }
 
-// erwan : comment scaler sur la dif entre le zoom actuel et le zoom de fin ?
 void	dynamic_iterations(t_fractal *f)
 {
-	if (f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0
-		&& f->bind_combo_alt_l == 0)
+	if ((f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0
+		&& f->bind_combo_alt_l == 0 && f->psychedelic_colors == 0) || f->psyche_switch == 1)
 	{
 		if (f->zooming_in == 1)
 		{
 			if (f->max_iterations < MAX_I)
 				f->max_iterations += scale(f->max_iterations, 1.0, LDMIN, MIN_I,
-						MAX_I) * 0.5;
+						MAX_I) * f->speed_factor * 50 /*  0.5 */; //revoir la relation speed factor et it
 			/* printf("max_iterations = %f\n", f->max_iterations); */
 		}
 		else if (f->zooming_out == 1)
 		{
 			if (f->max_iterations > MIN_I)
 				f->max_iterations -= scale(f->max_iterations, 1.0, LDMIN, MIN_I,
-						MAX_I) * 0.5;
+						MAX_I) *  f->speed_factor * 50;
 			/* 	printf("max_iterations = %f\n", f->max_iterations); */
 		}
 		/* double	zoom; */
@@ -182,7 +181,7 @@ void	wheel(int key, int x, int y, t_fractal *f)
 	// wheel vitesse animation
 	wheel_combo(key, f);
 	wheel_zoom(key, x, y, f);
-	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0) // reset zoom
+	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0 && f->bind_combo_alt_l == 0) // reset zoom
 	{
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
@@ -191,13 +190,15 @@ void	wheel(int key, int x, int y, t_fractal *f)
 		f->zooming_out = 0;
 		f->max_iterations = MIN_I; // ca ne marche pas ?
 	}
-	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 1) // set travel
+	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 1 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0) // set travel
 	{
 		if (f->origin == 0)
 			wheel_set_origin(f);
 		else
 			wheel_set_arrival(f);
 	}
+	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 1)// reset iterations
+		f->max_iterations = MIN_I;
 }
 
 void	switch_palette(int key, t_fractal *f)

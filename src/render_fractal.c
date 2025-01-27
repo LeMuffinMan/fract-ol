@@ -67,10 +67,11 @@ void	debug(t_fractal *f)
 	printf("speed_factor = %f\n", f->speed_factor); // pour le zoom
 	printf("--------------------------------------\n");
 	printf("f->zoom = %.20Lf\n", f->zoom);
-	printf("f->zooming_in = %.d\n", f->zooming_in);
-	printf("f->zooming_out = %.d\n", f->zooming_out);
+	printf("f->zooming_in = %d\n", f->zooming_in);
+	printf("f->zooming_out = %d\n", f->zooming_out);
 	printf("--------------------------------------\n");
-	printf("f->psyche_switch = %.d\n", f->psyche_switch);
+	printf("f->psyche_switch = %d\n", f->psyche_switch);
+	printf("psychedelic_colors = %d\n", f->psychedelic_colors);
 	}
 
 void	iterate_on_pixels(t_fractal *f)

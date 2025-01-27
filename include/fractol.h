@@ -61,8 +61,8 @@
 # define MOUSE_R 3
 
 // Window datas // mettre une seule variable
-# define WINSIZE_X 500
-# define WINSIZE_Y 500
+# define WINSIZE_X 800
+# define WINSIZE_Y 800
 
 // A virer en fonction de comment on gere les couleurs
 # define PALETTE_SIZE 20
