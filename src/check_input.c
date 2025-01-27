@@ -14,9 +14,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
- libft :
-- strncmpt
-	- printf + float
+
+/*  libft : */
+/* - strncmpt */
+/* 	- printf + float */
+
 
 void	param_error(void)
 {

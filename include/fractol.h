@@ -61,8 +61,8 @@
 # define MOUSE_R 3
 
 // Window datas // mettre une seule variable
-# define WINSIZE_X 800
-# define WINSIZE_Y 800
+# define WINSIZE_X 500
+# define WINSIZE_Y 500
 
 // A virer en fonction de comment on gere les couleurs
 # define PALETTE_SIZE 20
@@ -241,9 +241,24 @@ int						ft_strcmp(const char *s1, const char *s2);
 int						mouse_inputs(int key, int x, int y, t_fractal *f);
 
 //atodbl.c
-
 int	skip_spaces(char *s, int *sign, int *max_digits);
 double	get_double(char *s, int sign, int *max_digits);
 double	atodbl(char *s, int *max_digits);
+
+//init_palette.c
+void init_palette_R(int palette_R[20]);
+void init_palette_G(int palette_G[20]);
+void init_palette_B(int palette_B[20]);
+void palette_init(t_palette *palette);
+
+
+//init_fractal.c
+void init_anim(t_fractal *f);
+void init_coords(t_fractal *f);
+void init_limits(t_fractal *f);
+void init_switch(t_fractal *f);
+void init_index(t_fractal *f);
+
+void color_shift(int key, t_fractal *f);
 
 #endif

@@ -14,7 +14,7 @@ NAME = fractol
 
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -g3
-SRC = src/atodbl.c src/main.c src/maths.c src/kb_inputs.c src/init.c src/render_fractal.c src/color.c src/check_input.c src/mouse_inputs.c
+SRC = src/kb_color_switch.c src/init_fractal.c src/init_palette.c src/atodbl.c src/main.c src/maths.c src/kb_inputs.c src/init.c src/render_fractal.c src/color.c src/check_input.c src/mouse_inputs.c
 OBJ_DIR = obj
 OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
 
