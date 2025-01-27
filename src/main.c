@@ -154,6 +154,8 @@ int		ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
+
+
 	 /* presets julia */
 	  /* 0.3 0.5  */
 /* –0,038088 0.97 */
@@ -165,6 +167,7 @@ int main(int ac, char **av)
 	init_fractal(&f);
 	check_input(ac, av, &f);
 	init_win(&f);
+	palette_init(&f.palette);
 	iterate_on_pixels(&f);
 	mlx_hook(f.mlx.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
 	mlx_hook(f.mlx.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?

@@ -23,30 +23,6 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels + offset) = color;
 }
 
-/* void init_palette_R(int palette_R[20]) */
-/* { */
-/*     palette_R[0] = 0x000000; // Noir */
-/*     palette_R[1] = 0x330000; // Rouge très sombre */
-/*     palette_R[2] = 0x660000; // Rouge profond */
-/*     palette_R[3] = 0x990000; // Rouge intense */
-/*     palette_R[4] = 0xCC0000; // Rouge vif foncé */
-/*     palette_R[5] = 0xFF0000; // Rouge pur */
-/*     palette_R[6] = 0xFF4C4C; // Rouge clair */
-/*     palette_R[7] = 0xFF8080; // Rouge pâle */
-/*     palette_R[8] = 0xFFB3B3; // Rose très clair */
-/*     palette_R[9] = 0xFFCCCC; // Rose pâle */
-/*     palette_R[10] = 0xFFD9D9; // Rose clair */
-/*     palette_R[11] = 0xFFEBEB; // Très clair */
-/*     palette_R[12] = 0xFFE6E6; // Pâle */
-/*     palette_R[13] = 0xFFE0E0; // Rose pâle très clair */
-/*     palette_R[14] = 0xFF9999; // Rosé très clair */
-/*     palette_R[15] = 0xF2D7D7; // Rose presque blanc */
-/*     palette_R[16] = 0xE6B7B7; // Rose clair */
-/*     palette_R[17] = 0xCC6E6E; // Rouge clair */
-/*     palette_R[18] = 0x990000; // Rouge intense */
-/*     palette_R[19] = 0xFFFFFF; // Blanc */
-/* } */
-
 
 void init_palette_R(int palette_R[20])
 {
@@ -121,31 +97,7 @@ void init_palette_G(int palette_G[20])
     palette_G[19] = 0xFFFFFF; // Blanc
 }
 
-/* void init_palette_G(int palette_G[20]) */
-/* { */
-/*     palette_G[0] = 0x000000; // Noir */
-/*     palette_G[1] = 0x003300; // Vert très sombre */
-/*     palette_G[2] = 0x006600; // Vert foncé */
-/*     palette_G[3] = 0x009900; // Vert intense */
-/*     palette_G[4] = 0x00CC00; // Vert vif foncé */
-/*     palette_G[5] = 0x00FF00; // Vert pur */
-/*     palette_G[6] = 0x4CFF4C; // Vert clair */
-/*     palette_G[7] = 0x80FF80; // Vert pâle */
-/*     palette_G[8] = 0xA6FFA6; // Vert très pâle */
-/*     palette_G[9] = 0xB3FFB3; // Vert clair pâle */
-/*     palette_G[10] = 0xCCFFCC; // Vert très clair */
-/*     palette_G[11] = 0xE0FFE0; // Vert très pâle */
-/*     palette_G[12] = 0xF2FFF2; // Vert presque blanc */
-/*     palette_G[13] = 0xE6FFE6; // Très pâle */
-/*     palette_G[14] = 0xB3FFB3; // Clair */
-/*     palette_G[15] = 0x80FF80; // Très clair */
-/*     palette_G[16] = 0x4CFF4C; // Vert clair */
-/*     palette_G[17] = 0x00CC00; // Vert vif foncé */
-/*     palette_G[18] = 0x009900; // Vert intense */
-/*     palette_G[19] = 0xFFFFFF; // Blanc */
-/* } */
-
-void palette_selector(t_palette *palette)
+void palette_init(t_palette *palette)
 {
     int i;
 
@@ -180,6 +132,7 @@ void palette_selector(t_palette *palette)
 	/* else  */
 	/*     return (palette->palettes[0]); */
 }
+
 // HSL ?
 // A revoir
 int	generate_smooth_color(int iteration, double mu, int max_iterations, t_palette *palette)
@@ -187,7 +140,6 @@ int	generate_smooth_color(int iteration, double mu, int max_iterations, t_palett
 	double	t;
 	int		index;
 
-	palette_selector(palette);
     if (palette == NULL) 
         return (0); 
     t = (iteration + mu) / max_iterations;

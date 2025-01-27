@@ -69,6 +69,8 @@ void	debug(t_fractal *f)
 	printf("f->zoom = %.20Lf\n", f->zoom);
 	printf("f->zooming_in = %.d\n", f->zooming_in);
 	printf("f->zooming_out = %.d\n", f->zooming_out);
+	printf("--------------------------------------\n");
+	printf("f->psyche_switch = %.d\n", f->psyche_switch);
 	}
 
 void	iterate_on_pixels(t_fractal *f)
@@ -88,6 +90,12 @@ void	iterate_on_pixels(t_fractal *f)
 		}
 		y++;
 	}
+	/* if (f->psyche_switch == 1) */
+	/* { */
+	/* 	f->palette.n += f->t; */
+	/* 	if (f->palette.n >= 3) */
+	/* 		f->palette.n = 0; */
+	/* } */
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
 	if (f->debug == 1)
 		debug(f);

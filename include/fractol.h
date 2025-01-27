@@ -61,8 +61,8 @@
 # define MOUSE_R 3
 
 // Window datas // mettre une seule variable
-# define WINSIZE_X 800
-# define WINSIZE_Y 800
+# define WINSIZE_X 500
+# define WINSIZE_Y 500
 
 // A virer en fonction de comment on gere les couleurs
 # define PALETTE_SIZE 20
@@ -194,6 +194,10 @@ int						quit(t_fractal *f);
 int						generate_smooth_color(int iteration, double mu,
 							int max_iterations, t_palette *palette);
 void					colorize_pixel(int x, int y, t_img *img, int color);
+void 					palette_init(t_palette *palette);
+void 					init_palette_R(int palette_R[20]);
+void 					init_palette_G(int palette_G[20]);
+void 					init_palette_B(int palette_B[20]);
 
 // render_fractal.c
 void					set_complexes(int x, int y, t_fractal *f);
