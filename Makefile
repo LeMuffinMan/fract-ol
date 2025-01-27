@@ -14,7 +14,7 @@ NAME = fractol
 
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -g3
-SRC = src/main.c src/maths.c src/kb_inputs.c src/init.c src/render_fractal.c src/color.c src/check_input.c src/mouse_inputs.c src/wheel_zoom.c src/animations.c src/animations_utils.c src/wheel_combo.c src/switch_palette.c src/check_inputs_utils.c src/init_utils_1.c src/init_utils_2.c src/color_switch.c src/kb_switch.c src/kb_pav_num.c src/kb_julia.c src/kb_animations.c src/calculate_fractal.c
+SRC = src/main.c src/maths.c src/kb_inputs/kb_inputs.c src/init/init.c src/render_fractal.c src/color/color.c src/check_input/check_input.c src/mouse_inputs/mouse_inputs.c src/mouse_inputs/wheel_zoom.c src/animations/animations.c src/animations/animations_utils.c src/mouse_inputs/wheel_combo.c src/color/switch_palette.c src/check_input/check_inputs_utils.c src/init/init_utils_1.c src/init/init_utils_2.c src/color/color_switch.c src/kb_inputs/kb_switch.c src/kb_inputs/kb_pav_num.c src/kb_inputs/kb_julia.c src/kb_inputs/kb_animations.c src/calculate_fractal.c
 OBJ_DIR = obj
 OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
 
