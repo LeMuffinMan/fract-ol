@@ -187,3 +187,60 @@ int main(int ac, char **av)
 	return (0);
 }
 
+// david tip :
+//
+// Les nombres de type double sont codés sur 64 bits dont :
+
+/*     52 bits pour la mantisse */
+/*     11 bits pour l'exposant */
+/*     1 bit pour le signe */
+/* je veux recuperer l'exposant
+ * bit shift vers la gauche de 52 bits
+ * puis bit shift a droite de 53 bits
+ * je transforme en int : me donne le nombre de l'exposant
+ *
+ * */
+
+/**
+ * Interpolation linéaire entre deux couleurs
+ */
+/* int	interpolate_color(int color1, int color2, double t) */
+/* { */
+/* 	int	r; */
+/* 	int	g; */
+/* 	int	b;  0xFF8FBC8F 0x0000FF 000011111 */
+
+/*  pour un integer : decaler une fois a droite == / 2   */
+
+/* 	r = ((1 - t) * ((color1 >> 16) & 0xFF)) + (t * ((color2 >> 16) & 0xFF)); */
+/* 	g = ((1 - t) * ((color1 >> 8) & 0xFF)) + (t * ((color2 >> 8) & 0xFF)); */
+/* 	b = ((1 - t) * (color1 & 0xFF)) + (t * (color2 & 0xFF)); */
+/* 	return ((r << 16) | (g << 8) | b); */
+/* } */
+/**/
+/* int	generate_smooth_color(int iteration, double mu, int max_iterations) */
+/* { */
+/* 	int	PALETTE_SIZE; */
+/* 	int	color1; */
+/* 	int	color2; */
+/* 	int palette[] = { */
+/* 		0xFF0000, // Rouge */
+/* 		0xFF7F00, // Orange */
+/* 		0xFFFF00  // Jaune */
+/* 			0x00FF00, // Vert */
+/* 			0x0000FF, // Bleu */
+/* 			0x4B0082, // Indigo */
+/* 			0x8B00FF  // Violet */
+/* 	}; */
+/* 	double t = (iteration + 1 - mu) / max_iterations; // Fraction lissée */
+/* 	PALETTE_SIZE = sizeof(palette) / sizeof(int); */
+/* 	color1 = palette[(int)(t * PALETTE_SIZE) % PALETTE_SIZE]; */
+/* 	color2 = palette[((int)(t * PALETTE_SIZE) + 1) % PALETTE_SIZE]; */
+/* 	return (interpolate_color(color1, color2, fmod(t * PALETTE_SIZE, 1.0))); */
+/* } */
+
+
+/* colors.r = (char)(9 * (1 - t) * t * t * t * t * 255); */
+/* colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255); */
+/* colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255); */
+
