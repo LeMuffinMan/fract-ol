@@ -190,6 +190,13 @@ typedef union u_color
 void					set_mandelbrot(int x, int y, t_fractal *f);
 int						quit(t_fractal *f);
 
+
+// animations.c
+void					animated_zoom_out(int x, int y, t_fractal *f);
+void					animated_zoom_in(t_fractal *f);
+void					animated_zoom(int key, int x, int y, t_fractal *f);
+int						travel_update(void *param);
+
 // color.c
 int						generate_smooth_color(int iteration, double mu,
 							int max_iterations, t_palette *palette);
@@ -220,6 +227,7 @@ t_complex				sum_complex(t_complex z1, t_complex z2);
 t_complex				square_complex(t_complex z);
 double					scale(double unscaled_num, double new_min,
 							double new_max, double old_min, double old_max);
+void					travel_between_fractals(t_fractal *f);
 
 // check_input.c
 void					check_input(int ac, char **av, t_fractal *f);
@@ -227,10 +235,6 @@ void					param_error(void);
 double					atodbl(char *s, int *max_digits);
 double					get_double(char *s, int sign, int *max_digits);
 int						skip_spaces(char *s, int *sign, int *max_digits);
-
-// mouse_inputs.c
-int						julia_dynamic(int x, int y, t_fractal *f);
-void					travel_between_fractals(t_fractal *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);
@@ -241,15 +245,10 @@ void					wheel_zoom_out(int key, int x, int y, t_fractal *f);
 void					wheel_zoom_in(int key, int x, int y, t_fractal *f);
 void					wheel_zoom(int key, int x, int y, t_fractal *f);
 
-// animations.c
-void					animated_zoom_out(int x, int y, t_fractal *f);
-void					animated_zoom_in(t_fractal *f);
-void					animated_zoom(int key, int x, int y, t_fractal *f);
-int						travel_update(void *param);
-void					travel_between_fractals(t_fractal *f);
+
 
 // animations_utils.c
-int						julia_dynamic(int x, int y, t_fractal *f);
+int						get_mouse_coords(int x, int y, t_fractal *f);
 void					dynamic_iterations(t_fractal *f);
 void					wheel_set_arrival(t_fractal *f);
 void					wheel_set_origin(t_fractal *f);

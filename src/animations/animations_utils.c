@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   animations_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 12:33:54 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 12:33:57 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-// renommer
-int	julia_dynamic(int x, int y, t_fractal *f)
+int	get_mouse_coords(int x, int y, t_fractal *f)
 {
 	if (f->fractal_number == 6 || f->fractal_number == 5
 		|| f->fractal_number == 4)
@@ -25,8 +35,6 @@ void	wheel_set_origin(t_fractal *f)
 	f->o.x = f->mouse_x;
 	f->o.y = f->mouse_y;
 	f->origin = 1;
-	#include <stdio.h>
-	printf("tc = %f\n", f->tc);
 }
 
 void	wheel_set_arrival(t_fractal *f)
@@ -53,34 +61,35 @@ void	wheel_set_arrival(t_fractal *f)
 void	dynamic_iterations(t_fractal *f)
 {
 	if ((f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0
-		&& f->bind_combo_alt_l == 0 && f->psychedelic_colors == 0) || f->psyche_switch == 1)
+			&& f->bind_combo_alt_l == 0 && f->psychedelic_colors == 0)
+		|| f->psyche_switch == 1)
 	{
 		if (f->zooming_in == 1)
 		{
 			if (f->max_iterations < MAX_I)
 				f->max_iterations += scale(f->max_iterations, 1.0, LDMIN, MIN_I,
-						MAX_I) * f->speed_factor * 50; 
+						MAX_I) * f->speed_factor * 50;
 		}
 		else if (f->zooming_out == 1)
 		{
 			if (f->max_iterations > MIN_I)
 				f->max_iterations -= scale(f->max_iterations, 1.0, LDMIN, MIN_I,
-						MAX_I) *  f->speed_factor * 50;
+						MAX_I) * f->speed_factor * 50;
 		}
 	}
 }
 
-void set_animated_zoom_out(int x, int y, t_fractal *f)
+void	set_animated_zoom_out(int x, int y, t_fractal *f)
 {
-		if (f->zooming_out == 0)
-		{
-			f->max_iterations_start = f->max_iterations;
-			f->zooming_out_start = f->zoom;
-			f->zooming_in = 0;
-			f->zooming_out_x = x;
-			f->zooming_out_y = y;
-			animated_zoom_out(x, y, f);
-		}
-		else
-			f->zooming_out = 0;
+	if (f->zooming_out == 0)
+	{
+		f->max_iterations_start = f->max_iterations;
+		f->zooming_out_start = f->zoom;
+		f->zooming_in = 0;
+		f->zooming_out_x = x;
+		f->zooming_out_y = y;
+		animated_zoom_out(x, y, f);
+	}
+	else
+		f->zooming_out = 0;
 }

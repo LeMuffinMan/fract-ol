@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/26 23:02:22 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 12:34:23 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,15 @@
 // julia -0.4 0.6
 
 /* to do 
+ *
+ *
+ *  CLEANING : 
+ *  	- animations/ statics ?
+ *  	- check_input/ statics ?
+ *  		- mettre libft : strncmp
+ *  		- mettre a jour printf pour floats
+ *
+ *
  *
  * 	Pierre leaks finding :
  * 		des variable non init
@@ -178,7 +187,7 @@ int main(int ac, char **av)
 	//
 	/* mlx_mouse_hook(f.win, wheel, &f); // marche pas */
 
-	mlx_hook(f.mlx.win, MotionNotify, PointerMotionMask, julia_dynamic, &f);
+	mlx_hook(f.mlx.win, MotionNotify, PointerMotionMask, get_mouse_coords, &f);
 	/* mlx_hook(f.win, ButtonRelease, ButtonReleaseMask, mouse_inputs, &f); */
 
 	mlx_loop_hook(f.mlx.mlx, update_animations, &f);

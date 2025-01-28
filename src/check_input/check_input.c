@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:40:10 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/23 18:30:23 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 12:37:28 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
- /* remplacer pritnf !  */
+/* remplacer pritnf !  */
 // utiliser strncmp
-
 
 void	param_error(void)
 {
@@ -35,8 +34,6 @@ void	param_error(void)
 	printf("=========================================\n");
 	exit(1);
 }
-
-
 
 void	check_julia_input(int ac, char **av, t_fractal *f, int *check_double)
 {

@@ -1,7 +1,16 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_inputs_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 12:36:30 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 12:38:35 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
-
 
 int	skip_spaces(char *s, int *sign, int *max_digits)
 {
@@ -10,7 +19,7 @@ int	skip_spaces(char *s, int *sign, int *max_digits)
 	i = 0;
 	while (s[i] <= 32 || s[i] == '+')
 		i++;
-	if (s[i] == '-') 
+	if (s[i] == '-')
 	{
 		if (*sign == 1)
 			*sign = -1;
@@ -60,7 +69,7 @@ double	atodbl(char *s, int *max_digits)
 	while (s[i++])
 	{
 		if (s[i] < '0' && s[i] > '9' && s[i] != '.' && s[i] != '+'
-			&& s[i] != '-') 
+			&& s[i] != '-')
 			*max_digits = -1;
 		if (s[i] == '.')
 		{
