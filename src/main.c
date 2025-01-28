@@ -172,6 +172,8 @@ int main(int ac, char **av)
 	mlx_hook(f.mlx.win, WIN_X, 0, quit, &f); // Comment la mixer avec inputs ?
 	mlx_hook(f.mlx.win, KeyPress, KeyPressMask, kb_inputs, &f); //peut marcher sans le 3eme param ?
 	mlx_hook(f.mlx.win, KeyRelease, KeyReleaseMask, shift_toggle, &f);
+	#include <stdio.h>
+	printf("tc = %f\n", f.tc);
 	mlx_mouse_hook(f.mlx.win, mouse_inputs, &f);
 	//
 	//

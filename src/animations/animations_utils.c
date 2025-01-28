@@ -25,6 +25,8 @@ void	wheel_set_origin(t_fractal *f)
 	f->o.x = f->mouse_x;
 	f->o.y = f->mouse_y;
 	f->origin = 1;
+	#include <stdio.h>
+	printf("tc = %f\n", f->tc);
 }
 
 void	wheel_set_arrival(t_fractal *f)

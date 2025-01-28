@@ -64,7 +64,11 @@ int	travel_update(void *param)
 {
 	t_fractal *f = (t_fractal *)param; // revoir ca
 	if (f->traveling == 1)
+	{
 		travel_between_fractals(f);
+	#include <stdio.h>
+	printf("tc = %f\n", f->tc);
+	}
 	if (f->zooming_out == 1)
 		animated_zoom_out(f->zooming_out_x, f->zooming_out_y, f);
 	if (f->zooming_in == 1)
@@ -74,6 +78,8 @@ int	travel_update(void *param)
 
 void	travel_between_fractals(t_fractal *f)
 {
+
+
 	f->traveling = 1;
 	f->t += f->tc;
 	f->j_x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;

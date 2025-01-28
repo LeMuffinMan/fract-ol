@@ -28,12 +28,14 @@ void	wheel(int key, int x, int y, t_fractal *f)
 	}
 	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 1 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0) // set travel
 	{
+
+
 		if (f->origin == 0)
 			wheel_set_origin(f);
 		else
 			wheel_set_arrival(f);
 	}
-	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 1)// reset iterations
+	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 1) // reset iterations
 		f->max_iterations = MIN_I;
 }
 
@@ -85,6 +87,8 @@ void	clicks(int key, int x, int y, t_fractal *f)
 
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
+	#include <stdio.h>
+	printf("tc = %f\n", f->tc);
 	wheel(key, x, y, f);
 	clicks(key, x, y, f);
 	animated_zoom(key, x, y, f);

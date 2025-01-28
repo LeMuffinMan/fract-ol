@@ -57,6 +57,7 @@ void	debug(t_fractal *f)
 	printf("max_iterations = %Lf\n", f->max_iterations);
 	printf("f->tc = %f\n", f->tc); 
 	printf("speed_factor = %f\n", f->speed_factor); 
+	printf("traveling = %d\n", f->traveling); 
 	printf("--------------------------------------\n");
 	printf("f->zoom = %.20Lf\n", f->zoom);
 	printf("f->zooming_in = %d\n", f->zooming_in);

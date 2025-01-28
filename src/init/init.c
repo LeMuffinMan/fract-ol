@@ -22,6 +22,7 @@ int	init_fractal(t_fractal *f)
 	init_index(f);
 	init_switch(f);
 	init_limits(f);
+	init_anims(f);
 	return (0);
 }
 
