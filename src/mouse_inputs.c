@@ -67,8 +67,8 @@ void	wheel_set_arrival(t_fractal *f)
 
 void	dynamic_iterations(t_fractal *f)
 {
-	if ((f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0
-		&& f->bind_combo_alt_l == 0 && f->psychedelic_colors == 0) || f->psyche_switch == 1)
+	if (f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0
+		&& f->bind_combo_alt_l == 0 && f->psychedelic_colors == 0)
 	{
 		if (f->zooming_in == 1)
 		{
@@ -299,7 +299,8 @@ void	animated_zoom_out(int x, int y, t_fractal *f)
 			}
 		}
 	}
-	dynamic_iterations(f);
+	if ( f->psyche_switch == 1 || f->psychedelic_colors == 1) 
+		dynamic_iterations(f);
 	iterate_on_pixels(f);
 	mlx_do_sync(f->mlx.mlx);
 }
@@ -311,7 +312,8 @@ void	animated_zoom_in(t_fractal *f)
 	{
 		f->zooming_in = 1;
 		f->zoom *= (1 - f->speed_factor);
-		dynamic_iterations(f);
+		if ( f->psyche_switch == 1 || f->psychedelic_colors == 1) // marche pas dans le mode psyche 
+			dynamic_iterations(f);
 		iterate_on_pixels(f);
 		mlx_do_sync(f->mlx.mlx);
 	}
