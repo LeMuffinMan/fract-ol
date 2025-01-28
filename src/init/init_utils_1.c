@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:01:17 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 14:01:19 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 15:31:07 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,14 @@ void	init_limits(t_fractal *f)
 
 void	init_coords(t_fractal *f)
 {
-	f->j_x = 0;
-	f->j_y = 0;
-	f->mouse_x = 0;
-	f->mouse_y = 0;
+	f->shift_view.x = 0;
+	f->shift_view.y = 0;
+	f->julia_constant.x = 0;
+	f->julia_constant.y = 0;
+	f->mouse.x = 0;
+	f->mouse.y = 0;
+	f->zooming_out_coords.x = 0;
+	f->zooming_out_coords.y = 0;
 	f->z.x = 0;
 	f->z.y = 0;
 	f->c.x = 0;

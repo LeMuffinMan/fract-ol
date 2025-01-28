@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:30 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 12:38:35 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 15:44:05 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	get_coords(int ac, char **av, t_fractal *f, int *check_double)
 {
 	if (ac == 4)
 	{
-		f->j_x = atodbl(av[2], check_double);
-		f->j_y = atodbl(av[3], check_double);
+		f->julia_constant.x = atodbl(av[2], check_double);
+		f->julia_constant.y = atodbl(av[3], check_double);
 		if (*check_double == -1)
 			param_error();
 	}

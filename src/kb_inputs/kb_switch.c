@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:04:13 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 14:05:14 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 17:17:07 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	debug_switch(int key, t_fractal *f)
 {
 	if (key == D)
 	{
-		if (f->debug == 0)
-			f->debug = 1;
-		else if (f->debug == 1)
-			f->debug = 0;
+		if (f->flags.debug == 0)
+			f->flags.debug = 1;
+		else if (f->flags.debug == 1)
+			f->flags.debug = 0;
 	}
 }
 
@@ -27,10 +27,10 @@ void	psyche_switch(int key, t_fractal *f)
 {
 	if (key == P)
 	{
-		if (f->psyche_switch == 0)
-			f->psyche_switch = 1;
+		if (f->flags.psyche_switch == 0)
+			f->flags.psyche_switch = 1;
 		else
-			f->psyche_switch = 0;
+			f->flags.psyche_switch = 0;
 	}
 }
 
@@ -38,8 +38,8 @@ void	num_fractal_switch(int key, t_fractal *f)
 {
 	if (key >= 49 && key <= 55)
 	{
-		f->shift_x = 0.0;
-		f->shift_y = 0.0;
+		f->shift_view.x = 0.0;
+		f->shift_view.y = 0.0;
 		f->zoom = 1.0;
 		f->fractal_number = 1;
 		f->power = 2;
@@ -58,7 +58,7 @@ void	multibrot_power_switch(int key, t_fractal *f)
 {
 	if (key == 61 && (f->fractal_number == 1 || f->fractal_number == 7))
 	{
-		if (f->bind_combo_shift == 1)
+		if (f->flags.bind_combo_shift == 1)
 			f->power += 0.1;
 		else
 			f->power++;
@@ -70,7 +70,7 @@ void	multibrot_power_switch(int key, t_fractal *f)
 			f->fractal_number = 1;
 		else
 			f->fractal_number = 7;
-		if (f->bind_combo_shift == 1)
+		if (f->flags.bind_combo_shift == 1)
 			f->power -= 0.1;
 		else
 			f->power--;
@@ -84,16 +84,16 @@ void	backspace_switch(int key, t_fractal *f)
 	if (key == BACKSPACE)
 	{
 		tmp = f->fractal_number;
-		f->fractal_number = f->tmp_fractal_number;
-		f->tmp_fractal_number = tmp;
-		tmp = f->shift_x;
-		f->shift_x = f->tmp_shift_x;
-		f->tmp_shift_x = tmp;
-		tmp = f->shift_y;
-		f->shift_y = f->tmp_shift_y;
-		f->tmp_shift_y = tmp;
+		f->fractal_number = f->tmp.fractal_number;
+		f->tmp.fractal_number = tmp;
+		tmp = f->shift_view.x;
+		f->shift_view.x = f->tmp.shift_x;
+		f->tmp.shift_x = tmp;
+		tmp = f->shift_view.y;
+		f->shift_view.y = f->tmp.shift_y;
+		f->tmp.shift_y = tmp;
 		tmp = f->zoom;
-		f->zoom = f->tmp_zoom;
-		f->tmp_zoom = tmp;
+		f->zoom = f->tmp.zoom;
+		f->tmp.zoom = tmp;
 	}
 }

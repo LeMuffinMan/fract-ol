@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:52:34 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 13:58:09 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 16:26:34 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	switch_prev_palette(t_fractal *f)
 
 void	switch_palette(int key, t_fractal *f)
 {
-	if (key == MOUSE_L && f->bind_combo_alt_l == 1)
+	if (key == MOUSE_L && f->flags.bind_combo_alt_l == 1)
 		switch_prev_palette(f);
-	else if (key == MOUSE_R && f->bind_combo_alt_l == 1)
+	else if (key == MOUSE_R && f->flags.bind_combo_alt_l == 1)
 		switch_next_palette(f);
 }

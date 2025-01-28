@@ -128,8 +128,6 @@
  *  pour le scaling d'iterations ET pour le plafond de TOUS les zooms :
  *  	f->zoom = 0.00000000000000215778
  *
- * Space pour pause ne marche plus
- *
  * 1 : gestion d'erreurs
  *  - coordonnees rondes renvoient une erreur ? 0.4 0
  * 		penser aux AUTRES cas d'erreur

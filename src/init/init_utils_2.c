@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:01:48 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 14:02:25 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 15:31:57 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,34 +29,35 @@ int	init_win(t_fractal *f)
 
 void	init_tmp(t_fractal *f)
 {
-	f->tmp_shift_x = 0.0;
-	f->tmp_shift_y = 0.0;
-	f->tmp_zoom = 1.0;
+	f->tmp.shift_x = 0.0;
+	f->tmp.shift_y = 0.0;
+	f->tmp.zoom = 1.0;
+	f->tmp.fractal_number = 0;
 }
 
 void	init_pov(t_fractal *f)
 {
-	f->shift_x = 0.0;
-	f->shift_y = 0.0;
+	f->shift_view.x = 0.0;
+	f->shift_view.y = 0.0;
 	f->zoom = 1.0;
 	f->speed_factor = 0.02;
 }
 
 void	init_flag(t_fractal *f)
 {
-	f->zooming_out = 0;
-	f->zooming_in = 0;
-	f->zooming_out_start = 0;
-	f->zooming_in_start = 0;
-	f->psyche_switch = 0;
-	f->debug = 0;
-	f->traveling = 0;
-	f->origin = 0;
-	f->psychedelic_colors = 0;
-	f->bind_combo_shift = 0;
-	f->bind_combo_alt_l = 0;
-	f->bind_combo_ctrl_l = 0;
-	f->red_toggle = 1;
-	f->green_toggle = 1;
-	f->blue_toggle = 1;
+	f->flags.zooming_out = 0;
+	f->flags.zooming_in = 0;
+	/* f->flags.zooming_out_start = 0; */
+	/* f->flags.zooming_in_start = 0; */
+	f->flags.psyche_switch = 0;
+	f->flags.debug = 0;
+	f->flags.traveling = 0;
+	f->flags.origin = 0;
+	f->flags.psychedelic_colors = 0;
+	f->flags.bind_combo_shift = 0;
+	f->flags.bind_combo_alt_l = 0;
+	f->flags.bind_combo_ctrl_l = 0;
+	f->flags.red_toggle = 1;
+	f->flags.green_toggle = 1;
+	f->flags.blue_toggle = 1;
 }

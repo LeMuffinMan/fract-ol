@@ -68,24 +68,6 @@
 # define BLACK 0x000000
 // # define WHITE 0xFFFFFF
 
-// structures
-// mlx-img
-typedef struct s_img
-{
-	void				*img_p;
-	char				*pixels;
-	int					bpp;
-	int					endian;
-	int					line_len;
-}						t_img;
-
-// complex numbers
-typedef struct s_complex
-{
-	long double x; // real
-	long double y; // imaginary
-}						t_complex;
-
 // 1 mandel
 // 2 julia
 // 3 bruning
@@ -104,13 +86,30 @@ typedef struct s_complex
 // 	int 		fractal_number;
 // } t_tmp;
 
-// to divide : mlx win / fractal / pointofview
+// structures
+// mlx-img
+typedef struct s_img
+{
+	void				*img_p;
+	char				*pixels;
+	int					bpp;
+	int					endian;
+	int					line_len;
+}						t_img;
+
 typedef struct s_mlx
 {
 	void				*mlx;
 	void				*win;
 	t_img				img;
 }						t_mlx;
+
+//renommer en real et imaginary ?
+typedef struct s_coords
+{
+	long double x; // real
+	long double y; // imaginary
+}						t_coords;
 
 typedef struct s_palette
 {
@@ -121,61 +120,65 @@ typedef struct s_palette
 	int					palettes[3][20];
 }						t_palette;
 
-// longueur max ?
-// si non : diviser logiquement
-// une structure commune pour toutes les coordonnees
-// une structure math ?
-// une structure flags / switch ?
-// une structure zoom ?
-// structure bind combo
-// une structure tmp
-typedef struct s_fractal
+typedef struct s_tmp
 {
-	t_mlx				mlx;
-	int					fractal_number;
-	double				escape_value;
-	long double			max_iterations;
-	int					switch_iterations;
-	long double shift_x; // struct coords
-	long double shift_y; // struct coords
-	long double j_x;     // struct coords
-	long double j_y;     // struct coords
-	long double mouse_x; // struct coords
-	long double mouse_y; // struct coords
-	long double			mu;
-	double				power;
-	int					origin;
-	t_complex			z;
-	t_complex			c;
-	t_complex			o;
-	t_complex			a;
-	t_complex			d;
-	double				t;
-	double				tc;
-	int					debug;
-	int					traveling;
+	long double			shift_x;
+	long double			shift_y;
 	long double			zoom;
-	double				speed_factor;
-	long double			zooming_out_start;
-	long double			zooming_in_start;
-	long double			max_iterations_start;
+	int					fractal_number;
+
+}						t_tmp;
+
+typedef struct s_flags
+{
+	int					origin;
 	int					zooming_in;
 	int					zooming_out;
-	int zooming_out_x; // structure coords dans structure zoom ?
-	int					zooming_out_y;
 	int					bind_combo_shift;
 	int					bind_combo_ctrl_l;
 	int					bind_combo_alt_l;
-	long double tmp_shift_x; // structure tmp
-	long double			tmp_shift_y;
-	long double			tmp_zoom;
-	int					tmp_fractal_number;
-	int psychedelic_colors; // renommer et regrouper dans une struct ?
+	int 				psychedelic_colors;
 	int					psyche_switch;
 	int					red_toggle;
 	int					green_toggle;
 	int					blue_toggle;
+	int					traveling;
+	int					debug;
+}						t_flags;
+
+// longueur max ?
+// si non : diviser logiquement
+// une structure math ?
+// une structure zoom ?
+// est-ce qu'on passe des long double au double pour limiter le lag ?
+typedef struct s_fractal
+{
+	t_mlx				mlx;
+	t_coords			shift_view;
+	t_coords			julia_constant;
+	t_coords			mouse;
+	t_coords			z;
+	t_coords			c;
+	t_coords			o;
+	t_coords			a;
+	t_coords			d;
+	t_coords			zooming_out_coords;
+	t_tmp					tmp;
 	t_palette			palette;
+	t_flags				flags;
+	int						fractal_number;
+	double				escape_value;
+	long double		max_iterations;
+	int						switch_iterations;
+	long double		mu;
+	double				power;
+	double				t;
+	double				tc;
+	long double		zoom;
+	double				speed_factor;
+	long double		zooming_out_start;
+	long double		zooming_in_start;
+	long double		max_iterations_start;
 }						t_fractal;
 
 typedef union u_color
@@ -307,22 +310,20 @@ void					multibrot(t_fractal *f);
 void					calculate_f(t_fractal *f);
 
 // maths.c
-double					norm_complex(t_complex z);
-t_complex				sum_complex(t_complex z1, t_complex z2);
-t_complex				square_complex(t_complex z);
+double					norm_complex(t_coords z);
+t_coords				sum_complex(t_coords z1, t_coords z2);
+t_coords				square_complex(t_coords z);
 double					scale(double unscaled_num, double new_min,
 							double new_max, double old_min, double old_max);
 void					travel_between_fractals(t_fractal *f);
 
 // render_fractal.c
-void					set_complexes(int x, int y, t_fractal *f);
+void					set_coordses(int x, int y, t_fractal *f);
 void					iterate_on_pixels(t_fractal *f);
 void					render_fractal(int x, int y, t_fractal *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);
 int						mouse_inputs(int key, int x, int y, t_fractal *f);
-
-
 
 #endif
