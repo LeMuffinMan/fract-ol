@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   kb_animations.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 14:02:57 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 14:32:27 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
 
 void	space_pause(int key, t_fractal *f)
 {
-	if (key == SPACE) 
+	if (key == SPACE)
 	{
 		if (f->traveling == 1)
 			f->traveling = 0;

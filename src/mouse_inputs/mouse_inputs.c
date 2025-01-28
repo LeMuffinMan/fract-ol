@@ -6,36 +6,37 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:39:54 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/26 22:52:01 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 14:12:46 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> //remplacer par printf !
 #include "../include/fractol.h"
+#include <stdio.h> //remplacer par printf !
 
 void	wheel(int key, int x, int y, t_fractal *f)
 {
 	wheel_combo(key, f);
 	wheel_zoom(key, x, y, f);
-	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0 && f->bind_combo_ctrl_l == 0 && f->bind_combo_alt_l == 0) // reset zoom
+	if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0
+		&& f->bind_combo_ctrl_l == 0 && f->bind_combo_alt_l == 0)
 	{
 		f->zoom = 1.0;
 		f->shift_x = 0.0;
 		f->shift_y = 0.0;
 		f->zooming_in = 0;
 		f->zooming_out = 0;
-		f->max_iterations = MIN_I; 
+		f->max_iterations = MIN_I;
 	}
-	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 1 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0) // set travel
+	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 1
+		&& f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0)
 	{
-
-
 		if (f->origin == 0)
 			wheel_set_origin(f);
 		else
 			wheel_set_arrival(f);
 	}
-	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0 && f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 1) // reset iterations
+	else if (key == MOUSE_WHEEL_CLICK && f->bind_combo_shift == 0
+		&& f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 1)
 		f->max_iterations = MIN_I;
 }
 
@@ -76,7 +77,7 @@ void	clicks(int key, int x, int y, t_fractal *f)
 		f->shift_y += (y - WINSIZE_Y / 2.0) * f->zoom / 100;
 	}
 	else if (key == MOUSE_L && f->bind_combo_shift == 0
-		&& f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0) 
+		&& f->bind_combo_alt_l == 0 && f->bind_combo_ctrl_l == 0)
 	{
 		f->zoom *= 0.8;
 		f->shift_x += (x - WINSIZE_X / 2.0) * f->zoom / 100;
@@ -84,11 +85,8 @@ void	clicks(int key, int x, int y, t_fractal *f)
 	}
 }
 
-
 int	mouse_inputs(int key, int x, int y, t_fractal *f)
 {
-	#include <stdio.h>
-	printf("tc = %f\n", f->tc);
 	wheel(key, x, y, f);
 	clicks(key, x, y, f);
 	animated_zoom(key, x, y, f);

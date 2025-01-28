@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wheel_zoom.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 14:14:39 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 14:14:54 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
 
@@ -19,7 +29,7 @@ void	wheel_zoom_in(int key, int x, int y, t_fractal *f)
 	double	relative_y;
 
 	if (key == MOUSE_WHEEL_UP && f->bind_combo_shift == 0
-		&& f->bind_combo_ctrl_l == 0 && f->bind_combo_alt_l == 0) // zoom normal
+		&& f->bind_combo_ctrl_l == 0 && f->bind_combo_alt_l == 0)
 	{
 		f->zoom *= 0.9;
 		relative_x = (x - WINSIZE_X / 2.0) * f->zoom / 1000;
@@ -34,4 +44,3 @@ void	wheel_zoom(int key, int x, int y, t_fractal *f)
 	wheel_zoom_out(key, x, y, f);
 	wheel_zoom_in(key, x, y, f);
 }
-

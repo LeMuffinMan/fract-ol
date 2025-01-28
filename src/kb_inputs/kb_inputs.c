@@ -6,12 +6,11 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:53:43 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/26 22:35:39 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 14:06:36 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-#include <math.h>
 
 int	arrows(int key, t_fractal *f)
 {
@@ -45,14 +44,14 @@ void	combo_keys(int key, t_fractal *f)
 		else if (f->bind_combo_shift == 1)
 			f->bind_combo_shift = 0;
 	}
-	if (key == ALT_L) 
+	if (key == ALT_L)
 	{
 		if (f->bind_combo_alt_l == 0)
 			f->bind_combo_alt_l = 1;
 		else if (f->bind_combo_alt_l == 1)
 			f->bind_combo_alt_l = 0;
 	}
-	if (key == CTRL_L) 
+	if (key == CTRL_L)
 	{
 		if (f->bind_combo_ctrl_l == 0)
 			f->bind_combo_ctrl_l = 1;
@@ -65,7 +64,7 @@ int	shift_toggle(int key, t_fractal *f)
 {
 	if (key == SHIFT)
 		f->bind_combo_shift = 0;
-	else if (key == CTRL_L) 
+	else if (key == CTRL_L)
 		f->bind_combo_ctrl_l = 0;
 	else if (key == ALT_L)
 		f->bind_combo_alt_l = 0;

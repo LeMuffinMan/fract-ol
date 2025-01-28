@@ -1,10 +1,20 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_utils_2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 14:01:48 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 14:02:25 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
 #include <stdlib.h>
 
 // A PROTEGER !!!
-int	init_win(t_fractal *f) 
+int	init_win(t_fractal *f)
 {
 	f->mlx.mlx = mlx_init();
 	if (f->mlx.mlx == NULL)
@@ -17,14 +27,14 @@ int	init_win(t_fractal *f)
 	return (0);
 }
 
-void init_tmp(t_fractal *f)
+void	init_tmp(t_fractal *f)
 {
 	f->tmp_shift_x = 0.0;
 	f->tmp_shift_y = 0.0;
 	f->tmp_zoom = 1.0;
 }
 
-void init_pov(t_fractal *f)
+void	init_pov(t_fractal *f)
 {
 	f->shift_x = 0.0;
 	f->shift_y = 0.0;
@@ -32,7 +42,7 @@ void init_pov(t_fractal *f)
 	f->speed_factor = 0.02;
 }
 
-void init_flag(t_fractal *f)
+void	init_flag(t_fractal *f)
 {
 	f->zooming_out = 0;
 	f->zooming_in = 0;

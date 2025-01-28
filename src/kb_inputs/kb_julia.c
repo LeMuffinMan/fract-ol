@@ -1,16 +1,26 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   kb_julia.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 14:03:36 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 14:07:29 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
 
 void	julia_moves(int key, t_fractal *f)
 {
-	if (key == 65431) 
+	if (key == 65431)
 		f->j_x += 1 * f->tmp_zoom / 1000;
-	else if (key == 65433) 
+	else if (key == 65433)
 		f->j_x -= 1 * f->tmp_zoom / 1000;
-	else if (key == 65430) 
+	else if (key == 65430)
 		f->j_y += 1 * f->tmp_zoom / 1000;
-	else if (key == 65432) 
+	else if (key == 65432)
 		f->j_y -= 1 * f->tmp_zoom / 1000;
 }
 

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calculate_fractal.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 14:16:15 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 14:17:11 by oelleaum         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/fractol.h"
 #include <math.h>
@@ -38,11 +49,11 @@ void	multibrot(t_fractal *f)
 void	calculate_f(t_fractal *f)
 {
 	if (f->fractal_number == 1 || f->fractal_number == 4)
-		f->z = sum_complex(square_complex(f->z), f->c); // choisir la strat ?
+		f->z = sum_complex(square_complex(f->z), f->c);
 	if (f->fractal_number == 2 || f->fractal_number == 5)
 		burning_ship(f);
 	if (f->fractal_number == 3 || f->fractal_number == 6)
 		tricorn(f);
-	if (f->fractal_number == 7 || f->fractal_number == 8) // multibrot
+	if (f->fractal_number == 7 || f->fractal_number == 8)
 		multibrot(f);
 }
