@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:40:10 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 12:37:28 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 19:28:39 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	check_input(int ac, char **av, t_fractal *f)
 	if (ft_strcmp(av[1], "mandelbrot") == 0 && ac == 2)
 		f->fractal_number = 1;
 	else if (ft_strcmp(av[1], "burning_ship") == 0 && ac == 2)
-		f->fractal_number = 3;
+		f->fractal_number = 2;
 	else if (ft_strcmp(av[1], "tricorn") == 0 && ac == 2)
 		f->fractal_number = 4;
 	else if (ft_strcmp(av[1], "multibrot") == 0 && ac == 2)

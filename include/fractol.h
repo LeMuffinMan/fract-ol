@@ -104,7 +104,7 @@ typedef struct s_mlx
 	t_img				img;
 }						t_mlx;
 
-//renommer en real et imaginary ?
+// renommer en real et imaginary ?
 typedef struct s_coords
 {
 	long double x; // real
@@ -129,6 +129,8 @@ typedef struct s_tmp
 
 }						t_tmp;
 
+// david : char prend moins de place
+// booleen ?
 typedef struct s_flags
 {
 	int					origin;
@@ -137,7 +139,7 @@ typedef struct s_flags
 	int					bind_combo_shift;
 	int					bind_combo_ctrl_l;
 	int					bind_combo_alt_l;
-	int 				psychedelic_colors;
+	int					psychedelic_colors;
 	int					psyche_switch;
 	int					red_toggle;
 	int					green_toggle;
@@ -157,28 +159,28 @@ typedef struct s_fractal
 	t_coords			shift_view;
 	t_coords			julia_constant;
 	t_coords			mouse;
-	t_coords			z;
+	t_coords z; // des mots, en anglais pour la norme
 	t_coords			c;
 	t_coords			o;
 	t_coords			a;
 	t_coords			d;
 	t_coords			zooming_out_coords;
-	t_tmp					tmp;
+	t_tmp				tmp;
 	t_palette			palette;
 	t_flags				flags;
-	int						fractal_number;
+	int					fractal_number;
 	double				escape_value;
-	long double		max_iterations;
-	int						switch_iterations;
-	long double		mu;
+	long double			max_iterations;
+	int					switch_iterations;
+	long double			mu;
 	double				power;
 	double				t;
 	double				tc;
-	long double		zoom;
+	long double			zoom;
 	double				speed_factor;
-	long double		zooming_out_start;
-	long double		zooming_in_start;
-	long double		max_iterations_start;
+	long double			zooming_out_start;
+	long double			zooming_in_start;
+	long double			max_iterations_start;
 }						t_fractal;
 
 typedef union u_color
@@ -260,7 +262,7 @@ void					init_pov(t_fractal *f);
 void					init_tmp(t_fractal *f);
 int						init_win(t_fractal *f);
 
-// kb_anumations.c
+// kb_animations.c
 void					animation_speed_keys(int key, t_fractal *f);
 void					space_pause(int key, t_fractal *f);
 

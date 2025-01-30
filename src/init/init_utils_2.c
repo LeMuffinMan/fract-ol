@@ -43,6 +43,7 @@ void	init_pov(t_fractal *f)
 	f->speed_factor = 0.02;
 }
 
+//du coup zooming_out_start es pas declare ?
 void	init_flag(t_fractal *f)
 {
 	f->flags.zooming_out = 0;

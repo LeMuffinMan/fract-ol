@@ -6,12 +6,9 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 16:11:45 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/01/28 19:26:02 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*  racourcir set_complexes */
-/* reorganiser si 6 fonctions ?  */
 
 #include <stdio.h> // remplacer pour printf
 #include "../include/fractol.h"
@@ -95,18 +92,9 @@ void	bit_shift_rgb(int i, int *color, t_fractal *f)
 	double	t;
 
 	t = (double)i / f->max_iterations;
-	if (f->flags.red_toggle)
 		colors.r = (char)(9 * (1 - t) * t * t * t * t * 255);
-	else
-		colors.r = 0;
-	if (f->flags.green_toggle)
 		colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
-	else
-		colors.g = 0;
-	if (f->flags.blue_toggle)
 		colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
-	else
-		colors.b = 0;
 	*color = colors.color;
 }
 

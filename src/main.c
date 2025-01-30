@@ -79,15 +79,15 @@
  *  		- mettre libft : strncmp
  *  		- mettre a jour printf pour floats
  *  	- color
- *  	- color.c
- *  		- recaser colorize_pixel dans un fichier qui gere les fct minilibx ?
- *  		- recaser generate_smooth_color
- *  		- revoir les includes du color
- *  	- color_switch.c
- *  		- supprimer les switchs clavier ?
- *  		- si non : static !
- *  	- switch_palette.c
- *  		- reunir avec les switchs clavier ?
+ 		*  	- color.c
+ 		*  		- recaser colorize_pixel dans un fichier qui gere les fct minilibx ?
+ 		*  		- recaser generate_smooth_color
+ 		*  		- revoir les includes du color
+ 		*  	- color_switch.c
+ 		*  		- supprimer les switchs clavier ?
+ 		*  		- si non : static !
+ 		*  	- switch_palette.c
+ 		*  		- reunir avec les switchs clavier ?
  *  	- init : reranger init_utils ?
  *  		- init.c DONE
  *  		- init_palette.c DONE
@@ -119,6 +119,7 @@
 				- combiner WIN_X et WIN_Y
  *
  *
+ * REvoir l'entrteee tricron !!!
  *
  * 	Pierre leaks finding :
  * 		des variable non init
@@ -160,6 +161,7 @@
  * 	- printf // cas des floats ?
  *
  * 4 : Makefile bonus
+ * 	- ATTENTION A LA COMPILE AVEC LIBFT !
  * 	- split bonus
  * 	- clean base
  *
