@@ -11,43 +11,154 @@
 # **************************************************************************** #
 
 NAME = fractol
+BONUS_NAME = fractol_bonus
 
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -g3
-SRC = src/init/init_palette.c src/main.c src/maths.c src/kb_inputs/kb_inputs.c src/init/init.c src/render_fractal.c src/color/color.c src/check_input/check_input.c src/mouse_inputs/mouse_inputs.c src/mouse_inputs/wheel_zoom.c src/animations/animations.c src/animations/animations_utils.c src/mouse_inputs/wheel_combo.c src/color/switch_palette.c src/check_input/check_inputs_utils.c src/init/init_utils_1.c src/init/init_utils_2.c src/color/color_switch.c src/kb_inputs/kb_switch.c src/kb_inputs/kb_pav_num.c src/kb_inputs/kb_julia.c src/kb_inputs/kb_animations.c src/calculate_fractal.c
+INC = -I includes
+INC_LIBFT = -I libft/include
+INC_BONUS = -I bonus/include
+
+SRC_DIR = src
 OBJ_DIR = obj
-OBJ	= $(addprefix $(OBJ_DIR)/,$(SRC:%.c=%.o))
+
+LIBFT_SRC_DIR = libft/src
+LIBFT_OBJ_DIR = libft/obj
+BONUS_SRC_DIR = bonus/src
+BONUS_OBJ_DIR = bonus/obj
+
+SRC_FILES = src/main.c \
+			src/check_input/check_input.c \
+			src/init/init.c \
+			src/render_fractal.c \
+			src/kb_inputs/kb_inputs.c \
+			src/mouse_inputs/mouse_inputs.c \
+			src/check_input/check_inputs_utils.c \
+			src/maths.c \
+			src/calculate_fractal.c \
+			src/color/color.c \
+			src/mouse_inputs/wheel_zoom.c 
+			# src/maths.c \
+			src/inputs.c \
+			src/init.c \
+			src/render_fractal.c \
+			src/color.c
+
+
+LIBFT_SRC_FILES = \
+    libft/src/ft_atoi.c \
+    libft/src/ft_bzero.c \
+    libft/src/ft_calloc.c \
+    libft/src/ft_isalnum.c \
+    libft/src/ft_isalpha.c \
+    libft/src/ft_isascii.c \
+    libft/src/ft_isdigit.c \
+    libft/src/ft_isprint.c \
+    libft/src/ft_itoa.c \
+    libft/src/ft_lstadd_back_bonus.c \
+    libft/src/ft_lstadd_front_bonus.c \
+    libft/src/ft_lstclear_bonus.c \
+    libft/src/ft_lstdelone_bonus.c \
+    libft/src/ft_lstiter_bonus.c \
+    libft/src/ft_lstlast_bonus.c \
+    libft/src/ft_lstnew_bonus.c \
+    libft/src/ft_lstsize_bonus.c \
+    libft/src/ft_memchr.c \
+    libft/src/ft_memcmp.c \
+    libft/src/ft_memcpy.c \
+    libft/src/ft_memmove.c \
+    libft/src/ft_memset.c \
+    libft/src/ft_putchar_fd.c \
+    libft/src/ft_putendl_fd.c \
+    libft/src/ft_putnbr_fd.c \
+    libft/src/ft_putstr_fd.c \
+    libft/src/ft_split.c \
+    libft/src/ft_strdup.c \
+    libft/src/ft_strchr.c \
+    libft/src/ft_striteri.c \
+    libft/src/ft_strjoin.c \
+    libft/src/ft_strlcat.c \
+    libft/src/ft_strlcpy.c \
+    libft/src/ft_strmapi.c \
+    libft/src/ft_strnstr.c \
+    libft/src/ft_strrchr.c \
+    libft/src/ft_strtrim.c \
+    libft/src/ft_substr.c \
+    libft/src/ft_strlen.c \
+    libft/src/ft_strncmp.c \
+    libft/src/ft_tolower.c \
+    libft/src/ft_toupper.c \
+    libft/src/ft_split.c \
+    libft/src/get_next_line.c \
+    libft/src/get_next_line_utils.c
+
+LIBFT_OBJ_FILES = $(LIBFT_SRC_FILES:.c=.o)
+
+BONUS_SRC_FILES = \
+
+BONUS_OBJ_FILES = $(addprefix $(BONUS_OBJ_DIR)/, $(subst bonus/src/, , $(BONUS_SRC_FILES:.c=.o)))
+
+OBJ_FILES = $(SRC_FILES:.c=.o)
+OBJ = $(addprefix $(OBJ_DIR)/,$(OBJ_FILES))
+BONUS = $(addprefix $(BONUS_OBJ_DIR)/,$(BONUS_OBJ_FILES))
+
+LIBFT_A = libft/libft.a
+
+GREEN=\033[32m
+RED=\033[31m
+RESET=\033[0m
 
 MLX_DIR = ./minilibx-linux
 MLX = $(MLX_DIR)/libmlx_Linux.a
+# virer le wildcard !!!!!
 MLX_SRC = $(wildcard $(MLX_DIR)/*.c)
 MLX_OBJ = $(MLX_SRC:.c=.o)
 MLX_FLAGS = -L $(MLX_DIR) -lmlx_Linux -L/usr/lib -I $(MLX_DIR) -lX11 -lm -lz -lXext $(MLX) -lm
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(MLX) $(LIBFT_A)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_FLAGS) -o $(NAME)
+$(NAME): $(OBJ) $(MLX) $(LIBFT_A) Makefile libft/Makefile libft/include/libft.h
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_A) $(LIBFT_FLAGS) -o $(NAME)
+	@echo 
+	@echo "$(GREEN)compilation successful ✅ $(NAME)$(RESET)"
+	@echo 
+
+$(LIBFT_A): $(LIBFT_SRC_FILES) FORCE
+	@$(MAKE) --no-print-directory -C libft
 
 $(MLX): $(MLX_SRC)
 	@$(MAKE) -C $(MLX_DIR)
 
 $(OBJ_DIR)/%.o: %.c Makefile ./include/fractol.h
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -I . -I $(MLX_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) $(INC_LIBFT) -I . -I $(MLX_DIR) -c $< -o $@
 
-clean: 
-	@rm -rf $(OBJS_PATH) $(OBJS)
-	@make clean -C $(MLX_PATH)
+
+bonus: $(BONUS_NAME)
+
+$(BONUS_OBJ_DIR)/%.o: bonus/src/%.c ./bonus/include/fractol_bonus.h
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC_BONUS) -c $< -o $@
+
+$(BONUS_OBJ_DIR)/ops/%.o: bonus/src/ops/%.c ./bonus/include/fractol_bonus.h
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INC_BONUS) -c $< -o $@
+
+$(BONUS_NAME): $(BONUS_OBJ_FILES) $(LIBFT_A) ./bonus/include/fractol_bonus.h
+	$(CC) $(CFLAGS) $(BONUS_OBJ_FILES) $(LIBFT_A) $(LIBFT_FLAGS) -o $(BONUS_NAME)
+	@echo
+	@echo "$(GREEN)compilation successful ✅ $(BONUS_NAME)$(RESET)"
+	@echo
+
+clean:
+	rm -rf $(OBJ_DIR)/*
 
 fclean: clean
-	@rm -f $(NAME) $(MLX_NAME)
+	rm -f $(NAME) $(BONUS_NAME)
+	rm -f $(LIBFT_A)
 
 re: fclean all
 
-debug: 
-	@echo $(OBJS)
-
-
-.PHONY: all re clean fclean
+FORCE:
+.PHONY: all re clean fclean bonus
 

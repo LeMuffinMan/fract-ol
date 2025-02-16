@@ -60,8 +60,7 @@
 # define MOUSE_R 3
 
 // Window datas // mettre une seule variable
-# define WINSIZE_X 800
-# define WINSIZE_Y 800
+# define WINSIZE 800
 
 // A virer en fonction de comment on gere les couleurs
 # define PALETTE_SIZE 20
@@ -153,7 +152,7 @@ typedef struct s_flags
 // une structure math ?
 // une structure zoom ?
 // est-ce qu'on passe des long double au double pour limiter le lag ?
-typedef struct s_fractal
+typedef struct s_data
 {
 	t_mlx				mlx;
 	t_coords			shift_view;
@@ -161,27 +160,15 @@ typedef struct s_fractal
 	t_coords			mouse;
 	t_coords z; // des mots, en anglais pour la norme
 	t_coords			c;
-	t_coords			o;
-	t_coords			a;
-	t_coords			d;
-	t_coords			zooming_out_coords;
 	t_tmp				tmp;
-	t_palette			palette;
-	t_flags				flags;
 	int					fractal_number;
 	double				escape_value;
 	long double			max_iterations;
 	int					switch_iterations;
-	long double			mu;
-	double				power;
-	double				t;
-	double				tc;
 	long double			zoom;
 	double				speed_factor;
-	long double			zooming_out_start;
-	long double			zooming_in_start;
 	long double			max_iterations_start;
-}						t_fractal;
+}						t_data;
 
 typedef union u_color
 {
@@ -196,29 +183,29 @@ typedef union u_color
 }						t_color;
 
 // a classer ou virer
-int						quit(t_fractal *f);
+int						quit(t_data *f);
 
 // animations.c
-void					animated_zoom_out(int x, int y, t_fractal *f);
-void					animated_zoom_in(t_fractal *f);
-void					animated_zoom(int key, int x, int y, t_fractal *f);
-int						update_animations(t_fractal *f);
+void					animated_zoom_out(int x, int y, t_data *f);
+void					animated_zoom_in(t_data *f);
+void					animated_zoom(int key, int x, int y, t_data *f);
+int						update_animations(t_data *f);
 
 // animations_utils.c
-int						get_mouse_coords(int x, int y, t_fractal *f);
-void					dynamic_iterations(t_fractal *f);
-void					wheel_set_arrival(t_fractal *f);
-void					wheel_set_origin(t_fractal *f);
-void					set_animated_zoom_out(int x, int y, t_fractal *f);
+int						get_mouse_coords(int x, int y, t_data *f);
+void					dynamic_iterations(t_data *f);
+void					wheel_set_arrival(t_data *f);
+void					wheel_set_origin(t_data *f);
+void					set_animated_zoom_out(int x, int y, t_data *f);
 
 // check_input.c
 void					param_error(void);
-void					check_julia_input(int ac, char **av, t_fractal *f,
+void					check_julia_input(int ac, char **av, t_data *f,
 							int *check_double);
-void					check_input(int ac, char **av, t_fractal *f);
+void					check_input(int ac, char **av, t_data *f);
 
 // check_input_utils.c
-void					get_coords(int ac, char **av, t_fractal *f,
+void					get_coords(int ac, char **av, t_data *f,
 							int *check_double);
 double					atodbl(char *s, int *max_digits);
 double					get_double(char *s, int sign, int *max_digits);
@@ -230,18 +217,18 @@ int						generate_smooth_color(int iteration, double mu,
 void					colorize_pixel(int x, int y, t_img *img, int color);
 
 // color_switch.c
-void					switch_red(t_fractal *f);
-void					switch_green(t_fractal *f);
-void					switch_blue(t_fractal *f);
-void					color_shift(int key, t_fractal *f);
+void					switch_red(t_data *f);
+void					switch_green(t_data *f);
+void					switch_blue(t_data *f);
+void					color_shift(int key, t_data *f);
 
 // switch_palette.c
-void					switch_prev_palette(t_fractal *f);
-void					switch_next_palette(t_fractal *f);
-void					switch_palette(int key, t_fractal *f);
+void					switch_prev_palette(t_data *f);
+void					switch_next_palette(t_data *f);
+void					switch_palette(int key, t_data *f);
 
 // init.c
-int						init_fractal(t_fractal *f);
+int						init_data(t_data *f);
 
 // init_palette.c
 void					palette_init(t_palette *palette);
@@ -250,66 +237,66 @@ void					init_palette_g(int palette_G[20]);
 void					init_palette_b(int palette_B[20]);
 
 // init_utils_1.c
-void					init_index(t_fractal *f);
-void					init_switch(t_fractal *f);
-void					init_limits(t_fractal *f);
-void					init_coords(t_fractal *f);
-void					init_anims(t_fractal *f);
+void					init_index(t_data *f);
+void					init_switch(t_data *f);
+void					init_limits(t_data *f);
+void					init_coords(t_data *f);
+void					init_anims(t_data *f);
 
 // init_utils_2.c
-void					init_flag(t_fractal *f);
-void					init_pov(t_fractal *f);
-void					init_tmp(t_fractal *f);
-int						init_win(t_fractal *f);
+void					init_flag(t_data *f);
+void					init_pov(t_data *f);
+void					init_tmp(t_data *f);
+int						init_win(t_data *f);
 
 // kb_animations.c
-void					animation_speed_keys(int key, t_fractal *f);
-void					space_pause(int key, t_fractal *f);
+void					animation_speed_keys(int key, t_data *f);
+void					space_pause(int key, t_data *f);
 
 // kb_inputs.c
-int						arrows(int key, t_fractal *f);
-void					combo_keys(int key, t_fractal *f);
-int						shift_toggle(int key, t_fractal *f);
-int						kb_inputs(int key, t_fractal *f);
+int						arrows(int key, t_data *f);
+void					combo_keys(int key, t_data *f);
+int						shift_toggle(int key, t_data *f);
+int						kb_inputs(int key, t_data *f);
 
 // kb_julia.c // renommer fichier et fonctions
-void					julia_moves(int key, t_fractal *f);
-void					set_origin(t_fractal *f);
-void					set_arrival(t_fractal *f);
-void					julia_constant_selector(int key, t_fractal *f);
+void					julia_moves(int key, t_data *f);
+void					set_origin(t_data *f);
+void					set_arrival(t_data *f);
+void					julia_constant_selector(int key, t_data *f);
 
 // pav_num.c
-int						pav_num_enter(int key, t_fractal *f);
-int						pav_num_operators(int key, t_fractal *f);
+int						pav_num_enter(int key, t_data *f);
+int						pav_num_operators(int key, t_data *f);
 
 // kb_switch.c
-void					debug_switch(int key, t_fractal *f);
-void					psyche_switch(int key, t_fractal *f);
-void					num_fractal_switch(int key, t_fractal *f);
-void					multibrot_power_switch(int key, t_fractal *f);
-void					backspace_switch(int key, t_fractal *f);
+void					debug_switch(int key, t_data *f);
+void					psyche_switch(int key, t_data *f);
+void					num_fractal_switch(int key, t_data *f);
+void					multibrot_power_switch(int key, t_data *f);
+void					backspace_switch(int key, t_data *f);
 
 // mouse_inputs.c
-void					wheel(int key, int x, int y, t_fractal *f);
-void					clicks_combo(int key, t_fractal *f);
-void					clicks(int key, int x, int y, t_fractal *f);
-int						mouse_inputs(int key, int x, int y, t_fractal *f);
+void					wheel(int key, int x, int y, t_data *f);
+void					clicks_combo(int key, t_data *f);
+void					clicks(int key, int x, int y, t_data *f);
+int						mouse_inputs(int key, int x, int y, t_data *f);
 
 // wheel_zoom.c
-void					wheel_zoom_out(int key, int x, int y, t_fractal *f);
-void					wheel_zoom_in(int key, int x, int y, t_fractal *f);
-void					wheel_zoom(int key, int x, int y, t_fractal *f);
+void					wheel_zoom_out(int key, int x, int y, t_data *f);
+void					wheel_zoom_in(int key, int x, int y, t_data *f);
+void					wheel_zoom(int key, int x, int y, t_data *f);
 
 // wheel_combo.c
-void					wheel_combo(int key, t_fractal *f);
-void					wheel_combo_down(t_fractal *f);
-void					wheel_combo_up(t_fractal *f);
+void					wheel_combo(int key, t_data *f);
+void					wheel_combo_down(t_data *f);
+void					wheel_combo_up(t_data *f);
 
 // calculate_fractal.c
-void					burning_ship(t_fractal *f);
-void					tricorn(t_fractal *f);
-void					multibrot(t_fractal *f);
-void					calculate_f(t_fractal *f);
+void					burning_ship(t_data *f);
+void					tricorn(t_data *f);
+void					multibrot(t_data *f);
+void					calculate_f(t_data *f);
 
 // maths.c
 double					norm_complex(t_coords z);
@@ -317,15 +304,15 @@ t_coords				sum_complex(t_coords z1, t_coords z2);
 t_coords				square_complex(t_coords z);
 double					scale(double unscaled_num, double new_min,
 							double new_max, double old_min, double old_max);
-void					travel_between_fractals(t_fractal *f);
+void					travel_between_fractals(t_data *f);
 
 // render_fractal.c
-void					set_coordses(int x, int y, t_fractal *f);
-void					iterate_on_pixels(t_fractal *f);
-void					render_fractal(int x, int y, t_fractal *f);
+void					set_coordses(int x, int y, t_data *f);
+void					iterate_on_pixels(t_data *f);
+void					render_fractal(int x, int y, t_data *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);
-int						mouse_inputs(int key, int x, int y, t_fractal *f);
+int						mouse_inputs(int key, int x, int y, t_data *f);
 
 #endif

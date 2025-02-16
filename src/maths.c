@@ -43,12 +43,3 @@ double	scale(double unscaled_num, double new_min, double new_max,
 		+ new_min);
 }
 
-void	travel_between_fractals(t_fractal *f)
-{
-	f->flags.traveling = 1;
-	f->t += f->tc;
-	f->julia_constant.x = f->o.x + ((sin(f->t) + 1) * 0.5) * f->d.x;
-	f->julia_constant.y = f->o.y + ((sin(f->t) + 1) * 0.5) * f->d.y;
-	iterate_on_pixels(f);
-	mlx_do_sync(f->mlx.mlx);
-}
