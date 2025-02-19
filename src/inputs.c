@@ -6,12 +6,11 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 12:42:48 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/19 12:43:00 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/19 15:24:46 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-#include <stdio.h> //remplacer par printf !
 
 int	mouse_inputs(int key, int x, int y, t_data *f)
 {
@@ -38,8 +37,12 @@ int	mouse_inputs(int key, int x, int y, t_data *f)
 
 int	kb_inputs(int key, t_data *f)
 {
-	//corriger ici : win X n'y passera jamais
-	if (key == WIN_X || key == ESC)
+	if (key == ESC)
 		quit(f);
+	else if (key == PLUS && f->max_iterations < MAX_I)
+	  f->max_iterations++;
+	else if (key == MINUS && f->max_iterations > 1)
+	  f->max_iterations--;
+	iterate_on_pixels(f);
 	return (0);
 }

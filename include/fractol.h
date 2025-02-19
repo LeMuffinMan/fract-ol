@@ -30,27 +30,6 @@
 # define ESC 65307
 # define PLUS 65451
 # define MINUS 65453
-# define LEFT 65361
-# define RIGHT 65363
-# define UP 65362
-# define DOWN 65364
-# define ENTER 65293 // mettre click souris a la place
-# define NUM_ENTER 65421
-# define SWITCH1 109
-# define SWITCH2 106
-# define SWITCH3 98
-# define SWITCH4 116
-# define R 114
-# define G 103
-# define B 98
-# define E 101
-# define P 112
-# define D 100
-# define SPACE 32
-# define BACKSPACE 65288
-# define CTRL_L 65507
-# define ALT_L 65513
-# define SHIFT 65505
 
 // Mouse inputs
 # define MOUSE_WHEEL_UP 4
@@ -62,23 +41,8 @@
 // Window datas // mettre une seule variable
 # define WINSIZE 800
 
-// A virer en fonction de comment on gere les couleurs
-# define PALETTE_SIZE 20
 # define BLACK 0x000000
-// # define WHITE 0xFFFFFF
 
-// 1 mandel
-// 2 julia
-// 3 bruning
-// 4 tricorn
-// 5 julia burning ship
-// 6 julia tricorn
-// 7 multibrot
-// 8 julia multibrot
-// 9 perpendicular burning ship // a virer partout
-
-// structures
-// mlx-img
 typedef struct s_img
 {
 	void				*img_p;
@@ -107,13 +71,11 @@ typedef struct s_data
 	t_mlx				mlx;
 	t_coords			shift_view;
 	t_coords			julia_constant;
-	t_coords			mouse;
 	t_coords z; // des mots, en anglais pour la norme
 	t_coords			c;
 	int					fractal_number;
 	double				escape_value;
 	double				max_iterations;
-	int					switch_iterations;
 	double				zoom;
 }						t_data;
 
@@ -134,35 +96,22 @@ int						quit(t_data *f);
 
 // check_input.c
 void					param_error(void);
-void					check_julia_input(int ac, char **av, t_data *f,
-							int *check_double);
 void					check_input(int ac, char **av, t_data *f);
-
-// check_input_utils.c
 void					get_coords(int ac, char **av, t_data *f,
 							int *check_double);
-double					atodbl(char *s, int *max_digits);
 double					get_double(char *s, int sign, int *max_digits);
+double					atodbl(char *s, int *max_digits);
+
+// check_input_utils.c la libft ?
 int						skip_spaces(char *s, int *sign, int *max_digits);
-
-// color.c
-void					colorize_pixel(int x, int y, t_img *img, int color);
-
-// color_switch.c
-void					color_shift(int key, t_data *f);
 
 // init.c
 int						init_data(t_data *f);
 int						init_win(t_data *f);
 
-// kb_inputs.c
+// inputs.c
 int						kb_inputs(int key, t_data *f);
-
-// mouse_inputs.c
 int						mouse_inputs(int key, int x, int y, t_data *f);
-
-// wheel_zoom.c
-void					wheel_zoom(int key, int x, int y, t_data *f);
 
 // maths.c
 double					norm_complex(t_coords z);
@@ -174,6 +123,9 @@ double					scale(double unscaled_num, double new_min,
 // render_fractal.c
 void					iterate_on_pixels(t_data *f);
 void					render_fractal(int x, int y, t_data *f);
+void					colorize_pixel(int x, int y, t_img *img, int color);
+void					set_complexes(int x, int y, t_data *f);
+void					bit_shift_rgb(int i, int *color, t_data *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);

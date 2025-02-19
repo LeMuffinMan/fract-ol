@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 19:26:02 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/19 15:19:22 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 //optimiser les calculs ?
 //renommer les fonctions
 
+//a mettre en static ?
 void	set_complexes(int x, int y, t_data *f)
 {
 	if (f->fractal_number == 1)
@@ -34,7 +35,6 @@ void	set_complexes(int x, int y, t_data *f)
 		f->c.y = f->julia_constant.y;
 	}
 }
-
 
 void	iterate_on_pixels(t_data *f)
 {
@@ -59,7 +59,7 @@ void	iterate_on_pixels(t_data *f)
 	mlx_do_sync(f->mlx.mlx);
 }
 
-//renommer
+//renommer et potasser 
 void	bit_shift_rgb(int i, int *color, t_data *f)
 {
 	t_color	colors;
@@ -91,3 +91,15 @@ void	render_fractal(int x, int y, t_data *f)
 	}
 	colorize_pixel(x, y, &f->mlx.img, BLACK);
 }
+
+// lire la doc pour ca !
+// faire un fichier avec les fonctions speciales minilibx
+void	colorize_pixel(int x, int y, t_img *img, int color)
+{
+	int	offset;
+
+	offset = (y * img->line_len) + (x * (img->bpp));
+	*(unsigned int *)(img->pixels + offset) = color;
+}
+
+
