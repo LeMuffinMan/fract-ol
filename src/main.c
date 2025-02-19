@@ -18,6 +18,19 @@
 #include <stdio.h>  //perror
 #include <stdlib.h>
 
+
+//Makefile relink et libft 
+	//mettre la libft
+//rechecker le zoom
+//voir pour les iterations
+//A to double a recheck : il accepte une lettre en fin de string ?
+	//securiser les overflow
+//revoir la couleur
+//relire doc mlx
+//revoir les theories maths 
+//renommer bien les variables
+//virer ce qui n'est pas necessaire
+
 //revoir les exit ici 
 int	quit(t_data *f)
 {

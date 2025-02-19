@@ -28,21 +28,13 @@ BONUS_SRC_DIR = bonus/src
 BONUS_OBJ_DIR = bonus/obj
 
 SRC_FILES = src/main.c \
-			src/check_input/check_input.c \
-			src/init/init.c \
-			src/render_fractal.c \
-			src/kb_inputs/kb_inputs.c \
-			src/mouse_inputs/mouse_inputs.c \
-			src/check_input/check_inputs_utils.c \
-			src/maths.c \
-			src/calculate_fractal.c \
-			src/color/color.c \
-			src/mouse_inputs/wheel_zoom.c 
-			# src/maths.c \
-			src/inputs.c \
+			src/check_input.c \
 			src/init.c \
 			src/render_fractal.c \
-			src/color.c
+			src/inputs.c \
+			src/check_inputs_utils.c \
+			src/maths.c \
+			src/color.c 
 
 
 LIBFT_SRC_FILES = \

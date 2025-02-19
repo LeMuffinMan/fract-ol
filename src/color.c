@@ -24,24 +24,4 @@ void	colorize_pixel(int x, int y, t_img *img, int color)
 	*(unsigned int *)(img->pixels + offset) = color;
 }
 
-// renommer et rechecker
-/* int	generate_smooth_color(int iteration, double mu, int max_iterations, */
-/* 		t_palette *palette) */
-/* { */
-/* 	double	t; */
-/* 	int		index; */
-/**/
-/* 	if (palette == NULL) */
-/* 		return (0); */
-/* 	t = (iteration + mu) / max_iterations; */
-/* 	if (t < 0) */
-/* 		t = 0; */
-/* 	if (t > 1) */
-/* 		t = 1; */
-/* 	index = (int)(t * PALETTE_SIZE) % PALETTE_SIZE; */
-/* 	if (index < 0) */
-/* 		index = 0; */
-/* 	if (index >= PALETTE_SIZE) */
-/* 		index = PALETTE_SIZE - 1; */
-/* 	return (palette->palettes[palette->n][index]); */
-/* } */
+

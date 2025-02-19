@@ -14,46 +14,27 @@
 #include "../include/fractol.h"
 #include <math.h>
 
+//optimiser les calculs ?
+//renommer les fonctions
+
 void	set_complexes(int x, int y, t_data *f)
 {
-	f->z.x = 0.0;
-	f->z.y = 0.0;
 	if (f->fractal_number == 1)
 	{
+		f->z.x = 0.0;
+		f->z.y = 0.0;
 		f->c.x = (scale(x, -3, +3, 0, WINSIZE) * f->zoom) + f->shift_view.x;
 		f->c.y = (scale(y, -3, +3, 0, WINSIZE) * f->zoom) - f->shift_view.y;
 	}
 	else if (f->fractal_number == 2)
 	{
+		f->z.x = (scale(x, -3, +3, 0, WINSIZE) * f->zoom) + f->shift_view.x;
+		f->z.y = (scale(y, -3, +3, 0, WINSIZE) * f->zoom) - f->shift_view.y;
 		f->c.x = f->julia_constant.x;
 		f->c.y = f->julia_constant.y;
 	}
 }
 
-/* void	debug(t_data *f) */
-/* { */
-/* 	printf("======================================\n"); */
-/* 	printf("boucle t = %f\nj_x = %Lf\nj_y = %Lf\n", f->t, f->julia_constant.x, f->julia_constant.y); */
-/* 	printf("shift_x = %.20Lf\n", f->shift_view.x); */
-/* 	printf("shift_y = %.20Lf\n", f->shift_view.y); */
-/* 	printf("a.x = %Lf\n", f->a.x); */
-/* 	printf("a.y = %Lf\n", f->a.y); */
-/* 	printf("o.x = %Lf\n", f->o.x); */
-/* 	printf("o.y = %Lf\n", f->o.y); */
-/* 	printf("multibrot power %f\n", f->power); */
-/* 	printf("--------------------------------------\n"); */
-/* 	printf("max_iterations = %Lf\n", f->max_iterations); */
-/* 	printf("f->tc = %f\n", f->tc); */
-/* 	printf("speed_factor = %f\n", f->speed_factor); */
-/* 	printf("traveling = %d\n", f->flags.traveling); */
-/* 	printf("--------------------------------------\n"); */
-/* 	printf("f->zoom = %.20Lf\n", f->zoom); */
-/* 	printf("f->flags.zooming_in = %d\n", f->flags.zooming_in); */
-/* 	printf("f->flags.zooming_out = %d\n", f->flags.zooming_out); */
-/* 	printf("--------------------------------------\n"); */
-/* 	printf("f->flags.psyche_switch = %d\n", f->flags.psyche_switch); */
-/* 	printf("psychedelic_colors = %d\n", f->flags.psychedelic_colors); */
-/* } */
 
 void	iterate_on_pixels(t_data *f)
 {
@@ -72,9 +53,13 @@ void	iterate_on_pixels(t_data *f)
 		}
 		y++;
 	}
+	//lire la doc
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
+	//virer le do_sync ?
+	mlx_do_sync(f->mlx.mlx);
 }
 
+//renommer
 void	bit_shift_rgb(int i, int *color, t_data *f)
 {
 	t_color	colors;
@@ -95,7 +80,7 @@ void	render_fractal(int x, int y, t_data *f)
 	i = 0;
 	while (i < f->max_iterations)
 	{
-		calculate_f(f);
+		f->z = sum_complex(square_complex(f->z), f->c);
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
 			bit_shift_rgb(i, &color, f);

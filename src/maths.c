@@ -13,6 +13,7 @@
 #include "../include/fractol.h"
 #include <math.h>
 
+// le faire direct en dur plutot que de faire une fonction ?
 t_coords	sum_complex(t_coords z1, t_coords z2)
 {
 	t_coords	result;
@@ -31,10 +32,12 @@ t_coords	square_complex(t_coords z)
 	return (result);
 }
 
+//retrouver comment on faisait sqrt voir si c'est plus rentable ?
 double	norm_complex(t_coords z)
 {
 	return (sqrt(z.x * z.x + z.y * z.y));
 }
+
 
 double	scale(double unscaled_num, double new_min, double new_max,
 		double old_min, double old_max)

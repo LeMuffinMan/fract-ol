@@ -11,21 +11,24 @@
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-#include <stdlib.h>
+#include <stdlib.h> // pour NULL
 
 int	init_data(t_data *f)
 {
+	f->fractal_number = 1;
+	f->escape_value = 4;
+	f->max_iterations = MIN_I;
 	f->shift_view.x = 0.0;
 	f->shift_view.y = 0.0;
 	f->zoom = 1.0;
-	f->speed_factor = 0.02;
-	f->fractal_number = 0;
-	f->escape_value = 4;
-	f->max_iterations = MIN_I;
+	f->z.x = 0;
+	f->z.y = 0;
+	f->c.x = 0;
+	f->c.y = 0;
 	return (0);
 }
 
-//a proteger mieux ?
+// A PROTEGER !!!
 int	init_win(t_data *f)
 {
 	f->mlx.mlx = mlx_init();
@@ -35,9 +38,7 @@ int	init_win(t_data *f)
 	f->mlx.img.img_p = mlx_new_image(f->mlx.mlx, WINSIZE, WINSIZE);
 	f->mlx.img.pixels = mlx_get_data_addr(f->mlx.img.img_p, &f->mlx.img.bpp,
 			&f->mlx.img.line_len, &f->mlx.img.endian);
-	//possible de rendre plus fluide en checkant la doc de ca !!!
 	f->mlx.img.bpp /= 8;
 	iterate_on_pixels(f);
 	return (0);
 }
-
