@@ -17,19 +17,20 @@ int	mouse_inputs(int key, int x, int y, t_data *f)
 	double	relative_x;
 	double	relative_y;
 
+	//clean un peu
 	if (key == MOUSE_WHEEL_UP)
 	{
 		f->zoom *= 0.9;
-		relative_x = (x - WINSIZE / 2.0) * f->zoom / 1000;
-		relative_y = (y - WINSIZE / 2.0) * f->zoom / 1000;
+		relative_x = (x - (WINSIZE >> 1)) * f->zoom * 0.001;
+		relative_y = (y - (WINSIZE >> 1)) * f->zoom * 0.001;
 		f->shift_view.x += relative_x;
 		f->shift_view.y -= relative_y;
 	}
 	else if (key == MOUSE_WHEEL_DOWN)
 	{
 		f->zoom *= 1.1;
-		f->shift_view.x -= (x - WINSIZE / 2.0) * f->zoom / 1000;
-		f->shift_view.y += (y - WINSIZE / 2.0) * f->zoom / 1000;
+		f->shift_view.x -= (x - (WINSIZE >> 1)) * f->zoom * 0.001;
+		f->shift_view.y += (y - (WINSIZE >> 1)) * f->zoom * 0.001;
 	}
 	iterate_on_pixels(f);
 	return (key);

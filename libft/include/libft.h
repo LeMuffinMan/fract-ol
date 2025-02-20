@@ -17,6 +17,10 @@
 # endif
 
 # include <bsd/string.h>
+//printf
+# include <stdarg.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
@@ -68,6 +72,29 @@ size_t				ft_strlcpy(char *dst, const char *src, size_t size);
 size_t				ft_strlen(const char *s);
 t_list				*ft_lstnew(void *content);
 t_list				*ft_lstlast(t_list *lst);
+//gnl
 char				*get_next_line(int fd);
+char	*ft_strchr_protected(const char *s, int c);
+char	*ft_strjoin_protected(char *s1, char const *s2);
+size_t	ft_strlengnl(const char *s);
+//printf
+
+size_t	ft_strlen(const char *s);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
+void	ft_putnbr_fd(int n, int fd);
+int		ft_printf(const char *s, ...);
+int		print(va_list params, char format);
+void	print_uint(unsigned int n);
+int		hexa_len(unsigned int n);
+int		dec_to_hex(unsigned int n, char format);
+int		f_hex(unsigned int p, char format);
+int		f_ptr(unsigned long long p);
+int		ptr_to_hex(unsigned long long n);
+int		ptr_len(unsigned long long n);
+int		f_uint(unsigned int n);
+int		f_int(int n);
+int		f_str(char *s);
+int		f_char(int c);
 
 #endif

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-#include <stdlib.h> // pour NULL
+#include <stdlib.h>
 
 int	init_data(t_data *f)
 {

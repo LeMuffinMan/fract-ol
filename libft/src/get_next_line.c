@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/libft.h"
+#include <unistd.h>
+#include <stdlib.h>
 
 static void	cleaner(char *buf, char *line, ssize_t nb)
 {

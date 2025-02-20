@@ -32,8 +32,7 @@ SRC_FILES = src/main.c \
 			src/init.c \
 			src/render_fractal.c \
 			src/inputs.c \
-			src/check_inputs_utils.c \
-			src/maths.c
+			src/check_inputs_utils.c 
 
 
 LIBFT_SRC_FILES = \

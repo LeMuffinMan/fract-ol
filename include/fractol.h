@@ -21,8 +21,8 @@
 # define LDMIN LDBL_MIN
 // pas mettre de define et include uniquement ou j'ai besoin
 
-# define MAX_I 100
-# define MIN_I 20
+# define MAX_I 200
+# define MIN_I 50
 
 # define WIN_X 17
 
@@ -112,11 +112,6 @@ int						init_win(t_data *f);
 // inputs.c
 int						kb_inputs(int key, t_data *f);
 int						mouse_inputs(int key, int x, int y, t_data *f);
-
-// maths.c
-double					norm_complex(t_coords z);
-t_coords				sum_complex(t_coords z1, t_coords z2);
-t_coords				square_complex(t_coords z);
 
 // render_fractal.c
 void					iterate_on_pixels(t_data *f);

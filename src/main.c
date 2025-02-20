@@ -13,47 +13,35 @@
 #include "../include/fractol.h"
 #include "../minilibx-linux/mlx.h"
 #include <X11/X.h> //checker la doc
-#include <errno.h>
-#include <stddef.h> //stdlib utilise stddef : plus direct
-#include <stdio.h>  //perror
 #include <stdlib.h>
 
 
-//Makefile relink et libft 
-	//mettre la libft
-   //integrer printf
 //rechecker le zoom
-//A to double a recheck : il accepte une lettre en fin de string ?
-	//securiser les overflow
+	
 //revoir la couleur
+
 //relire doc mlx
 //revoir les theories maths 
+
 //renommer bien les variables
-//virer ce qui n'est pas necessaire
-//
-//check_inputs.c
- //integrer printf
- //coordonnees par defaut pour Julia ?
- //proteger les long long int overflow
- //revoir les cas d'erreur pour atodble
-//
+
 //init.c 
  //revoir et proteger init_win
  //faire une fonction qui free ?
-//
+
 //input.c : done 
-//
-//maths.c
-  //voir si on fait des fonction separees pour les calculs ?
-  //optimiser sqrt ?
-//
+
 //render_fractal.c
  //revoir les fonctions static PARTOUT !
- //voir la doc
+ //voir la doc pour les couleurs 
  //voir pour les couleurs en union et renommer la fonction
 
 //voir si le Makefile relink comme on veut 
+	//doit relinker avec la minilibx ?
+  //a gerer demander a Kenzo
 
+//bonus : 
+ //tailler et opti mon gros fractol
 
 //revoir les exit ici 
 int	quit(t_data *f)
@@ -77,6 +65,7 @@ int	quit(t_data *f)
 /* 0.3 0.5  */
 /* –0,038088 0.97 */
 /*julia -0.8 0.156*/
+/* -0.4 -0.6 */
 
 int	main(int ac, char **av)
 {

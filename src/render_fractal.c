@@ -11,12 +11,9 @@
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
-#include <math.h>
-#include <stdio.h> // remplacer pour printf
 
 // optimiser les calculs ?
 // renommer les fonctions
-
 // a mettre en static ?
 void	set_complexes(int x, int y, t_data *f)
 {
@@ -73,16 +70,20 @@ void	bit_shift_rgb(int i, int *color, t_data *f)
 }
 
 // stocker en local pour garder les perfs ?
-//
+//racourcir 
 void	render_fractal(int x, int y, t_data *f)
 {
 	int	i;
 	int	color;
+	t_coords z_squared;
 
 	i = 0;
 	while (i < f->max_iterations)
 	{
-		f->z = sum_complex(square_complex(f->z), f->c);
+		z_squared.x = (f->z.x * f->z.x) - (f->z.y * f->z.y);
+		z_squared.y = 2 * f->z.x * f->z.y;
+		f->z.x = z_squared.x + f->c.x;
+		f->z.y = z_squared.y + f->c.y;
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
 			bit_shift_rgb(i, &color, f);
@@ -92,7 +93,6 @@ void	render_fractal(int x, int y, t_data *f)
 		}
 		i++;
 	}
-	// lire la doc pour ca !
 	// faire un fichier avec les fonctions speciales minilibx
 	*(unsigned int *)(f->mlx.img.pixels + (y * f->mlx.img.line_len) + (x
 				* (f->mlx.img.bpp))) = BLACK; 
