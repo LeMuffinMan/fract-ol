@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/19 14:58:49 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/19 16:03:02 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 	//mettre la libft
    //integrer printf
 //rechecker le zoom
-//voir pour les iterations
 //A to double a recheck : il accepte une lettre en fin de string ?
 	//securiser les overflow
 //revoir la couleur
@@ -33,7 +32,6 @@
 //virer ce qui n'est pas necessaire
 //
 //check_inputs.c
- //libft : strncmp + skip spaces pour virer utils ?
  //integrer printf
  //coordonnees par defaut pour Julia ?
  //proteger les long long int overflow
@@ -78,6 +76,7 @@ int	quit(t_data *f)
 /* presets julia */
 /* 0.3 0.5  */
 /* –0,038088 0.97 */
+/*julia -0.8 0.156*/
 
 int	main(int ac, char **av)
 {

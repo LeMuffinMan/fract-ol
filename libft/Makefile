@@ -13,7 +13,7 @@
 NAME=libft.a
 
 CC=cc
-FLAGS=-Wall -Werror -Wextra -g3
+FLAGS=-Wall -Werror -Wextra
 INC= -I include
 SRC_DIR=src
 INC_DIR=include
@@ -81,7 +81,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	ar -rcs $(NAME) $(OBJ)
 	@echo 
-	@echo -e "$(GREEN)compilation successful ✅ $(NAME) $(RESET)"
+	@echo "$(GREEN)compilation successful ✅ $(NAME) $(RESET)"
 	@echo 
 
 # Compilations des fichiers .o à partir des fichiers .c

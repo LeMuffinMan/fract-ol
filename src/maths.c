@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:17:17 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 16:07:13 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/19 16:01:25 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,4 @@ double	norm_complex(t_coords z)
 }
 
 
-double	scale(double unscaled_num, double new_min, double new_max,
-		double old_min, double old_max)
-{
-	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min)
-		+ new_min);
-}
 

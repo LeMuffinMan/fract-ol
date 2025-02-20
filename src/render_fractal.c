@@ -6,18 +6,18 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/19 15:19:22 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/19 16:02:18 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> // remplacer pour printf
 #include "../include/fractol.h"
 #include <math.h>
+#include <stdio.h> // remplacer pour printf
 
-//optimiser les calculs ?
-//renommer les fonctions
+// optimiser les calculs ?
+// renommer les fonctions
 
-//a mettre en static ?
+// a mettre en static ?
 void	set_complexes(int x, int y, t_data *f)
 {
 	if (f->fractal_number == 1)
@@ -53,25 +53,27 @@ void	iterate_on_pixels(t_data *f)
 		}
 		y++;
 	}
-	//lire la doc
+	// lire la doc
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
-	//virer le do_sync ?
+	// virer le do_sync ?
 	mlx_do_sync(f->mlx.mlx);
 }
 
-//renommer et potasser 
+// renommer et potasser
 void	bit_shift_rgb(int i, int *color, t_data *f)
 {
 	t_color	colors;
 	double	t;
 
 	t = (double)i / f->max_iterations;
-		colors.r = (char)(9 * (1 - t) * t * t * t * t * 255);
-		colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
-		colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
+	colors.r = (char)(9 * (1 - t) * t * t * t * t * 255);
+	colors.g = (char)(15 * (1 - t) * (1 - t) * t * t * 255);
+	colors.b = (char)(8.5 * (1 - t) * (1 - t) * (1 - t) * t * 255);
 	*color = colors.color;
 }
 
+// stocker en local pour garder les perfs ?
+//
 void	render_fractal(int x, int y, t_data *f)
 {
 	int	i;
@@ -84,22 +86,22 @@ void	render_fractal(int x, int y, t_data *f)
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
 			bit_shift_rgb(i, &color, f);
-			colorize_pixel(x, y, &f->mlx.img, color);
+			*(unsigned int *)(f->mlx.img.pixels + (y * f->mlx.img.line_len) + (x
+						* (f->mlx.img.bpp))) = color;
 			return ;
 		}
 		i++;
 	}
-	colorize_pixel(x, y, &f->mlx.img, BLACK);
+	// lire la doc pour ca !
+	// faire un fichier avec les fonctions speciales minilibx
+	*(unsigned int *)(f->mlx.img.pixels + (y * f->mlx.img.line_len) + (x
+				* (f->mlx.img.bpp))) = BLACK; 
+	/* color = BLACK; */
 }
 
-// lire la doc pour ca !
-// faire un fichier avec les fonctions speciales minilibx
-void	colorize_pixel(int x, int y, t_img *img, int color)
+double	scale(double unscaled_num, double new_min, double new_max,
+		double old_min, double old_max)
 {
-	int	offset;
-
-	offset = (y * img->line_len) + (x * (img->bpp));
-	*(unsigned int *)(img->pixels + offset) = color;
+	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min)
+		+ new_min);
 }
-
-

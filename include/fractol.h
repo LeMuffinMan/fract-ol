@@ -91,7 +91,7 @@ typedef union u_color
 	};
 }						t_color;
 
-// a classer ou virer
+// a classer ou virer : dans utils ?
 int						quit(t_data *f);
 
 // check_input.c
@@ -117,8 +117,6 @@ int						mouse_inputs(int key, int x, int y, t_data *f);
 double					norm_complex(t_coords z);
 t_coords				sum_complex(t_coords z1, t_coords z2);
 t_coords				square_complex(t_coords z);
-double					scale(double unscaled_num, double new_min,
-							double new_max, double old_min, double old_max);
 
 // render_fractal.c
 void					iterate_on_pixels(t_data *f);
@@ -126,8 +124,7 @@ void					render_fractal(int x, int y, t_data *f);
 void					colorize_pixel(int x, int y, t_img *img, int color);
 void					set_complexes(int x, int y, t_data *f);
 void					bit_shift_rgb(int i, int *color, t_data *f);
-
-// libft
-int						ft_strcmp(const char *s1, const char *s2);
+double					scale(double unscaled_num, double new_min,
+							double new_max, double old_min, double old_max);
 
 #endif

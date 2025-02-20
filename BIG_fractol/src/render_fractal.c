@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 19:26:02 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/19 16:00:10 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,26 @@ void	render_fractal(int x, int y, t_fractal *f)
 		i++;
 	}
 	colorize_pixel(x, y, &f->mlx.img, BLACK);
+}
+
+//une version super super psyche !!!
+
+void	render_fractal(int x, int y, t_data *f)
+{
+	int	i;
+	int color;
+
+	i = 0;
+	while (i < f->max_iterations)
+	{
+		f->z = sum_complex(square_complex(f->z), f->c);
+		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
+		{
+			bit_shift_rgb(i, &color, f);
+			*(unsigned int *)(f->mlx.img.pixels + (y * f->mlx.img.line_len) + (x * (f->mlx.img.bpp))) = color;
+			return ;
+		}
+		i++;
+	}
+	color = BLACK;
 }
