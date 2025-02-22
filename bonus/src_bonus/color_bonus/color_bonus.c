@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:28:27 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:23:29 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:31:17 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	bit_shift_rgb(int i, int *color, t_data *f)
 
 // lire la doc pour ca !
 // faire un fichier avec les fonctions speciales minilibx
-int	colorize_pixel(int x, int y, t_data *f, int color, int i)
+int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 {
 	int	offset;
 

@@ -1,3 +1,5 @@
 minilibx-linux/
 fractol
 obj/
+rename_bonus.sh
+notes.c

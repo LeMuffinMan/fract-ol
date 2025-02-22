@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:31:56 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:11:53 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:31:01 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,7 +227,7 @@ int						skip_spaces(char *s, int *sign, int *max_digits);
 // color.c
 int						generate_smooth_color(int iteration, double mu,
 							int max_iterations, t_palette *palette);
-int					colorize_pixel(int x, int y, t_data *f, int color, int i);
+int					colorize_pixel(t_coords coords, t_data *f, int color, int i);
 
 // color_switch.c
 void					switch_red(t_data *f);

@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:30:45 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:22:45 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:31:24 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,18 @@ void	iterate_on_pixels(t_data *f)
 
 void	render_fractal(int x, int y, t_data *f)
 {
-	int	i;
-	int	color;
+	int			i;
+	int			color;
+	t_coords	coords;
 
 	i = 0;
 	color = 0;
 	while (i < f->max_iterations)
 	{
 		calculate_f(f);
-		if (colorize_pixel(x, y, f, color, i))
+		t_coords.x = x;
+		t_coords.y = y;
+		if (colorize_pixel(coords, f, color, i))
 			return ;
 		i++;
 	}
