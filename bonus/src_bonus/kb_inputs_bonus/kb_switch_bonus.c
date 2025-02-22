@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   kb_switch.c                                        :+:      :+:    :+:   */
+/*   kb_switch_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:04:13 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 17:17:07 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:53:13 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/fractol_bonus.h"
-
-void	debug_switch(int key, t_data *f)
-{
-	if (key == D)
-	{
-		if (f->flags.debug == 0)
-			f->flags.debug = 1;
-		else if (f->flags.debug == 1)
-			f->flags.debug = 0;
-	}
-}
 
 void	psyche_switch(int key, t_data *f)
 {

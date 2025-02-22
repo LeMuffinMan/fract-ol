@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   kb_inputs.c                                        :+:      :+:    :+:   */
+/*   kb_inputs_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:53:43 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 17:18:51 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:55:03 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	kb_inputs(int key, t_data *f)
 	arrows(key, f);
 	pav_num_operators(key, f);
 	psyche_switch(key, f);
-	debug_switch(key, f);
 	num_fractal_switch(key, f);
 	color_shift(key, f);
 	multibrot_power_switch(key, f);

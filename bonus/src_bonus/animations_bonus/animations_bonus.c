@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:30:09 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:22:52 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:40:58 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	animated_zoom_out(int x, int y, t_data *f)
 		f->zoom /= (1 - f->speed_factor);
 		if (f->zoom > 0.1)
 		{
-			f->shift_view.x -= (x - WINSIZE_X / 2.0) * f->zoom / 1000;
-			f->shift_view.y += (y - WINSIZE_Y / 2.0) * f->zoom / 1000;
+			f->shift_view.x -= (x - (WINSIZE >> 1)) * f->zoom * 0.0001;
+			f->shift_view.y += (y - (WINSIZE >> 1)) * f->zoom * 0.0001;
 			f->shift_view.x *= 0.99;
 			f->shift_view.y *= 0.99;
 			if (f->zoom > 0.9)

@@ -6,19 +6,14 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 14:31:56 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:31:01 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:53:04 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_BONUS_H
 # define FRACTOL_BONUS_H
 
-# include "../../minilibx-linux/mlx.h"
-
-// a virer
-// # define pi 3.141592653589793
 # define LDMIN 1E-37
-// pas mettre de define et include uniquement ou j'ai besoin
 
 # define MAX_I 100
 # define MIN_I 20
@@ -59,34 +54,11 @@
 # define MOUSE_R 3
 
 // Window datas // mettre une seule variable
-# define WINSIZE_X 800
-# define WINSIZE_Y 800
+# define WINSIZE 800
 
-// A virer en fonction de comment on gere les couleurs
 # define PALETTE_SIZE 20
 # define BLACK 0x000000
-// # define WHITE 0xFFFFFF
 
-// 1 mandel
-// 2 julia
-// 3 bruning
-// 4 tricorn
-// 5 julia burning ship
-// 6 julia tricorn
-// 7 multibrot
-// 8 julia multibrot
-// 9 perpendicular burning ship // a virer partout
-
-// typedef struct s_tmp //on veut garder 2 tmp en memoire a chaque fois
-// {
-// 	double shift_x;
-// 	double shift_y;
-// 	double zoom;
-// 	int 		fractal_number;
-// } t_tmp;
-
-// structures
-// mlx-img
 typedef struct s_img
 {
 	void				*img_p;
@@ -103,7 +75,6 @@ typedef struct s_mlx
 	t_img				img;
 }						t_mlx;
 
-// renommer en real et imaginary ?
 typedef struct s_coords
 {
 	long double			x;
@@ -128,8 +99,6 @@ typedef struct s_tmp
 
 }						t_tmp;
 
-// david : char prend moins de place
-// booleen ?
 typedef struct s_flags
 {
 	int					origin;
@@ -146,15 +115,8 @@ typedef struct s_flags
 	int					traveling;
 	long double			zooming_out_start;
 	long double			zooming_in_start;
-	int					debug;
 }						t_flags;
 
-// longueur max ?
-// si non : diviser logiquement
-// une structure math ?
-// une structure zoom ?
-// est-ce qu'on passe des long double au double pour limiter le lag ?
-// // des mots, en anglais pour la norme
 typedef struct s_data
 {
 	t_mlx				mlx;
@@ -227,7 +189,8 @@ int						skip_spaces(char *s, int *sign, int *max_digits);
 // color.c
 int						generate_smooth_color(int iteration, double mu,
 							int max_iterations, t_palette *palette);
-int					colorize_pixel(t_coords coords, t_data *f, int color, int i);
+int						colorize_pixel(t_coords coords, t_data *f, int color,
+							int i);
 
 // color_switch.c
 void					switch_red(t_data *f);
@@ -283,7 +246,6 @@ int						pav_num_enter(int key, t_data *f);
 int						pav_num_operators(int key, t_data *f);
 
 // kb_switch.c
-void					debug_switch(int key, t_data *f);
 void					psyche_switch(int key, t_data *f);
 void					num_fractal_switch(int key, t_data *f);
 void					multibrot_power_switch(int key, t_data *f);

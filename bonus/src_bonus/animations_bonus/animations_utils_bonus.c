@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:33:54 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:23:22 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:40:34 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	get_mouse_coords(int x, int y, t_data *f)
 	if (f->fractal_number == 6 || f->fractal_number == 5
 		|| f->fractal_number == 4)
 	{
-		f->mouse.x = (scale(x, -3, +3, WINSIZE_X) * f->tmp.zoom)
+		f->mouse.x = (scale(x, -3, +3, WINSIZE) * f->tmp.zoom)
 			+ f->tmp.shift_x;
-		f->mouse.y = (scale(y, +3, -3, WINSIZE_Y) * f->tmp.zoom)
+		f->mouse.y = (scale(y, +3, -3, WINSIZE) * f->tmp.zoom)
 			+ f->tmp.shift_y;
 	}
 	else
 	{
-		f->mouse.x = (scale(x, -3, +3, WINSIZE_X) * f->zoom) + f->shift_view.x;
-		f->mouse.y = (scale(y, +3, -3, WINSIZE_Y) * f->zoom) + f->shift_view.y;
+		f->mouse.x = (scale(x, -3, +3, WINSIZE) * f->zoom) + f->shift_view.x;
+		f->mouse.y = (scale(y, +3, -3, WINSIZE) * f->zoom) + f->shift_view.y;
 	}
 	return (0);
 }

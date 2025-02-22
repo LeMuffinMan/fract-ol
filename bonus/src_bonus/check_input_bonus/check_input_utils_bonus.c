@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_inputs_utils.c                               :+:      :+:    :+:   */
+/*   check_input_utils_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 12:36:30 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 15:44:05 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:51:25 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/fractol_bonus.h"
+#include "../../../libft/include/libft.h"
 
 int	skip_spaces(char *s, int *sign, int *max_digits)
 {

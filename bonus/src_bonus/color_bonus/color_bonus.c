@@ -6,7 +6,7 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 17:28:27 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:31:17 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:41:26 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 		}
 		else
 			bit_shift_rgb(i, &color, f);
-		offset = (y * f->mlx.img.line_len) + (x * (f->mlx.img.bpp));
+		offset = (coords.y * f->mlx.img.line_len) + (coords.x * (f->mlx.img.bpp));
 		*(unsigned int *)(f->mlx.img.pixels + offset) = color;
 		return (1);
 	}

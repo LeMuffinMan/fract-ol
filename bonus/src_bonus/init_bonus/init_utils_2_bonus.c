@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils_2.c                                     :+:      :+:    :+:   */
+/*   init_utils_2_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 14:01:48 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 15:31:57 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:53:44 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	init_win(t_data *f)
 	f->mlx.mlx = mlx_init();
 	if (f->mlx.mlx == NULL)
 		return (-1);
-	f->mlx.win = mlx_new_window(f->mlx.mlx, WINSIZE_X, WINSIZE_Y, "Fractol");
-	f->mlx.img.img_p = mlx_new_image(f->mlx.mlx, WINSIZE_X, WINSIZE_Y);
+	f->mlx.win = mlx_new_window(f->mlx.mlx, WINSIZE, WINSIZE, "Fractol");
+	f->mlx.img.img_p = mlx_new_image(f->mlx.mlx, WINSIZE, WINSIZE);
 	f->mlx.img.pixels = mlx_get_data_addr(f->mlx.img.img_p, &f->mlx.img.bpp,
 			&f->mlx.img.line_len, &f->mlx.img.endian);
 	f->mlx.img.bpp /= 8;
@@ -52,7 +52,6 @@ void	init_flag(t_data *f)
 	f->flags.zooming_out_start = 0;
 	f->flags.zooming_in_start = 0;
 	f->flags.psyche_switch = 0;
-	f->flags.debug = 0;
 	f->flags.traveling = 0;
 	f->flags.origin = 0;
 	f->flags.psychedelic_colors = 0;

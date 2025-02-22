@@ -6,12 +6,12 @@
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:39:54 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/22 10:24:36 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:52:09 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/fractol_bonus.h"
-#include <stdio.h> //remplacer par printf !
+#include "../../../libft/include/libft.h"
 
 void	wheel(int key, int x, int y, t_data *f)
 {
@@ -58,7 +58,6 @@ void	clicks_combo(int key, t_data *f)
 				f->fractal_number++;
 			else if (f->fractal_number > 0 && f->fractal_number < 4)
 				f->fractal_number += 3;
-			printf("c = %Lf %Lfi\n", f->mouse.x, f->mouse.y);
 		}
 		f->julia_constant.x = f->mouse.x;
 		f->julia_constant.y = f->mouse.y;
@@ -73,15 +72,15 @@ void	clicks(int key, int x, int y, t_data *f)
 		&& f->flags.bind_combo_alt_l == 0 && f->flags.bind_combo_ctrl_l == 0)
 	{
 		f->zoom *= 1.2;
-		f->shift_view.x -= (x - WINSIZE_X / 2.0) * f->zoom / 100;
-		f->shift_view.y += (y - WINSIZE_Y / 2.0) * f->zoom / 100;
+		f->shift_view.x -= (x - (WINSIZE >> 1)) * f->zoom * 0.01;
+		f->shift_view.y += (y - (WINSIZE >> 1)) * f->zoom * 0.01;
 	}
 	else if (key == MOUSE_L && f->flags.bind_combo_shift == 0
 		&& f->flags.bind_combo_alt_l == 0 && f->flags.bind_combo_ctrl_l == 0)
 	{
 		f->zoom *= 0.8;
-		f->shift_view.x += (x - WINSIZE_X / 2.0) * f->zoom / 100;
-		f->shift_view.y -= (y - WINSIZE_Y / 2.0) * f->zoom / 100;
+		f->shift_view.x += (x - (WINSIZE >> 1)) * f->zoom * 0.01;
+		f->shift_view.y -= (y - (WINSIZE >> 1)) * f->zoom * 0.01;
 	}
 }
 

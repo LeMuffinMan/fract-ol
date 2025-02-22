@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_input.c                                      :+:      :+:    :+:   */
+/*   check_input_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 17:40:10 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/01/28 19:28:39 by oelleaum         ###   ########lyon.fr   */
+/*   Updated: 2025/02/22 10:51:12 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include_bonus/fractol_bonus.h"
-#include <stdio.h>
+#include "../../../libft/include/libft.h"
 #include <stdlib.h>
-
-/* remplacer pritnf !  */
-// utiliser strncmp
 
 void	param_error(void)
 {
-	printf("=========================================\n");
-	printf("||          Incorrect input !          ||\n");
-	printf("||-------------------------------------||\n");
-	printf("||  ./fractol <set_name>               ||\n");
-	printf("||  ./fractol julia_mandel <x> <y>     ||\n");
-	printf("||                                     ||\n");
-	printf("||-----------------SETS----------------||\n");
-	printf("||   mandelbrot     |   multibrot      ||\n");
-	printf("||   burning_ship   |   tricorn        ||\n");
-	printf("||-------------------------------------||\n");
-	printf("||   julia_mandel   |   julia_multi    ||\n");
-	printf("||   julia_ship     |   julia_tricorn  ||\n");
-	printf("=========================================\n");
+	ft_printf("=========================================\n");
+	ft_printf("||          Incorrect input !          ||\n");
+	ft_printf("||-------------------------------------||\n");
+	ft_printf("||  ./fractol <set_name>               ||\n");
+	ft_printf("||  ./fractol julia_mandel <x> <y>     ||\n");
+	ft_printf("||                                     ||\n");
+	ft_printf("||-----------------SETS----------------||\n");
+	ft_printf("||   mandelbrot     |   multibrot      ||\n");
+	ft_printf("||   burning_ship   |   tricorn        ||\n");
+	ft_printf("||-------------------------------------||\n");
+	ft_printf("||   julia_mandel   |   julia_multi    ||\n");
+	ft_printf("||   julia_ship     |   julia_tricorn  ||\n");
+	ft_printf("=========================================\n");
 	exit(1);
 }
 
