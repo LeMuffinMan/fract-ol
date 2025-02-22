@@ -44,3 +44,20 @@ int	init_win(t_data *f)
 	f->mlx.img.bpp /= 8;
 	return (0);
 }
+
+int	quit(t_data *f)
+{
+	if (!f)
+		exit(1);
+	if (f->mlx.img.img_p)
+		mlx_destroy_image(f->mlx.mlx, f->mlx.img.img_p);
+	if (f->mlx.win)
+		mlx_destroy_window(f->mlx.mlx, f->mlx.win);
+	if (f->mlx.mlx)
+	{
+		mlx_loop_end(f->mlx.mlx);
+		mlx_destroy_display(f->mlx.mlx);
+		free(f->mlx.mlx);
+	}
+	exit(0);
+}

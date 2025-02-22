@@ -13,38 +13,8 @@
 #include "../../libft/include/libft.h"
 #include "../../minilibx-linux/mlx.h"
 #include "../include_bonus/fractol_bonus.h"
-#include <X11/X.h> //checker la doc
+#include <X11/X.h>
 #include <stdlib.h>
-
-int	quit(t_data *f)
-{
-	if (!f)
-		exit(1);
-	if (f->mlx.img.img_p)
-		mlx_destroy_image(f->mlx.mlx, f->mlx.img.img_p);
-	if (f->mlx.win)
-		mlx_destroy_window(f->mlx.mlx, f->mlx.win);
-	if (f->mlx.mlx)
-	{
-		mlx_loop_end(f->mlx.mlx);
-		mlx_destroy_display(f->mlx.mlx);
-		free(f->mlx.mlx);
-	}
-	exit(0);
-}
-
-/* presets julia */
-/* 0.3 0.5  */
-/* –0,038088 0.97 */
-
-int	first_render(t_data *f)
-{
-	iterate_on_pixels(f);
-	f->max_iterations += 2;
-	if (f->max_iterations >= 40)
-		f->flags.fractal_switch = 0;
-	return (0);
-}
 
 int	main(int ac, char **av)
 {

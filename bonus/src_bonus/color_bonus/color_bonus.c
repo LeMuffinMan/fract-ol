@@ -14,7 +14,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-void	bit_shift_rgb(int i, int *color, t_data *f)
+void	iterations_to_color(int i, int *color, t_data *f)
 {
 	t_color	colors;
 	double	t;
@@ -26,7 +26,6 @@ void	bit_shift_rgb(int i, int *color, t_data *f)
 	*color = colors.color;
 }
 
-// lire la doc pour ca !
 int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 {
 	int	offset;
@@ -40,7 +39,7 @@ int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 					&f->palette);
 		}
 		else
-			bit_shift_rgb(i, &color, f);
+			iterations_to_color(i, &color, f);
 		offset = (coords.y * f->mlx.img.line_len) + (coords.x
 				* (f->mlx.img.bpp));
 		*(unsigned int *)(f->mlx.img.pixels + offset) = color;
@@ -49,7 +48,6 @@ int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 	return (0);
 }
 
-// renommer et rechecker
 int	generate_smooth_color(int iteration, double mu, int max_iterations,
 		t_palette *palette)
 {

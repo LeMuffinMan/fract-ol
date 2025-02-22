@@ -12,17 +12,16 @@
 
 #include "../../include_bonus/fractol_bonus.h"
 
-// faire un define
 void	julia_moves(int key, t_data *f)
 {
 	if (key == 65431)
-		f->julia_constant.x += 1 * f->tmp.zoom / 1000;
+		f->julia_constant.x += 1 * f->tmp.zoom * 0.001;
 	else if (key == 65433)
-		f->julia_constant.x -= 1 * f->tmp.zoom / 1000;
+		f->julia_constant.x -= 1 * f->tmp.zoom * 0.001;
 	else if (key == 65430)
-		f->julia_constant.y += 1 * f->tmp.zoom / 1000;
+		f->julia_constant.y += 1 * f->tmp.zoom * 0.001;
 	else if (key == 65432)
-		f->julia_constant.y -= 1 * f->tmp.zoom / 1000;
+		f->julia_constant.y -= 1 * f->tmp.zoom * 0.001;
 }
 
 void	set_origin(t_data *f)

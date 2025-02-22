@@ -13,7 +13,15 @@
 #include "../include_bonus/fractol_bonus.h"
 #include "../../minilibx-linux/mlx.h"
 #include <math.h>
-#include <stdio.h> // remplacer pour printf
+
+int	first_render(t_data *f)
+{
+	iterate_on_pixels(f);
+	f->max_iterations += 2;
+	if (f->max_iterations >= 40)
+		f->flags.fractal_switch = 0;
+	return (0);
+}
 
 void	set_complexes(int x, int y, t_data *f)
 {

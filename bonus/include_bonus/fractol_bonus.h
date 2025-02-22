@@ -13,11 +13,13 @@
 #ifndef FRACTOL_BONUS_H
 # define FRACTOL_BONUS_H
 
+//limits
 # define LDMIN 1E-37
-
 # define MAX_I 300
 # define MIN_I 20
 
+//window 
+# define WINSIZE 800
 # define WIN_X 17
 
 // keyboard inputs
@@ -53,9 +55,7 @@
 # define MOUSE_L 1
 # define MOUSE_R 3
 
-// Window datas // mettre une seule variable
-# define WINSIZE 800
-
+//Colors
 # define PALETTE_SIZE 20
 # define BLACK 0x000000
 
@@ -158,11 +158,7 @@ typedef union u_color
 	};
 }						t_color;
 
-// a classer ou virer
-int						quit(t_data *f);
-int						first_render(t_data *f);
-
-// animations.c
+// animations
 void					animated_zoom_out(int x, int y, t_data *f);
 void					animated_zoom_in(t_data *f);
 void					animated_zoom(int key, int x, int y, t_data *f);
@@ -170,7 +166,6 @@ int						update_animations(t_data *f);
 
 // animations_utils.c
 int						get_mouse_coords(int x, int y, t_data *f);
-void					dynamic_iterations(t_data *f);
 void					wheel_set_arrival(t_data *f);
 void					wheel_set_origin(t_data *f);
 void					set_animated_zoom_out(int x, int y, t_data *f);
@@ -200,19 +195,16 @@ void					switch_green(t_data *f);
 void					switch_blue(t_data *f);
 void					color_shift(int key, t_data *f);
 
-// switch_palette.c
-void					switch_prev_palette(t_data *f);
-void					switch_next_palette(t_data *f);
+//switch_palette.c
 void					switch_palette(int key, t_data *f);
 
 // init.c
 int						init_data(t_data *f);
+int						quit(t_data *f);
+int						init_win(t_data *f);
 
 // init_palette.c
 void					palette_init(t_palette *palette);
-void					init_palette_r(int palette_R[20]);
-void					init_palette_g(int palette_G[20]);
-void					init_palette_b(int palette_B[20]);
 
 // init_utils_1.c
 void					init_index(t_data *f);
@@ -225,7 +217,6 @@ void					init_anims(t_data *f);
 void					init_flag(t_data *f);
 void					init_pov(t_data *f);
 void					init_tmp(t_data *f);
-int						init_win(t_data *f);
 
 // kb_animations.c
 void					animation_speed_keys(int key, t_data *f);
@@ -237,7 +228,7 @@ void					combo_keys(int key, t_data *f);
 int						shift_toggle(int key, t_data *f);
 int						kb_inputs(int key, t_data *f);
 
-// kb_julia.c // renommer fichier et fonctions
+// kb_julia.c
 void					julia_moves(int key, t_data *f);
 void					set_origin(t_data *f);
 void					set_arrival(t_data *f);
@@ -287,6 +278,7 @@ void					travel_between_fractals(t_data *f);
 void					set_coordses(int x, int y, t_data *f);
 void					iterate_on_pixels(t_data *f);
 void					render_fractal(int x, int y, t_data *f);
+int						first_render(t_data *f);
 
 // libft
 int						ft_strcmp(const char *s1, const char *s2);

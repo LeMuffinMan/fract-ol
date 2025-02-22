@@ -12,7 +12,7 @@
 
 #include "../../include_bonus/fractol_bonus.h"
 
-void	init_palette_r(int palette_R[20])
+static void	init_palette_r(int palette_R[20])
 {
 	palette_R[0] = 0x000000;
 	palette_R[1] = 0x330000;
@@ -36,7 +36,7 @@ void	init_palette_r(int palette_R[20])
 	palette_R[19] = 0xFFFFFF;
 }
 
-void	init_palette_b(int palette_B[20])
+static void	init_palette_b(int palette_B[20])
 {
 	palette_B[0] = 0x000000;
 	palette_B[1] = 0x000033;
@@ -60,7 +60,7 @@ void	init_palette_b(int palette_B[20])
 	palette_B[19] = 0xFFFFFF;
 }
 
-void	init_palette_g(int palette_G[20])
+static void	init_palette_g(int palette_G[20])
 {
 	palette_G[0] = 0x000000;
 	palette_G[1] = 0x003300;
