@@ -14,17 +14,11 @@
 
 int	mouse_inputs(int key, int x, int y, t_data *f)
 {
-	double	relative_x;
-	double	relative_y;
-
-	//clean un peu
 	if (key == MOUSE_WHEEL_UP)
 	{
 		f->zoom *= 0.9;
-		relative_x = (x - (WINSIZE >> 1)) * f->zoom * 0.001;
-		relative_y = (y - (WINSIZE >> 1)) * f->zoom * 0.001;
-		f->shift_view.x += relative_x;
-		f->shift_view.y -= relative_y;
+		f->shift_view.x += (x - (WINSIZE >> 1)) * f->zoom * 0.001;
+		f->shift_view.y -= (y - (WINSIZE >> 1)) * f->zoom * 0.001;
 	}
 	else if (key == MOUSE_WHEEL_DOWN)
 	{
@@ -32,7 +26,7 @@ int	mouse_inputs(int key, int x, int y, t_data *f)
 		f->shift_view.x -= (x - (WINSIZE >> 1)) * f->zoom * 0.001;
 		f->shift_view.y += (y - (WINSIZE >> 1)) * f->zoom * 0.001;
 	}
-	iterate_on_pixels(f);
+	render_fractal(f);
 	return (key);
 }
 
@@ -41,9 +35,9 @@ int	kb_inputs(int key, t_data *f)
 	if (key == ESC)
 		quit(f);
 	else if (key == PLUS && f->max_iterations < MAX_I)
-	  f->max_iterations++;
+		f->max_iterations++;
 	else if (key == MINUS && f->max_iterations > 1)
-	  f->max_iterations--;
-	iterate_on_pixels(f);
+		f->max_iterations--;
+	render_fractal(f);
 	return (0);
 }

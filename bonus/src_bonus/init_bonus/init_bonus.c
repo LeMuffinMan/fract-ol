@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/19 16:03:02 by oelleaum         ###   ########lyon.fr   */
+/*   Created: 2025/01/23 17:40:50 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 13:56:49 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
-#include "../minilibx-linux/mlx.h"
-#include <X11/X.h> //checker la doc
+#include "../../include_bonus/fractol_bonus.h"
 
-int	main(int ac, char **av)
+int	init_data(t_data *f)
 {
-	t_data	f;
-
-	init_data(&f);
-	check_input(ac, av, &f);
-	init_win(&f);
-	mlx_hook(f.mlx.win, WIN_X, 0, quit, &f);
-	mlx_hook(f.mlx.win, KeyRelease, KeyReleaseMask, kb_inputs, &f);
-	mlx_mouse_hook(f.mlx.win, mouse_inputs, &f);
-	mlx_loop(f.mlx.mlx);
+	init_tmp(f);
+	init_pov(f);
+	init_flag(f);
+	init_index(f);
+	init_switch(f);
+	init_limits(f);
+	init_anims(f);
 	return (0);
 }

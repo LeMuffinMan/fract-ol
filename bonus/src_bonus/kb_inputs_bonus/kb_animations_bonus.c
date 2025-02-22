@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   kb_animations.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelleaum <oelleaum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/16 13:18:49 by oelleaum          #+#    #+#             */
-/*   Updated: 2025/02/19 16:03:02 by oelleaum         ###   ########lyon.fr   */
+/*   Created: 2025/01/28 14:02:57 by oelleaum          #+#    #+#             */
+/*   Updated: 2025/01/28 17:19:41 by oelleaum         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
-#include "../minilibx-linux/mlx.h"
-#include <X11/X.h> //checker la doc
+#include "../../include_bonus/fractol_bonus.h"
 
-int	main(int ac, char **av)
+void	space_pause(int key, t_data *f)
 {
-	t_data	f;
+	if (key == SPACE)
+	{
+		if (f->flags.traveling == 1)
+			f->flags.traveling = 0;
+		else
+			f->flags.traveling = 1;
+	}
+}
 
-	init_data(&f);
-	check_input(ac, av, &f);
-	init_win(&f);
-	mlx_hook(f.mlx.win, WIN_X, 0, quit, &f);
-	mlx_hook(f.mlx.win, KeyRelease, KeyReleaseMask, kb_inputs, &f);
-	mlx_mouse_hook(f.mlx.win, mouse_inputs, &f);
-	mlx_loop(f.mlx.mlx);
-	return (0);
+void	animation_speed_keys(int key, t_data *f)
+{
+	if (key == PLUS && f->flags.bind_combo_ctrl_l == 1)
+		f->tc *= 2;
+	if (key == MINUS && f->flags.bind_combo_ctrl_l == 1)
+		f->tc /= 2;
 }

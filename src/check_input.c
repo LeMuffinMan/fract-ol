@@ -12,10 +12,8 @@
 
 #include "../include/fractol.h"
 #include "libft.h"
-#include <stdlib.h>
 
-// a revoir !
-void	param_error(void)
+static void	input_error(void)
 {
 	ft_printf("=========================================\n");
 	ft_printf("||          Incorrect input !          ||\n");
@@ -26,25 +24,7 @@ void	param_error(void)
 	exit(1);
 }
 
-void	check_input(int ac, char **av, t_data *f)
-{
-	int	check_double;
-
-	check_double = 15;
-	if (ac == 1 || ac > 4)
-		param_error();
-	if (ft_strncmp(av[1], "mandelbrot", 10) == 0 && ac == 2)
-		f->fractal_number = 1;
-	else if (ft_strncmp(av[1], "julia", 5) == 0 && (ac == 2 || ac == 4))
-	{
-		get_coords(ac, av, f, &check_double);
-		f->fractal_number = 2;
-	}
-	else
-		param_error();
-}
-
-double	get_double(char *s, int sign, int *max_digits)
+static double	get_double(char *s, int sign, int *max_digits)
 {
 	int		i;
 	double	res1;
@@ -71,7 +51,7 @@ double	get_double(char *s, int sign, int *max_digits)
 	return (res1);
 }
 
-double	atodbl(char *s, int *max_digits)
+static double	atodbl(char *s, int *max_digits)
 {
 	int	i;
 	int	dot;
@@ -80,6 +60,41 @@ double	atodbl(char *s, int *max_digits)
 	sign = 1;
 	dot = 0;
 	i = skip_spaces(s, &sign, max_digits);
-		return (get_double(s, sign, max_digits));
+	return (get_double(s, sign, max_digits));
 }
 
+static void	get_coords(int ac, char **av, t_data *f, int *check_double)
+{
+	if (ac == 4)
+	{
+		if (!check_format(av[2]) || !check_format(av[3]))
+			input_error();
+		f->julia_constant.x = atodbl(av[2], check_double);
+		f->julia_constant.y = atodbl(av[3], check_double);
+		if (*check_double == -1)
+			input_error();
+	}
+	else
+	{
+		f->julia_constant.x = -0.8;
+		f->julia_constant.y = 0.156;
+	}
+}
+
+void	check_input(int ac, char **av, t_data *f)
+{
+	int	check_double;
+
+	check_double = 15;
+	if (ac == 1 || ac > 4)
+		input_error();
+	if (ft_strncmp(av[1], "mandelbrot", 10) == 0 && ac == 2)
+		f->fractal_number = 1;
+	else if (ft_strncmp(av[1], "julia", 5) == 0 && (ac == 2 || ac == 4))
+	{
+		get_coords(ac, av, f, &check_double);
+		f->fractal_number = 2;
+	}
+	else
+		input_error();
+}
