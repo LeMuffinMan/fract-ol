@@ -76,5 +76,7 @@ int	update_animations(t_data *f)
 		animated_zoom_out(f->zooming_out_coords.x, f->zooming_out_coords.y, f);
 	if (f->flags.zooming_in == 1)
 		animated_zoom_in(f);
+	if (f->flags.fractal_switch == 1)
+		first_render(f);
 	return (0);
 }

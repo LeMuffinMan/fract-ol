@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include_bonus/fractol_bonus.h"
 #include "../../../libft/include/libft.h"
+#include "../../include_bonus/fractol_bonus.h"
 
 int	skip_spaces(char *s, int *sign, int *max_digits)
 {

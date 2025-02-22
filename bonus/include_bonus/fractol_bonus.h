@@ -15,7 +15,7 @@
 
 # define LDMIN 1E-37
 
-# define MAX_I 100
+# define MAX_I 300
 # define MIN_I 20
 
 # define WIN_X 17
@@ -113,6 +113,7 @@ typedef struct s_flags
 	int					green_toggle;
 	int					blue_toggle;
 	int					traveling;
+	int					fractal_switch;
 	long double			zooming_out_start;
 	long double			zooming_in_start;
 }						t_flags;
@@ -159,6 +160,7 @@ typedef union u_color
 
 // a classer ou virer
 int						quit(t_data *f);
+int						first_render(t_data *f);
 
 // animations.c
 void					animated_zoom_out(int x, int y, t_data *f);

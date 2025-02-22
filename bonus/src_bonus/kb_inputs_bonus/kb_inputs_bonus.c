@@ -87,6 +87,9 @@ int	kb_inputs(int key, t_data *f)
 	julia_constant_selector(key, f);
 	animation_speed_keys(key, f);
 	space_pause(key, f);
-	iterate_on_pixels(f);
+	if (f->flags.fractal_switch == 0)
+		iterate_on_pixels(f);
+	else
+		first_render(f);
 	return (0);
 }

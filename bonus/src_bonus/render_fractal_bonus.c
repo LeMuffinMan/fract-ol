@@ -58,6 +58,7 @@ void	iterate_on_pixels(t_data *f)
 		y++;
 	}
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
+	mlx_do_sync(f->mlx.mlx);
 }
 
 void	render_fractal(int x, int y, t_data *f)

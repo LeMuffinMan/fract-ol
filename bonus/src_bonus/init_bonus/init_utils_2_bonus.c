@@ -11,22 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include_bonus/fractol_bonus.h"
-#include "../../../minilibx-linux/mlx.h"
-#include <stdlib.h>
-
-// A PROTEGER !!!
-int	init_win(t_data *f)
-{
-	f->mlx.mlx = mlx_init();
-	if (f->mlx.mlx == NULL)
-		return (-1);
-	f->mlx.win = mlx_new_window(f->mlx.mlx, WINSIZE, WINSIZE, "Fractol");
-	f->mlx.img.img_p = mlx_new_image(f->mlx.mlx, WINSIZE, WINSIZE);
-	f->mlx.img.pixels = mlx_get_data_addr(f->mlx.img.img_p, &f->mlx.img.bpp,
-			&f->mlx.img.line_len, &f->mlx.img.endian);
-	f->mlx.img.bpp /= 8;
-	return (0);
-}
 
 void	init_tmp(t_data *f)
 {
@@ -44,7 +28,6 @@ void	init_pov(t_data *f)
 	f->speed_factor = 0.02;
 }
 
-//du coup zooming_out_start es pas declare ?
 void	init_flag(t_data *f)
 {
 	f->flags.zooming_out = 0;
@@ -61,4 +44,5 @@ void	init_flag(t_data *f)
 	f->flags.red_toggle = 1;
 	f->flags.green_toggle = 1;
 	f->flags.blue_toggle = 1;
+	f->flags.fractal_switch = 1;
 }

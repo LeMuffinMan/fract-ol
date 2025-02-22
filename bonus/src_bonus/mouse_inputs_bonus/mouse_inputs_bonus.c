@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include_bonus/fractol_bonus.h"
 #include "../../../libft/include/libft.h"
+#include "../../include_bonus/fractol_bonus.h"
 
 void	wheel(int key, int x, int y, t_data *f)
 {

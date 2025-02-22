@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include_bonus/fractol_bonus.h"
 #include "../../../libft/include/libft.h"
+#include "../../include_bonus/fractol_bonus.h"
 #include <stdlib.h>
 
 void	param_error(void)
@@ -34,22 +34,23 @@ void	param_error(void)
 
 void	check_julia_input(int ac, char **av, t_data *f, int *check_double)
 {
-	if (ft_strcmp(av[1], "julia_mandel") == 0 && (ac == 2 || ac == 4))
+	if (ft_strncmp(av[1], "julia_mandel", 12) == 0 && (ac == 2 || ac == 4))
 	{
 		get_coords(ac, av, f, check_double);
 		f->fractal_number = 4;
 	}
-	else if (ft_strcmp(av[1], "julia_ship") == 0 && (ac == 2 || ac == 4))
+	else if (ft_strncmp(av[1], "julia_ship", 10) == 0 && (ac == 2 || ac == 4))
 	{
 		get_coords(ac, av, f, check_double);
 		f->fractal_number = 5;
 	}
-	else if (ft_strcmp(av[1], "julia_tricorn") == 0 && (ac == 2 || ac == 4))
+	else if (ft_strncmp(av[1], "julia_tricorn", 13) == 0 && (ac == 2
+			|| ac == 4))
 	{
 		get_coords(ac, av, f, check_double);
 		f->fractal_number = 6;
 	}
-	else if (ft_strcmp(av[1], "julia_multi") == 0 && (ac == 2 || ac == 4))
+	else if (ft_strncmp(av[1], "julia_multi", 11) == 0 && (ac == 2 || ac == 4))
 	{
 		get_coords(ac, av, f, check_double);
 		f->power = 3;
@@ -66,13 +67,13 @@ void	check_input(int ac, char **av, t_data *f)
 	check_double = 15;
 	if (ac == 1 || ac > 4)
 		param_error();
-	if (ft_strcmp(av[1], "mandelbrot") == 0 && ac == 2)
+	if (ft_strncmp(av[1], "mandelbrot", 10) == 0 && ac == 2)
 		f->fractal_number = 1;
-	else if (ft_strcmp(av[1], "burning_ship") == 0 && ac == 2)
+	else if (ft_strncmp(av[1], "burning_ship", 12) == 0 && ac == 2)
 		f->fractal_number = 2;
-	else if (ft_strcmp(av[1], "tricorn") == 0 && ac == 2)
+	else if (ft_strncmp(av[1], "tricorn", 7) == 0 && ac == 2)
 		f->fractal_number = 4;
-	else if (ft_strcmp(av[1], "multibrot") == 0 && ac == 2)
+	else if (ft_strncmp(av[1], "multibrot", 9) == 0 && ac == 2)
 	{
 		f->power = 3;
 		f->fractal_number = 7;

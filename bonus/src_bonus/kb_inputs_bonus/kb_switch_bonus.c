@@ -40,6 +40,8 @@ void	num_fractal_switch(int key, t_data *f)
 			if (f->power == 2)
 				f->power++;
 		}
+		f->max_iterations = 1;
+		f->flags.fractal_switch = 1;
 	}
 }
 
@@ -52,6 +54,8 @@ void	multibrot_power_switch(int key, t_data *f)
 		else
 			f->power++;
 		f->fractal_number = 7;
+		f->max_iterations = 1;
+		f->flags.fractal_switch = 1;
 	}
 	else if (key == 45 && f->fractal_number == 7)
 	{
@@ -63,6 +67,8 @@ void	multibrot_power_switch(int key, t_data *f)
 			f->power -= 0.1;
 		else
 			f->power--;
+		f->max_iterations = 1;
+		f->flags.fractal_switch = 1;
 	}
 }
 

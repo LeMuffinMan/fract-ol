@@ -16,7 +16,7 @@ BONUS_NAME = fractol_bonus
 CC = cc
 # verifier les leeeeeeaks et virer le flag valgrind 
 # flag -Weverything peut me donner plus d'infos
-CFLAGS = -Werror -Wextra -Wall -g3
+CFLAGS = -Werror -Wextra -Wall -O3 -g3
 INC = -I includes
 INC_LIBFT = -I libft/include
 INC_BONUS = -I bonus/include
@@ -189,7 +189,7 @@ $(BONUS_OBJ_DIR)/%.o: bonus/src_bonus/%.c ./bonus/include_bonus/fractol_bonus.h
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INC_BONUS) -c $< -o $@
 
-$(BONUS_NAME): $(BONUS_OBJ_FILES) $(LIBFT_A) ./bonus/include_bonus/fractol_bonus.h
+$(BONUS_NAME): $(BONUS_OBJ_FILES) $(LIBFT_A) Makefile libft/Makefile ./bonus/include_bonus/fractol_bonus.h
 	$(CC) $(CFLAGS) $(BONUS_OBJ_FILES) $(LIBFT_A) $(LIBFT_FLAGS) $(MLX_FLAGS)-o $(BONUS_NAME)
 	@echo
 	@echo "$(GREEN)compilation successful ✅ $(BONUS_NAME)$(RESET)"

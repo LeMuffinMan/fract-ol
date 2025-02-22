@@ -27,7 +27,7 @@ void	init_switch(t_data *f)
 void	init_limits(t_data *f)
 {
 	f->escape_value = 4;
-	f->max_iterations = MIN_I;
+	f->max_iterations = 1;
 }
 
 void	init_coords(t_data *f)

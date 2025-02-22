@@ -27,7 +27,6 @@ void	bit_shift_rgb(int i, int *color, t_data *f)
 }
 
 // lire la doc pour ca !
-// faire un fichier avec les fonctions speciales minilibx
 int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 {
 	int	offset;
@@ -42,7 +41,8 @@ int	colorize_pixel(t_coords coords, t_data *f, int color, int i)
 		}
 		else
 			bit_shift_rgb(i, &color, f);
-		offset = (coords.y * f->mlx.img.line_len) + (coords.x * (f->mlx.img.bpp));
+		offset = (coords.y * f->mlx.img.line_len) + (coords.x
+				* (f->mlx.img.bpp));
 		*(unsigned int *)(f->mlx.img.pixels + offset) = color;
 		return (1);
 	}
