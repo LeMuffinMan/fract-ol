@@ -13,8 +13,6 @@
 #include "../include/fractol.h"
 #include "libft.h"
 
-// inline ici ?
-
 int	skip_spaces(char *s, int *sign, int *max_digits)
 {
 	int	i;

@@ -13,17 +13,10 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-// reviser inline
-
-// relire doc mlx
-// voir la doc pour les couleurs
-// voir pour les couleurs en union et renommer la fonction
-// revoir les theories maths
-
 # define LDMIN LDBL_MIN
 
 # define MAX_I 200
-# define MIN_I 50 // revoir ces valeurs ?
+# define MIN_I 50
 
 # define WIN_X 17
 
@@ -59,7 +52,6 @@ typedef struct s_mlx
 	t_img				img;
 }						t_mlx;
 
-// renommer en real et imaginary ?
 typedef struct s_coords
 {
 	double				x;
@@ -109,7 +101,5 @@ int						mouse_inputs(int key, int x, int y, t_data *f);
 
 // render_fractal.c
 void					render_fractal(t_data *f);
-// double					scale(double unscaled_num, double new_min,
-// 							double new_max, double old_min, double old_max);
 
 #endif

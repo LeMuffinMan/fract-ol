@@ -49,7 +49,6 @@ int	init_win(t_data *f)
 	return (0);
 }
 
-// revoir les exit ici : capter dif entre 0 et 1 et les fct mlx
 int	quit(t_data *f)
 {
 	if (!f)

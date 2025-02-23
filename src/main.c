@@ -12,7 +12,7 @@
 
 #include "../include/fractol.h"
 #include "../minilibx-linux/mlx.h"
-#include <X11/X.h> //checker la doc
+#include <X11/X.h> 
 
 int	main(int ac, char **av)
 {

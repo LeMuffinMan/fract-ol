@@ -13,7 +13,6 @@
 #include "../include/fractol.h"
 #include "../minilibx-linux/mlx.h"
 
-// revoir inline
 inline static double	scale(double unscaled_num, double new_min,
 		double new_max, double old_max)
 {
@@ -38,8 +37,7 @@ static void	set_complexes(int x, int y, t_data *f)
 	}
 }
 
-// renommer et potasser
-inline static void	bit_shift_rgb(int i, int *color, t_data *f)
+inline static void	iterations_to_color(int i, int *color, t_data *f)
 {
 	t_color	colors;
 	double	t;
@@ -66,7 +64,7 @@ static void	iterate_on_pixels(int x, int y, t_data *f)
 		f->z.y = z_squared.y + f->c.y;
 		if ((f->z.x * f->z.x) + (f->z.y * f->z.y) > f->escape_value)
 		{
-			bit_shift_rgb(i, &color, f);
+			iterations_to_color(i, &color, f);
 			*(unsigned int *)(f->mlx.img.pixels + (y * f->mlx.img.line_len) + (x
 						* (f->mlx.img.bpp))) = color;
 			return ;
@@ -77,7 +75,6 @@ static void	iterate_on_pixels(int x, int y, t_data *f)
 				* (f->mlx.img.bpp))) = BLACK;
 }
 
-	// lire la doc
 void	render_fractal(t_data *f)
 {
 	int	x;

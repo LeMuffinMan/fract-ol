@@ -25,17 +25,12 @@ void	wheel_zoom_out(int key, int x, int y, t_data *f)
 
 void	wheel_zoom_in(int key, int x, int y, t_data *f)
 {
-	double	relative_x;
-	double	relative_y;
-
 	if (key == MOUSE_WHEEL_UP && f->flags.bind_combo_shift == 0
 		&& f->flags.bind_combo_ctrl_l == 0 && f->flags.bind_combo_alt_l == 0)
 	{
 		f->zoom *= 0.9;
-		relative_x = (x - (WINSIZE >> 1)) * f->zoom * 0.001;
-		relative_y = (y - (WINSIZE >> 1)) * f->zoom * 0.001;
-		f->shift_view.x += relative_x;
-		f->shift_view.y -= relative_y;
+		f->shift_view.x += (x - (WINSIZE >> 1)) * f->zoom * 0.001;
+		f->shift_view.y -= (y - (WINSIZE >> 1)) * f->zoom * 0.001;
 	}
 }
 

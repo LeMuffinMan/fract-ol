@@ -14,9 +14,7 @@ NAME = fractol
 BONUS_NAME = fractol_bonus
 
 CC = cc
-# verifier les leeeeeeaks et virer le flag valgrind 
-# flag -Weverything peut me donner plus d'infos
-CFLAGS = -Werror -Wextra -Wall -O3 -g3
+CFLAGS = -Werror -Wextra -Wall -O3
 INC = -I includes
 INC_LIBFT = -I libft/include
 INC_BONUS = -I bonus/include
@@ -29,7 +27,6 @@ LIBFT_OBJ_DIR = libft/obj
 BONUS_SRC_DIR = bonus/src
 BONUS_OBJ_DIR = bonus/obj
 
-# variable src_dir
 SRC_FILES = src/main.c \
 			src/check_input.c \
 			src/init.c \
@@ -37,7 +34,6 @@ SRC_FILES = src/main.c \
 			src/inputs.c \
 			src/check_inputs_utils.c 
 
-# mettre la variable LIBFT_SRC_DIR a la place 
 LIBFT_SRC_FILES = \
     libft/src/ft_atoi.c \
     libft/src/ft_bzero.c \
@@ -87,7 +83,6 @@ LIBFT_SRC_FILES = \
 
 LIBFT_OBJ_FILES = $(LIBFT_SRC_FILES:.c=.o)
 
-# variable src bonus
 BONUS_SRC_FILES = \
     bonus/src_bonus/calculate_fractal_bonus.c \
     bonus/src_bonus/maths_bonus.c \
