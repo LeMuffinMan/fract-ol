@@ -192,6 +192,7 @@ $(BONUS_NAME): $(BONUS_OBJ_FILES) $(LIBFT_A) Makefile libft/Makefile ./bonus/inc
 
 clean:
 	rm -rf $(OBJ_DIR)/*
+	rm -rf $(BONUS_OBJ_DIR)/*
 
 fclean: clean
 	rm -f $(NAME) $(BONUS_NAME)
