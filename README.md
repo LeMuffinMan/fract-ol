@@ -17,6 +17,19 @@ Fractals are more than just stunning visuals—they are a testament to the elega
 ![Mandelbrot zoom out](https://github.com/user-attachments/assets/e45ee60f-1331-44e1-8960-cd3acb920396)
 ![Burning_ship zoom out](https://github.com/user-attachments/assets/44f2b044-910a-463c-a62a-b71352f861d9)
 
+## Usage 
+
+Requirements : 
+  - MinilibX : https://github.com/42paris/minilibx-linux
+  - X11
+
+In the repo, just do :
+
+```sh
+make bonus
+```
+
+![image](https://github.com/user-attachments/assets/18f64e4c-d9d8-42fc-9341-61f26c1db69e)
 
 
 ## Main Notions Learned
@@ -51,6 +64,8 @@ Fractol is just the beginning! Here are some ideas to take this project to the n
 Fractol is more than a project—it's a testament to the beauty of mathematics and the endless possibilities of programming. Dive in, explore, and let your curiosity guide you through the infinite depths of fractal geometry. Contributions, feedback, and ideas are always welcome!
 
 Happy exploring! 🚀
+
+---
 
 ## Inputs
 
