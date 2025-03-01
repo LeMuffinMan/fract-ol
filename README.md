@@ -1,9 +1,2 @@
-
-[Imgur](https://imgur.com/KRKlEfF)
-
-
-<img src="https://imgur.com/cQyu94d" width="800" controls></img>
-<img src="https://imgur.com/KRKlEfF" width="800" controls></img>
-<img src="https://imgur.com/IcJ4CPA" width="800" controls></img>
-<img src="https://imgur.com/weZ2mt7" width="800" controls></img>
-<img src="https://imgur.com/MM9YtDa" width="800" controls></img>
+Burning_ship zooming out :
+![Burning_ship zoom out](https://github.com/user-attachments/assets/44f2b044-910a-463c-a62a-b71352f861d9)
