@@ -90,6 +90,9 @@ void	get_coords(int ac, char **av, t_data *f, int *check_double)
 	if (ac == 4)
 	{
 		f->julia_constant.x = atodbl(av[2], check_double);
+		if (*check_double == -1)
+			param_error();
+		*check_double = 15;
 		f->julia_constant.y = atodbl(av[3], check_double);
 		if (*check_double == -1)
 			param_error();
