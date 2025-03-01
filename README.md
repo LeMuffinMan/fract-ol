@@ -1,0 +1,5 @@
+![Burning ship zoom out](https://imgur.com/cQyu94d)
+![Julia_gree](https://imgur.com/KRKlEfF)
+![Mandelbrot zoom out](https://imgur.com/IcJ4CPA)
+![Julia_red](https://imgur.com/weZ2mt7)
+![Julia_blue](https://imgur.com/MM9YtDa)
