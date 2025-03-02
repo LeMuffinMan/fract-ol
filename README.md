@@ -34,7 +34,7 @@ make bonus
 
 ## Main Notions Learned
 
-- **Mathematical Foundations**: Deepened my understanding of complex numbers, iterative functions, and the mathematical principles behind fractals like the Mandelbrot and Julia sets.
+- **Mathematical Foundations**: Deepened my understanding of complex numbers, and the mathematical principles behind fractals like the Mandelbrot and Julia sets.
 - **Graphical Programming**: Gained hands-on experience with graphical libraries (e.g., MiniLibX) to render dynamic and interactive visualizations.
 - **Algorithm Optimization**: Learned to optimize algorithms for real-time rendering, balancing performance and precision.
 - **Creative Problem-Solving**: Explored the intersection of art and technology, using code to create visually stunning outputs.
