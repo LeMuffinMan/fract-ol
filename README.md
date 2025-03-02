@@ -45,7 +45,7 @@ make bonus
 
 - **Performance Optimization**: Ensuring smooth rendering while maintaining the precision of fractal calculations was a significant challenge, especially for deeper zoom levels.
 - **Mathematical Complexity**: Translating abstract mathematical concepts into efficient and accurate code required a deep dive into fractal theory.
-- **User Interaction**: Designing an intuitive and responsive interface for exploring fractals added an extra layer of complexity.
+- **User Interaction**: Designing an intuitive binding system for exploring fractals added an extra layer of complexity.
 
 ---
 
