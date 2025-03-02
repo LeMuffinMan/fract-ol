@@ -27,10 +27,23 @@ In the repo, just do :
 
 ```sh
 make bonus
+
+  ./fractol <set_name>               
+
+-----------------SETS----------------
+   mandelbrot     |   multibrot      
+   burning_ship   |   tricorn        
+-------------------------------------
 ```
-
-![image](https://github.com/user-attachments/assets/18f64e4c-d9d8-42fc-9341-61f26c1db69e)
-
+For each set, generate a julia set :
+Select a point with SHIFT + Left_click
+Or enter coordinates :
+```sh
+  ./fractol julia_mandel <x> <y>      
+   julia_mandel   |   julia_multi    
+   julia_ship     |   julia_tricorn  
+-------------------------------------
+```
 
 ## Main Notions Learned
 
