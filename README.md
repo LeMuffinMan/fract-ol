@@ -44,13 +44,39 @@ Or enter coordinates :
    julia_ship     |   julia_tricorn  
 -------------------------------------
 ```
+To generate an Julia animation :
+SHIFT + Middle_click : the first input will be the starting point of the animation, the second will be the ending point
+
+
+Main inputs : 
+
+- Wheel : zoom in / out
+
+- Left_click / Right_click : zoom in / zoom out
+
+- Middle_click : reset zoom  
+
+- Arrows : move up/down/left/right
+
+- SHIFT + wheel : max_iterations + / - (improve accuracy)
+
+- CTRL + wheel : animation speed + / -
+
+- ALT + wheel : zoom speed + / -
+
+- CTRL + Left_click / Right_click : autozoom in / out
+
+- SPACE : pause the animation
+
+![Julia_green](https://github.com/user-attachments/assets/6dda8090-c931-4f79-bd20-739f2c4d884a)
+![Julia_blue](https://github.com/user-attachments/assets/261a653a-99db-442a-a362-407c0a319605)
 
 ## Main Notions Learned
 
 - **Mathematical Foundations**: Deepened my understanding of complex numbers, and the mathematical principles behind fractals like the Mandelbrot and Julia sets.
 - **Graphical Programming**: Gained hands-on experience with graphical libraries (e.g., MiniLibX) to render dynamic and interactive visualizations.
 - **Algorithm Optimization**: Learned to optimize algorithms for real-time rendering, balancing performance and precision.
-- **Creative Problem-Solving**: Explored the intersection of art and technology, using code to create visually stunning outputs.
+- **Creative Problem-Solving**: Explored the intersection of art and technology, using code and exploiting bugs to create visually stunning outputs.
 
 ---
 
@@ -65,14 +91,11 @@ Or enter coordinates :
 ## Going Further
 
 Fractol is just the beginning! Here are some ideas to take this project to the next level:
-- **Expand Fractal Variety**: Implement additional fractals like the Burning Ship, Newton's Fractal, or custom formulas.
 - **Advanced Coloring Algorithms**: Experiment with new coloring techniques to enhance the visual appeal of fractals.
 - **3D Fractals**: Explore the world of 3D fractals using OpenGL or other rendering libraries.
 - **Interactive Features**: Add features like saving images, adjusting color palettes, or sharing fractal coordinates.
 
 ---
-![Julia_green](https://github.com/user-attachments/assets/6dda8090-c931-4f79-bd20-739f2c4d884a)
-![Julia_blue](https://github.com/user-attachments/assets/261a653a-99db-442a-a362-407c0a319605)
 
 Fractol is more than a project—it's a testament to the beauty of mathematics and the endless possibilities of programming. Dive in, explore, and let your curiosity guide you through the infinite depths of fractal geometry. Contributions, feedback, and ideas are always welcome!
 
