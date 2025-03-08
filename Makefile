@@ -162,7 +162,7 @@ RESET=\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ) $(MLX) $(LIBFT_A) Makefile libft/Makefile libft/include/libft.h
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_A) $(LIBFT_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_A) $(LIBFT_FLAGS) -o $(NAME) -lpthread
 	@echo 
 	@echo "$(GREEN)compilation successful ✅ $(NAME)$(RESET)"
 	@echo 

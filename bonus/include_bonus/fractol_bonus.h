@@ -59,6 +59,11 @@
 # define PALETTE_SIZE 20
 # define BLACK 0x000000
 
+//threads
+#define NUM_THREADS 4
+
+
+
 typedef struct s_img
 {
 	void				*img_p;
@@ -146,6 +151,14 @@ typedef struct s_data
 	long double			max_iterations_start;
 }						t_data;
 
+typedef struct {
+    t_data *f;
+    int start_y;
+    int end_y;
+    t_coords z;  // Local copy of z
+    t_coords c;  // Local copy of c
+} t_thread_data;
+
 typedef union u_color
 {
 	unsigned int		color;
@@ -157,6 +170,8 @@ typedef union u_color
 		unsigned char	a;
 	};
 }						t_color;
+
+
 
 // animations
 void					animated_zoom_out(int x, int y, t_data *f);
@@ -261,10 +276,10 @@ void					wheel_combo_down(t_data *f);
 void					wheel_combo_up(t_data *f);
 
 // calculate_fractal.c
-void					burning_ship(t_data *f);
-void					tricorn(t_data *f);
-void					multibrot(t_data *f);
-void					calculate_f(t_data *f);
+void					burning_ship(t_data *f, t_coords *z, t_coords *c);
+void					tricorn(t_data *f, t_coords *z, t_coords *c);
+void					multibrot(t_data *f, t_coords *z, t_coords *c);
+void calculate_f(t_data *f, t_coords *z, t_coords *c);
 
 // maths.c
 double					norm_complex(t_coords z);
@@ -277,7 +292,7 @@ void					travel_between_fractals(t_data *f);
 // render_fractal.c
 void					set_coordses(int x, int y, t_data *f);
 void					iterate_on_pixels(t_data *f);
-void					render_fractal(int x, int y, t_data *f);
+void render_fractal(int x, int y, t_data *f, t_coords *z, t_coords *c);
 int						first_render(t_data *f);
 
 // libft
