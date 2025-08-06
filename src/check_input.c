@@ -53,13 +53,10 @@ static double	get_double(char *s, int sign, int *max_digits)
 
 static double	atodbl(char *s, int *max_digits)
 {
-	int	i;
-	int	dot;
 	int	sign;
 
 	sign = 1;
-	dot = 0;
-	i = skip_spaces(s, &sign, max_digits);
+	skip_spaces(s, &sign, max_digits);
 	return (get_double(s, sign, max_digits));
 }
 

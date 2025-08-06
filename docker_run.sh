@@ -18,5 +18,5 @@ docker run -it --rm \
   -v ~/.Xauthority:/root/.Xauthority:ro \
   -v $(pwd):/app \
   --privileged \
-  fract-ol ./fractol_bonus "$@"
+  fract-ol
 xhost -local:root
