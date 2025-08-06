@@ -1,0 +1,25 @@
+
+# Require : 
+sudo apt install xorg-xhost  # Linux
+brew install --cask xquartz  # macOS
+Windows : VcXsrv
+
+# Build image : 
+docker build -t fract-ol .
+# or 
+docker build --no-cache -t fract-ol .
+
+# local execution on Linux :
+xhost +local:root && \
+docker run -it --rm  --net=host  --ipc=host -e DISPLAY=$DISPLAY   -e QT_X11_NO_MITSHM=1  -v /tmp/.X11-unix:/tmp/.X11-unix  -v ~/.Xauthority:/root/.Xauthority:ro    -v $(pwd):/app   --privileged    fract-ol
+
+# local execution on Mac :
+open -a XQuartz
+xhost +localhost
+docker run [...] -e DISPLAY=host.docker.internal:0 fract-ol
+
+# local execution on Windows :
+docker run [...] -e DISPLAY=host.docker.internal:0.0 fract-ol
+
+# to test X11 once docker image is startd :
+docker run -it --rm x11-apps xeyes

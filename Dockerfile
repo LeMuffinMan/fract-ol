@@ -5,15 +5,21 @@ FROM ubuntu:20.04
 RUN apt-get update && apt-get install -y \
     clang \
     make \
-    libx11-dev \    
-    libxext-dev \ 
-    libbsd-dev \   
+    libx11-dev \
+    libxext-dev \
+    libbsd-dev \
     zlib1g-dev \
-    && rm -rf /var/lib/apt/lists/
-
-RUN apt-cache policy xserver-xorg-core libx11-dev
+    xauth \          
+    mesa-utils \     
+    libgl1-mesa-glx \ 
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY . .
+RUN make bonus
 
-RUN make
+#docker build -t fract-ol .
+#docker run -it --rm fract-ol bash
+
+# sudo apt install xorg-xhost
+# xhost +local:docker 
