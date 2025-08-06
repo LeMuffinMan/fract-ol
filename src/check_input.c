@@ -83,9 +83,9 @@ void	check_input(int ac, char **av, t_data *f)
 	int	check_double;
 
 	check_double = 15;
-	if (ac == 1 || ac > 4)
+	if (ac > 4)
 		input_error();
-	if (ft_strncmp(av[1], "mandelbrot", 10) == 0 && ac == 2)
+	if (ac == 1 || (ft_strncmp(av[1], "mandelbrot", 10) == 0 && ac == 2))
 		f->fractal_number = 1;
 	else if (ft_strncmp(av[1], "julia", 5) == 0 && (ac == 2 || ac == 4))
 	{
