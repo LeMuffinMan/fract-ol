@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fractol.h"
-#include "../minilibx-linux/mlx.h"
+#include "fractol.h"
+#include "mlx.h"
 #include <X11/X.h> 
 
 int	main(int ac, char **av)

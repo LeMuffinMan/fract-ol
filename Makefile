@@ -15,7 +15,8 @@ BONUS_NAME = fractol_bonus
 
 CC = cc
 CFLAGS = -Werror -Wextra -Wall -O3
-INC = -I includes
+INC = -I include
+INC_MLX = -I mlx
 INC_LIBFT = -I libft/include
 INC_BONUS = -I bonus/include
 
