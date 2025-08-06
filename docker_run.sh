@@ -1,4 +1,4 @@
-#!/bin//bash
+#!/bin/bash
 
 # run this script with the set you want to display as argument 
 # ./docker_run.sh mandelbrot 
