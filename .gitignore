@@ -3,3 +3,5 @@ fractol
 obj/
 rename_bonus.sh
 notes.c
+fractol_bonus
+libft/libft.a
