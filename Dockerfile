@@ -17,9 +17,3 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 COPY . .
 RUN make bonus
-
-#docker build -t fract-ol .
-#docker run -it --rm fract-ol bash
-
-# sudo apt install xorg-xhost
-# xhost +local:docker 
