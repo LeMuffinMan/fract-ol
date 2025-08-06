@@ -16,4 +16,5 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 COPY . .
-# RUN make bonus
+RUN make bonus
+ENTRYPOINT ["./fractol_bonus", "mandelbrot"]

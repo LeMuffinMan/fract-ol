@@ -14,7 +14,10 @@ NAME = fractol
 BONUS_NAME = fractol_bonus
 
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -O3
+
+CFLAGS = -Werror -Wextra -Wall -O3 -fPIC
+LDFLAGS = -no-pie
+
 INC = -I include
 INC_LIBFT = -I libft/include
 INC_BONUS = -I bonus/include
@@ -162,7 +165,7 @@ RESET=\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ) $(MLX) $(LIBFT_A) Makefile libft/Makefile libft/include/libft.h
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_A) $(LIBFT_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) $(MLX_FLAGS) $(LIBFT_A) $(LIBFT_FLAGS) -o $(NAME)
 	@echo 
 	@echo "$(GREEN)compilation successful ✅ $(NAME)$(RESET)"
 	@echo 
@@ -185,12 +188,10 @@ $(BONUS_OBJ_DIR)/%.o: bonus/src_bonus/%.c ./bonus/include_bonus/fractol_bonus.h
 	$(CC) $(CFLAGS) $(INC_BONUS) -c $< -o $@
 
 $(BONUS_NAME): $(BONUS_OBJ_FILES) $(LIBFT_A) Makefile libft/Makefile ./bonus/include_bonus/fractol_bonus.h
-	$(CC) $(CFLAGS) $(BONUS_OBJ_FILES) $(LIBFT_A) $(LIBFT_FLAGS) $(MLX_FLAGS)-o $(BONUS_NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(BONUS_OBJ_FILES) $(LIBFT_A) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(BONUS_NAME)
 	@echo
 	@echo "$(GREEN)compilation successful ✅ $(BONUS_NAME)$(RESET)"
-	@echo
-
-clean:
+	@echo clean:
 	rm -rf $(OBJ_DIR)/*
 
 fclean: clean
