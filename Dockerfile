@@ -1,8 +1,19 @@
-FROM ubuntu:22.04
+# This docker file because my fract-ol project compiles on 42 school computers, but stopped to compile on my personal laptop
+# Since it seems a dependence and environment problem, it was an opportunity to practice Docker
+FROM ubuntu:20.04
 
-# i choosed to build a dockerfile from my 42 session configuration : i need a specific version of clang
-# override the default cc version with the one i need
-# force to use clang-12 using the command cc
-RUN apt-get update && apt-get install -y clang-12 \
-    && update-alternatives --install /usr/bin/cc cc /usr/bin/clang-12 100 \
-    && update-alternatives --set cc /usr/bin/clang-12
+RUN apt-get update && apt-get install -y \
+    clang \
+    make \
+    libx11-dev \    
+    libxext-dev \ 
+    libbsd-dev \   
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/
+
+RUN apt-cache policy xserver-xorg-core libx11-dev
+
+WORKDIR /app
+COPY . .
+
+RUN make
