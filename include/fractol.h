@@ -32,7 +32,8 @@
 # define MOUSE_L 1
 # define MOUSE_R 3
 
-# define WINSIZE 800
+# define THREADS 28
+
 
 # define BLACK 0x000000
 
@@ -69,7 +70,17 @@ typedef struct s_data
 	double				escape_value;
 	double				max_iterations;
 	double				zoom;
+	int					win_width;
+	int					win_height;
+	int					square_size;
 }						t_data;
+
+typedef struct s_thread_args {
+    t_data *f;
+    int start_y;
+    int end_y;
+} t_thread_args;
+
 
 typedef union u_color
 {

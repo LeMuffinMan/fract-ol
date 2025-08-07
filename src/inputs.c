@@ -17,14 +17,14 @@ int	mouse_inputs(int key, int x, int y, t_data *f)
 	if (key == MOUSE_WHEEL_UP)
 	{
 		f->zoom *= 0.9;
-		f->shift_view.x += (x - (WINSIZE >> 1)) * f->zoom * 0.001;
-		f->shift_view.y -= (y - (WINSIZE >> 1)) * f->zoom * 0.001;
+		f->shift_view.x += (x - (f->win_width >> 1)) * f->zoom * 0.001;
+		f->shift_view.y -= (y - (f->win_height >> 1)) * f->zoom * 0.001;
 	}
 	else if (key == MOUSE_WHEEL_DOWN)
 	{
 		f->zoom *= 1.1;
-		f->shift_view.x -= (x - (WINSIZE >> 1)) * f->zoom * 0.001;
-		f->shift_view.y += (y - (WINSIZE >> 1)) * f->zoom * 0.001;
+		f->shift_view.x -= (x - (f->win_width >> 1)) * f->zoom * 0.001;
+		f->shift_view.y += (y - (f->win_height >> 1)) * f->zoom * 0.001;
 	}
 	render_fractal(f);
 	return (key);
