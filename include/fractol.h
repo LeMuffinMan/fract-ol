@@ -15,8 +15,8 @@
 
 # define LDMIN LDBL_MIN
 
-# define MAX_I 200
-# define MIN_I 50
+# define MAX_I 1000
+# define MIN_I 250
 
 # define WIN_X 17
 
