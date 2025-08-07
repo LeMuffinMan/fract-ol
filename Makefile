@@ -16,7 +16,7 @@ BONUS_NAME = fractol_bonus
 CC = cc
 
 CFLAGS = -Werror -Wextra -Wall -O3 -fPIC
-LDFLAGS = -no-pie
+LDFLAGS = -no-pie -lm -lpthread
 
 INC = -I include
 INC_LIBFT = -I libft/include

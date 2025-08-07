@@ -13,6 +13,8 @@
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+# define THREADS 4
+
 # define LDMIN LDBL_MIN
 
 # define MAX_I 200
@@ -71,6 +73,13 @@ typedef struct s_data
 	double				zoom;
 }						t_data;
 
+typedef struct s_thread_data
+{
+	t_data	*f;
+	int		start_y;
+	int		end_y;
+}	t_thread_data;
+
 typedef union u_color
 {
 	unsigned int		color;
@@ -100,6 +109,7 @@ int						kb_inputs(int key, t_data *f);
 int						mouse_inputs(int key, int x, int y, t_data *f);
 
 // render_fractal.c
-void					render_fractal(t_data *f);
+void	*render_thread(void *arg);
+void	render_fractal(t_data *f);
 
 #endif

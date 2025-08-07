@@ -12,6 +12,7 @@
 
 #include "../include/fractol.h"
 #include "../minilibx-linux/mlx.h"
+#include <pthread.h>
 
 inline static double	scale(double unscaled_num, double new_min,
 		double new_max, double old_max)
@@ -75,13 +76,14 @@ static void	iterate_on_pixels(int x, int y, t_data *f)
 				* (f->mlx.img.bpp))) = BLACK;
 }
 
-void	render_fractal(t_data *f)
+void	*render_thread(void *arg)
 {
-	int	x;
-	int	y;
+	t_thread_data	*thread_data = (t_thread_data *)arg;
+	t_data			*f = thread_data->f;
+	int				x, y;
 
-	y = 0;
-	while (y < WINSIZE)
+	y = thread_data->start_y;
+	while (y < thread_data->end_y)
 	{
 		x = 0;
 		while (x < WINSIZE)
@@ -91,6 +93,32 @@ void	render_fractal(t_data *f)
 			x++;
 		}
 		y++;
+	}
+	return (NULL);
+}
+
+void	render_fractal(t_data *f)
+{
+	pthread_t		threads[THREADS];
+	t_thread_data	thread_data[THREADS];
+	int				i;
+	int				lines_per_thread = WINSIZE / THREADS;
+
+	i = 0;
+	while (i < THREADS)
+	{
+		thread_data[i].f = f;
+		thread_data[i].start_y = i * lines_per_thread;
+		thread_data[i].end_y = (i + 1) * lines_per_thread;
+		if (pthread_create(&threads[i], NULL, render_thread, &thread_data[i]) != 0)
+			quit(f); // erreur
+		i++;
+	}
+	i = 0;
+	while (i < THREADS)
+	{
+		pthread_join(threads[i], NULL);
+		i++;
 	}
 	mlx_put_image_to_window(f->mlx.mlx, f->mlx.win, f->mlx.img.img_p, 0, 0);
 }
